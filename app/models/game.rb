@@ -15,7 +15,19 @@ class Game < ActiveRecord::Base
   #to convert user answer to same format as solution?)
 
   def status
-    
+    num_players = players.count
+
+    if completed?
+      stage = :finished
+    elsif started?
+      stage = :started
+    elsif num_players < 2
+      stage = :waiting
+    else
+      stage = :ready
+    end
+
+    {:stage => stage, :player_count => num_players}
   end
 
   def started?
