@@ -1,8 +1,18 @@
 module GamesHelper
   def game_status(game)
-    #get game stage??
-    #include player count?
-    "game size: #{game.size}"
+    status = game.status
+
+    if status[:stage] == :waiting
+      message = "waiting for players..."
+    elsif status[:stage] == :ready
+      message = "ready to play!"
+    elsif status[:stage] == :started
+      message = "game in progress..."
+    elsif status[:stage] == :finished
+      message = "game finished: #{game.time_finished}"
+    end
+        
+    message + " game size: #{game.size}"
   end
 
   def row_clue(index)

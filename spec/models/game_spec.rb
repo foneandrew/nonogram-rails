@@ -109,4 +109,8 @@ RSpec.describe Game, :type => :model do
       end
     end
   end
+
+  context '#status' do
+    pending "add some tests"
+  end
 end
