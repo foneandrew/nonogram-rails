@@ -1,0 +1,16 @@
+valid_game:
+  size: 5
+
+not_started:
+  size: 5
+
+started:
+  size: 5
+  time_started: <%= Time.now %>
+  solution: "0000011111000001111100000"
+
+finished:
+  size: 5
+  time_started: <%= Time.now %>
+  time_finished: <%= Time.now + (60 * 60) %>
+  solution: "0000011111000001111100000"
