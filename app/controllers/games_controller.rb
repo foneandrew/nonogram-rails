@@ -1,24 +1,27 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all
+    @games = Game.all.reverse
   end
 
   def show
     @game = Game.find(params[:id])
-    #find user
-    #attatch to game?
+    @players = Player.where(game: @game)
+
+    mathcing_player = Player.where(user: current_user, game: @game)
+    if mathcing_player.length == 1
+      @player = mathcing_player.first
+    else
+      @player = false
+    end
   end
 
   def create
-    #replace with parameter!!!
-    size = 15
-
-    game = Game.new(size: size)
+    game = Game.new(size: params[:game][:size])
 
     if game.save
       redirect_to game
     else
-      flash.alert = "was not able to create a game" unless game.save
+      flash.alert = "was not able to create a game: #{game.errors.messages.values.join(', ')}"
       redirect_to Game
     end
   end

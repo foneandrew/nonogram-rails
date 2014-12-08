@@ -14,6 +14,10 @@ class Game < ActiveRecord::Base
   #service will check answers (maybe another service
   #to convert user answer to same format as solution?)
 
+  def status
+    
+  end
+
   def started?
     if time_started
       true

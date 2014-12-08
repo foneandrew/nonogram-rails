@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
   #t.boolean :won
   #t.text    :answer
 
-  belongs_to :player
+  belongs_to :user
   belongs_to :game
 
   #index on won to find winner faster??

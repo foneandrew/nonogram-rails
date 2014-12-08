@@ -1,7 +1,22 @@
 <h1> game#show! </h1>
 
 <div>
-  <%= current_user.display_name %>
+  Players:
+  <ul>
+    <% @players.each do |joined_player| %>
+      <li>
+        <%= joined_player.user.display_name %>
+      </li>
+    <% end %>
+  </ul>
 </div>
 
-<%= link_to "Back to index", Game %>
+<div>
+  <%= form_for [@game, Player.new] do |f| %>
+    <%= f.submit "join game" %>
+  <% end %>
+</div>
+
+<div>  
+  <%= link_to "Back to index", Game %>
+</div>

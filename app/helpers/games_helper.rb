@@ -1,4 +1,10 @@
 module GamesHelper
+  def game_status(game)
+    #get game stage??
+    #include player count?
+    "game size: #{game.size}"
+  end
+
   def row_clue(index)
     #check index in range
     grid = NonogramToArrayService.new(game: @game).call
