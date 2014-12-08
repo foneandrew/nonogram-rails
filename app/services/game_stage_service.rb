@@ -1,5 +1,7 @@
 class GameStageService
   def initialize(game:)
+    @game = game
+    @players = @game.players
   end
 
   def call

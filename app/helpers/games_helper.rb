@@ -2,13 +2,13 @@ module GamesHelper
   def row_clue(index)
     #check index in range
     grid = NonogramToArrayService.new(game: @game).call
-    clue(row(grid, index))join(', ')
+    clue(row(grid, index)).join(', ')
   end
 
   def column_clue(index)
     #check index in range
     grid = NonogramToArrayService.new(game: @game).call
-    clue(column(grid, index))join(', ')
+    clue(column(grid, index)).join(', ')
   end
 
   private
