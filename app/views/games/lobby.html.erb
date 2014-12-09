@@ -1,0 +1,26 @@
+<h1> game lobby </h1>
+
+<div>
+  Joined Players:
+  <ul>
+    <% @game.players.each do |joined_player| %>
+      <li>
+        <%= joined_player.user.display_name %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <%= ready_to_play_message(@game) %>
+</div>
+
+<div>
+  <%= form_for [@game, Player.new] do |f| %>
+    <%= f.submit "join game" %>
+  <% end %>
+</div>
+
+<div>  
+  <%= link_to "Back to index", Game %>
+</div>

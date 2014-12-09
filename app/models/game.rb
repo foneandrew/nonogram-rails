@@ -5,6 +5,7 @@ class Game < ActiveRecord::Base
   #t.integer   :size
 
   VALID_SIZES = [5, 10, 15, 20]
+  MIN_PLAYERS = 2
 
   has_many  :players
   validates :size, presence: true, :inclusion => { :in => VALID_SIZES,
@@ -21,7 +22,7 @@ class Game < ActiveRecord::Base
       stage = :finished
     elsif started?
       stage = :started
-    elsif num_players < 2
+    elsif num_players < MIN_PLAYERS
       stage = :waiting
     else
       stage = :ready

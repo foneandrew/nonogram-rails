@@ -1,18 +1,13 @@
 module GamesHelper
-  def game_status(game)
-    status = game.status
+  #where to put this value? Game?
 
-    if status[:stage] == :waiting
-      message = "waiting for players..."
-    elsif status[:stage] == :ready
-      message = "ready to play!"
-    elsif status[:stage] == :started
-      message = "game in progress..."
-    elsif status[:stage] == :finished
-      message = "game finished: #{game.time_finished}"
-    end
-        
-    message + " game size: #{game.size}"
+  def game_status(game)
+    stage_description(game.status[:stage], Game::MIN_PLAYERS - game.players.count) +
+      " (puzzle size: #{game.size})"
+  end
+
+  def ready_to_play_message(game)
+    stage_description(game.status[:stage], Game::MIN_PLAYERS - game.players.count)
   end
 
   def row_clue(index)
@@ -28,6 +23,16 @@ module GamesHelper
   end
 
   private
+
+  def stage_description(stage, num_players)
+    case stage
+    when :waiting  then "waiting for #{num_players} #{'player'.pluralize(num_players)}..."
+    when :ready    then "ready to play!"
+    when :started  then "game in progress..."
+    when :finished then "game finished: #{game.time_finished}"
+    else                "unknown status"
+    end
+  end
 
   def clue(row)
     index = 0

@@ -5,13 +5,12 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @players = Player.where(game: @game)
+    @player = @game.players.where(user: current_user).first
 
-    mathcing_player = Player.where(user: current_user, game: @game)
-    if mathcing_player.length == 1
-      @player = mathcing_player.first
-    else
-      @player = false
+    case @game.status[:stage]
+    when :finished then render :game_over
+    when :started  then render @player ? :play_game : :game_already_started
+    else                render :lobby
     end
   end
 

@@ -1,0 +1,14 @@
+<h1> game already started </h1>
+
+You are not a player in this game, Maybe you can start your own?
+
+<div>
+  <%= form_for Game.new do |f| %>
+    <%= f.text_field :size, required: true, placeholder: "Enter a nonogram size", title: "Size can be 5, 10, 15, or 20", disabled: false %>
+    <%= f.submit "New Game" %>
+  <% end %>
+</div>
+
+<div>  
+  <%= link_to "Back to index", Game %>
+</div>
