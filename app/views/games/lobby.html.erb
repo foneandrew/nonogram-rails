@@ -15,11 +15,7 @@
   <%= ready_to_play_message(@game) %>
 </div>
 
-<div>
-  <%= form_for [@game, Player.new] do |f| %>
-    <%= f.submit "join game" %>
-  <% end %>
-</div>
+<%= join_game_form(game: @game, player: @player) %>
 
 <div>  
   <%= link_to "Back to index", Game %>

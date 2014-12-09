@@ -10,6 +10,18 @@ module GamesHelper
     stage_description(game.status[:stage], Game::MIN_PLAYERS - game.players.count)
   end
 
+  def join_game_form(game:, player:)
+    content_tag :div do
+      if player
+        "You have joined this game"
+      else
+        form_for [game, Player.new] do |f|
+          f.submit "join game"
+        end
+      end
+    end
+  end
+
   def row_clue(index)
     #check index in range
     grid = NonogramToArrayService.new(game: @game).call
