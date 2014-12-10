@@ -5,7 +5,7 @@
 # directories %(app lib config test spec feature)
 
 ## Uncomment to clear the screen before every task
-# clearing :on
+ clearing :on
 
 # Note: The cmd option is now required due to the increasing number of ways
 #       rspec may be run, below are examples of the most common uses.
