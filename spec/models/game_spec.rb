@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Game, :type => :model do
   fixtures :games, :players
 
-  describe '#valid' do
+  describe '#valid?' do
     context 'when saving a game' do
       let (:game) { games(:valid_game) }
 
