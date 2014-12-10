@@ -4,13 +4,19 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    #how to handle this error?
+    unless @game = Game.find(params[:id])
+      redirect_to Game
+      #or render a game missing page??
+      return
+    end
+
     @player = @game.players.where(user: current_user).first
 
-    case @game.stage
-    when :finished then render :game_over
-    when :started  then render @player ? :play_game : :game_already_started
-    else                render :lobby
+    case
+    when @game.completed? then render :game_over
+    when @game.started?   then render @player ? :play_game : :game_already_started
+    else                       render :lobby
     end
   end
 

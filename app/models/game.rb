@@ -15,17 +15,8 @@ class Game < ActiveRecord::Base
   #service will check answers (maybe another service
   #to convert user answer to same format as solution?)
 
-  def stage
-    #split into methods??
-    if completed?
-      :finished
-    elsif started?
-      :started
-    elsif players.length < MIN_PLAYERS
-      :waiting
-    else
-      :ready
-    end
+  def ready_to_play?
+    players.length >= MIN_PLAYERS && !started?
   end
 
   def started?

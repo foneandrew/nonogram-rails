@@ -8,6 +8,7 @@ class Nonogram < ActiveRecord::Base
   validate  :size_matches
   validate  :is_format_correct
 
+  #TODO stop using indexes? change to retuning all the clues that can be iterated over later
   def row_clue(index:)
     line = row(index)
 

@@ -11,7 +11,7 @@
   <ul>
     <% @games.each do |game| %>
       <li>
-        <%= link_to game_status(game), game %>
+        <%= link_to games_index_stage_message(game), game %>
       </li>
     <% end %>
   </ul>

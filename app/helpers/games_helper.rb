@@ -1,13 +1,4 @@
 module GamesHelper
-  def game_status(game)
-    stage_description(game.stage, Game::MIN_PLAYERS - game.players.length) +
-      " (puzzle size: #{game.size})"
-  end
-
-  def ready_to_play_message(game)
-    stage_description(game.stage, Game::MIN_PLAYERS - game.players.count)
-  end
-
   def join_game_form(game:, player:)
     content_tag :div do
       if player
@@ -20,27 +11,17 @@ module GamesHelper
     end
   end
 
-  def row_clue(index)
-    #check index in range
-    grid = NonogramToArrayService.new(game: @game).call
-    clue(row(grid, index)).join(', ')
+  def games_index_stage_message(game)
+    stage_message(game) + " (puzzle size: #{game.size})"
   end
 
-  def column_clue(index)
-    #check index in range
-    grid = NonogramToArrayService.new(game: @game).call
-    clue(column(grid, index)).join(', ')
-  end
-
-  private
-
-  def stage_description(stage, num_players)
-    case stage
-    when :waiting  then "waiting for #{num_players} #{'player'.pluralize(num_players)}..."
-    when :ready    then "ready to play!"
-    when :started  then "game in progress..."
-    when :finished then "game finished: #{game.time_finished}"
-    else                "unknown status"
+  def stage_message(game)
+    case
+    when game.completed?     then "game finished: #{game.time_finished}"
+    when game.started?      then "game in progress..."
+    when game.ready_to_play? then "ready to play!"
+    else
+      "waiting for #{Game::MIN_PLAYERS - game.players.length} #{'player'.pluralize(Game::MIN_PLAYERS - game.players.length)}..."      
     end
   end
 end
