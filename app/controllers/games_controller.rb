@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @player = @game.players.where(user: current_user).first
 
-    case @game.status[:stage]
+    case @game.stage
     when :finished then render :game_over
     when :started  then render @player ? :play_game : :game_already_started
     else                render :lobby

@@ -8,12 +8,4 @@ class Player < ActiveRecord::Base
   belongs_to :game
 
   #index on won to find winner faster??
-
-  def game_over?
-    if answer
-      true
-    else
-      false
-    end
-  end
 end

@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
     game = Game.find(params[:game_id])
 
     if check_player_exists?(game, current_user)
-      flash.alert = "#{current_user.display_name} is already joined"
+      flash.alert = "#{current_user.name} is already joined"
       redirect_to game
       return
     end
@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
     player = game.players.new(user: current_user)
 
     if player.save
-      flash.alert = "#{current_user.display_name} joined"
+      flash.alert = "#{current_user.name} joined"
       redirect_to game
     else
       flash.alert = "was not able to add the player"

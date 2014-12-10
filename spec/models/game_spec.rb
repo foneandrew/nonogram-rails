@@ -8,7 +8,7 @@ RSpec.describe Game, :type => :model do
       let (:game) { games(:valid_game) }
 
       context 'when using one of the valid board sizes' do
-        let (:sizes) { Game::VALID_SIZES}
+        let (:sizes) { Nonogram::VALID_SIZES }
 
         it 'saves the game' do
           sizes.each do |size|
@@ -19,7 +19,7 @@ RSpec.describe Game, :type => :model do
       end
 
       context 'when not using a valid board size' do
-        let (:sizes) { (-30..30).to_a - Game::VALID_SIZES }
+        let (:sizes) { (-30..30).to_a - Nonogram::VALID_SIZES }
 
         it 'fails validation' do
           sizes.each do |size|
@@ -83,13 +83,13 @@ RSpec.describe Game, :type => :model do
     end
   end
 
-  context '#time_taken_to_complete' do
+  context '#seconds_taken_to_complete' do
     context 'when the game is complete' do
       let (:game) { games(:finished) }
       let (:time) { game.time_finished - game.time_started }
 
       it 'will equal the time between start and finish' do
-        expect(game.time_taken_to_complete).to eq time
+        expect(game.seconds_taken_to_complete).to eq time
       end
     end
 
@@ -97,7 +97,7 @@ RSpec.describe Game, :type => :model do
       let (:game) { games(:started) }
       
       it 'will be false' do
-        expect(game.time_taken_to_complete).to be_falsey
+        expect(game.seconds_taken_to_complete).to be_falsey
       end
     end
 
@@ -105,7 +105,7 @@ RSpec.describe Game, :type => :model do
       let (:game) { games(:not_started) }
       
       it 'will be false' do
-        expect(game.time_taken_to_complete).to be_falsey
+        expect(game.seconds_taken_to_complete).to be_falsey
       end
     end
   end

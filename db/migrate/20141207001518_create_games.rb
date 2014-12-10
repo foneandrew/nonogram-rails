@@ -5,6 +5,7 @@ class CreateGames < ActiveRecord::Migration
       t.datetime  :time_finished
       t.text      :solution
       t.integer   :size
+      t.integer   :nonogram_id
       t.timestamps
     end
   end
