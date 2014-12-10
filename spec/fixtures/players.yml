@@ -1,3 +1,11 @@
 player_1:
   user: user_1
   game: game_1
+
+player_2:
+  user: user_2
+  game: game_1
+
+player_3:
+  user: user_3
+  game: game_1

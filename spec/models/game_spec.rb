@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Game, :type => :model do
-  fixtures :games
+  fixtures :games, :players
 
-  context '#save' do
+  describe '#valid' do
     context 'when saving a game' do
       let (:game) { games(:valid_game) }
 
       context 'when using one of the valid board sizes' do
         let (:sizes) { Nonogram::VALID_SIZES }
 
-        it 'saves the game' do
+        it 'game is valid' do
           sizes.each do |size|
             game.size = size
-            expect(game.save).to be_truthy
+            expect(game.valid?).to be_truthy
           end
         end
       end
@@ -24,15 +24,52 @@ RSpec.describe Game, :type => :model do
         it 'fails validation' do
           sizes.each do |size|
             game.size = size
-            expect(game.save).to be_falsey
+            expect(game.valid?).to be_falsey
           end
         end
       end
     end
   end
 
-  context '#started?' do
+  describe '#ready_to_play' do
+    let (:game) { games(:game_1) }
+
+    context 'when there are two players in a game' do
+      before do
+        players(:player_3).destroy
+      end
+      
+      it 'is ready to play' do
+        expect(game.ready_to_play?).to be_truthy
+      end
+    end
+
+    context 'when there is less than two players in a game' do
+      before do
+        players(:player_2).destroy
+        players(:player_3).destroy
+      end
+      
+      it 'is ready to play' do
+        expect(game.ready_to_play?).to be_falsey
+      end
+    end
+
+    context 'when there is more than two players in a game' do
+      it 'is ready to play' do
+        expect(game.ready_to_play?).to be_truthy
+      end
+    end
+  end
+
+  describe '#started?' do
     let (:game) { games(:started) }
+
+    context 'when a start time has been set' do
+      it 'has been started' do
+        expect(game.started?).to be_truthy
+      end
+    end
 
     context 'when there is no start time' do
       before do
@@ -43,26 +80,10 @@ RSpec.describe Game, :type => :model do
         expect(game.started?).to be_falsey
       end
     end
-
-    context 'when a start time has been set' do
-      it 'has been started' do
-        expect(game.started?).to be_truthy
-      end
-    end
   end
 
-  context '#completed' do
+  describe '#completed' do
     let (:game) { games(:finished) }
-
-    context 'when there is no finish time' do
-      before do
-        game.time_finished = nil
-      end
-
-      it 'has not finished' do
-        expect(game.completed?).to be_falsey
-      end
-    end
 
     context 'when a finish time has been set' do
       context 'when a start time has been set' do
@@ -81,9 +102,19 @@ RSpec.describe Game, :type => :model do
         end
       end
     end
+
+    context 'when there is no finish time' do
+      before do
+        game.time_finished = nil
+      end
+
+      it 'has not finished' do
+        expect(game.completed?).to be_falsey
+      end
+    end
   end
 
-  context '#seconds_taken_to_complete' do
+  describe '#seconds_taken_to_complete' do
     context 'when the game is complete' do
       let (:game) { games(:finished) }
       let (:time) { game.time_finished - game.time_started }
@@ -96,7 +127,7 @@ RSpec.describe Game, :type => :model do
     context 'when the game is started but not completed' do
       let (:game) { games(:started) }
       
-      it 'will be false' do
+      it 'will be nil' do
         expect(game.seconds_taken_to_complete).to be_falsey
       end
     end
@@ -108,9 +139,5 @@ RSpec.describe Game, :type => :model do
         expect(game.seconds_taken_to_complete).to be_falsey
       end
     end
-  end
-
-  context '#status' do
-    pending "add some tests"
   end
 end
