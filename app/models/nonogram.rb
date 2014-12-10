@@ -8,41 +8,31 @@ class Nonogram < ActiveRecord::Base
   validate  :size_matches
   validate  :is_format_correct
 
-  def clue(index:, is_row:)
-    #rubify this
-    #name concpets
-    #remove bool -> 2 methods
-    line = get_line(index, is_row)
+  def row_clue(index:)
+    line = row(index)
 
-    line_index = 0
-    clue = [0]
+    clue_from_line(line)
+  end
 
-    #use this shit instead of the line.each nonsense:
-    #[1,1,00,1,0,0,1].chunk{|c| c == 0}.reject{|k,v| k }.map{|k,v| v.length  }
-    #=> [2, 1, 1]
+  def column_clue(index:)
+    line = column(index)
 
-    line.each do |tile|
-      if tile == 1
-        clue[line_index] += 1
-      elsif clue[line_index] > 0
-        clue[line_index += 1] = 0
-      end
-    end
-
-    if clue.last == 0
-      clue.pop
-    end
-
-    clue
+    clue_from_line(line)
   end
 
   private
 
-  def get_line(index, is_row)
-    if is_row
-      row(raw_nonogram_to_array, index)
-    else
-      column(raw_nonogram_to_array, index)
+  def clue_from_line(line)
+    line.chunk { |tile| tile == 0 }.reject { |is_zero, tiles| is_zero }.map{ |is_zero, tiles| tiles.length }
+  end
+
+  def row (index)
+    raw_nonogram_to_array[index]
+  end
+
+  def column (index)
+    raw_nonogram_to_array.each.map do |row|
+      row[index]
     end
   end
 
@@ -54,15 +44,7 @@ class Nonogram < ActiveRecord::Base
     end
   end
 
-  def row (grid, index)
-    grid[index]
-  end
-
-  def column (grid, index)
-    grid.each.map do |row|
-      row[index]
-    end
-  end
+  #validators:
 
   def size_matches
     if size * size != raw_nonogram.length

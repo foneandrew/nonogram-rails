@@ -105,7 +105,7 @@ RSpec.describe Nonogram, :type => :model do
 
       it 'returns an accurate clue' do
         5.times do |index|
-          expect(nonogram.clue(index: index, is_row: true)).to eq correct_clues[index]
+          expect(nonogram.row_clue(index: index)).to eq correct_clues[index]
         end
       end
     end
@@ -115,7 +115,7 @@ RSpec.describe Nonogram, :type => :model do
 
       it 'returns an accurate clue' do
         5.times do |index|
-          expect(nonogram.clue(index: index, is_row: false)).to eq correct_clues[index]
+          expect(nonogram.column_clue(index: index)).to eq correct_clues[index]
         end
       end
     end
