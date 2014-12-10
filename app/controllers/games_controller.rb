@@ -4,12 +4,8 @@ class GamesController < ApplicationController
   end
 
   def show
-    #how to handle this error?
-    unless @game = Game.find(params[:id])
-      redirect_to Game
-      #or render a game missing page??
-      return
-    end
+    #how to handle when game not found?
+    @game = Game.find(params[:id])
 
     @player = @game.players.where(user: current_user).first
 
