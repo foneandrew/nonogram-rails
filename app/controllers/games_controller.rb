@@ -17,7 +17,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = Game.new(size: params[:game][:size])
+    game = Game.new
 
     if game.save
       redirect_to game
@@ -25,5 +25,11 @@ class GamesController < ApplicationController
       flash.alert = "was not able to create a game: #{game.errors.messages.values.join(', ')}"
       redirect_to Game
     end
+  end
+
+  def start
+    params[:game_id]
+    params[:size]
+    redirect_to Game
   end
 end

@@ -17,6 +17,13 @@
 
 <%= join_game_form(game: @game, player: @player) %>
 
+<div>
+  <%= form_tag start_game_path(@game) do %>
+    <%= text_field_tag :size, '', required: true, placeholder: "Enter a nonogram size", title: "Size can be 5, 10, 15, or 20"%>
+    <%= submit_tag "start game"%>
+  <% end %>
+</div>
+
 <div>  
   <%= link_to "Back to index", Game %>
 </div>

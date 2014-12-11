@@ -2,7 +2,6 @@
 
 <div>
   <%= form_for Game.new do |f| %>
-    <%= f.text_field :size, required: true, placeholder: "Enter a nonogram size", title: "Size can be 5, 10, 15, or 20", disabled: false %>
     <%= f.submit "New Game" %>
   <% end %>
 </div>
@@ -11,7 +10,7 @@
   <ul>
     <% @games.each do |game| %>
       <li>
-        <%= link_to games_index_stage_message(game), game %>
+        <%= link_to stage_message(game), game %>
       </li>
     <% end %>
   </ul>

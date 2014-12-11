@@ -1,19 +1,17 @@
 game_1:
-  size: 5
+  nonogram: nonogram_size_5
 
 valid_game:
-  size: 5
+  nonogram: nonogram_size_5
 
 not_started:
-  size: 5
+  nonogram: nonogram_size_5
 
 started:
-  size: 5
   time_started: <%= Time.now %>
-  solution: nonogram_size_5
+  nonogram: nonogram_size_5
 
 finished:
-  size: 5
   time_started: <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
-  solution: nonogram_size_5
+  nonogram: nonogram_size_5

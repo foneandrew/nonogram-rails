@@ -3,34 +3,6 @@ require 'rails_helper'
 RSpec.describe Game, :type => :model do
   fixtures :games, :players
 
-  describe '#valid?' do
-    context 'when saving a game' do
-      let (:game) { games(:valid_game) }
-
-      context 'when using one of the valid board sizes' do
-        let (:sizes) { Nonogram::VALID_SIZES }
-
-        it 'game is valid' do
-          sizes.each do |size|
-            game.size = size
-            expect(game.valid?).to be_truthy
-          end
-        end
-      end
-
-      context 'when not using a valid board size' do
-        let (:sizes) { (-30..30).to_a - Nonogram::VALID_SIZES }
-
-        it 'fails validation' do
-          sizes.each do |size|
-            game.size = size
-            expect(game.valid?).to be_falsey
-          end
-        end
-      end
-    end
-  end
-
   describe '#ready_to_play' do
     let (:game) { games(:game_1) }
 

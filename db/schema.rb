@@ -16,8 +16,6 @@ ActiveRecord::Schema.define(version: 20141209025826) do
   create_table "games", force: true do |t|
     t.datetime "time_started"
     t.datetime "time_finished"
-    t.text     "solution"
-    t.integer  "size"
     t.integer  "nonogram_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -38,6 +36,9 @@ ActiveRecord::Schema.define(version: 20141209025826) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "players", ["game_id"], name: "index_players_on_game_id"
+  add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
