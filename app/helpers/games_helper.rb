@@ -1,17 +1,17 @@
 module GamesHelper
   def join_game_form(game:, player:)
-    content_tag :div do
-      if player
-        "You have joined this game"
-      else
-        form_for [game, Player.new] do |f|
-          f.submit "join game"
-        end
-      end
+    if player.blank?
+      render 'join_game_form' 
+    else
+      content_tag :div, "You have joined this game"
     end
   end
 
-  def stage_message(game)
+  def start_game_form(game:)
+    render 'start_game_form' if game.ready_to_play?
+  end
+
+  def stage_message(game:)
     case
     when game.completed?     then "game finished: #{game.time_finished}"
     when game.started?       then "game in progress..."
