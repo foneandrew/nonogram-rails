@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
   belongs_to  :nonogram
   has_many    :players
 
+  validate    :nonogram_when_started
   #needs to have solution stored in sensible format
   #service will check answers (maybe another service
   #to convert user answer to same format as solution?)
@@ -26,5 +27,13 @@ class Game < ActiveRecord::Base
 
   def seconds_taken_to_complete
     time_finished - time_started if completed?
+  end
+
+  private
+
+  def nonogram_when_started
+    if started? && nonogram.blank?
+      errors.add(:size, 'nonogram does not match given size')
+    end
   end
 end

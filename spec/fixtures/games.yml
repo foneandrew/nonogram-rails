@@ -1,17 +1,15 @@
 game_1:
   nonogram: nonogram_size_5
 
-valid_game:
-  nonogram: nonogram_size_5
-
 not_started:
-  nonogram: nonogram_size_5
+  time_started: nil
+  nonogram:     nil
 
 started:
   time_started: <%= Time.now %>
-  nonogram: nonogram_size_5
+  nonogram:     nonogram_size_5
 
 finished:
-  time_started: <%= Time.now %>
+  time_started:  <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
-  nonogram: nonogram_size_5
+  nonogram:      nonogram_size_5

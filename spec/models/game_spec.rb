@@ -3,6 +3,36 @@ require 'rails_helper'
 RSpec.describe Game, :type => :model do
   fixtures :games, :players
 
+  describe '#valid?' do
+    context 'when a game is not started and has no nonogram' do
+      let (:game) { games(:not_started) }
+
+      it 'is valid' do
+        expect(game.valid?).to be_truthy
+      end
+    end
+
+    context 'when a game is started' do
+      let(:game) { games(:started) }
+
+      context 'when the game has a nonogram' do
+        it 'is valid' do
+          expect(game.valid?).to be_truthy
+        end
+      end
+
+      context 'when the game does not have a nonogram' do
+        before do
+          game.nonogram = nil
+        end
+
+        it 'is not valid' do
+          expect(game.valid?).to be_falsey
+        end
+      end
+    end
+  end
+
   describe '#ready_to_play' do
     let (:game) { games(:game_1) }
 
