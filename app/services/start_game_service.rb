@@ -5,8 +5,8 @@ class StartGameService
   end
 
   def call
-    @game.raw_nonogram = Nonogram.where(size: @size).sample
+    @game.nonogram = Nonogram.where(size: @size).sample
     @game.time_started = Time.now
-    flash.alert = "was not able to start the game" unless @game.save
+    @game.save
   end
 end

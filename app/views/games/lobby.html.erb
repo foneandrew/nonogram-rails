@@ -11,13 +11,17 @@
   </ul>
 </div>
 
-<%= join_game_form(game: @game, player: @player) %>
+<% if @player.blank? %>
+  <%= render 'join_game_form' %>
+<% else %>
+  <%= content_tag :div, 'You have joined this game' %>
+<% end %>
 
 <div>
   <%= stage_message(game: @game) %>
 </div>
 
-<%= start_game_form(game: @game) %>
+<%= render 'start_game_form' if @game.ready_to_play? %>
 
 <div>  
   <%= link_to "Back to index", Game %>

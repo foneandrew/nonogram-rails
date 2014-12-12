@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     #how to handle when game not found?
     @game = Game.find(params[:id])
 
-    @player = @game.players.where(user: current_user).first
+    @player = @game.players.find_by(user: current_user)
 
     case
     when @game.completed? then render :game_over
@@ -28,8 +28,9 @@ class GamesController < ApplicationController
   end
 
   def start
-    params[:game_id]
-    params[:size]
-    redirect_to Game
+    game = Game.find(params[:game_id])
+    start_game = StartGameService.new(game: game, size: params[:size])
+    flash.alert = "was not able to start the game" unless start_game.call
+    redirect_to game
   end
 end

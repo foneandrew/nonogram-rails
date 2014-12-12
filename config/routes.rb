@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post 'games/:game_id/start' => 'games#start', :as => :start_game
 
   resources :games, only: [:index, :show, :create] do
-    resource :players, only: :create
+    resource :players, only: [:create, :update]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

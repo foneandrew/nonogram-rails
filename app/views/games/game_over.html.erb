@@ -1,1 +1,8 @@
 <h1> game results </h1>
+
+winner:
+<%= @game.players.find_by(won: true).user.name %>
+
+<div>  
+  <%= link_to "Back to index", Game %>
+</div>
