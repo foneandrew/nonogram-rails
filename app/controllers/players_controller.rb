@@ -21,18 +21,21 @@ class PlayersController < ApplicationController
 
   def update
     game = Game.find(params[:game_id])
+    player = game.players.find_by(user: current_user)
     cells = params[:cells]
 
-    check_answer = CheckAnswerService.new(player: game.players.find_by(user: current_user), nonogram: game.nonogram, cells: cells)
-    
-    if check_answer.call
-      game.time_finished = Time.now
-      game.save
-      flash.alert = "You WOOONNN!"
+    end_game = EndGameService.new(game: game, cells: cells, player: player)
+
+    if end_game.call
+      if player.won
+        flash.alert = "You won!"
+      else
+        flash.alert = "You lost"
+      end
     else
-      flash.alert = "You suck majorly"
+      flash.alert = "Thats not the correct answer"
     end
-    
+
     redirect_to game
   end
 

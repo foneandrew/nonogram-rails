@@ -27,6 +27,7 @@ class GamesController < ApplicationController
     end
   end
 
+  #change to update!
   def start
     game = Game.find(params[:game_id])
     start_game = StartGameService.new(game: game, size: params[:size])
