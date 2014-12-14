@@ -27,14 +27,6 @@ class GamesController < ApplicationController
     end
   end
 
-  #change to update!
-  def start
-    game = Game.find(params[:game_id])
-    start_game = StartGameService.new(game: game, size: params[:size])
-    flash.alert = "was not able to start the game" unless start_game.call
-    redirect_to game
-  end
-
   def update
     game = Game.find(params[:id])
     start_game = StartGameService.new(game: game, size: params[:size])
