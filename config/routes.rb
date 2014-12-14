@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
-  post 'games/:game_id/start' => 'games#start', :as => :start_game
-
-  resources :games, only: [:index, :show, :create] do
+  resources :games, only: [:index, :show, :create, :update] do
     resource :players, only: [:create, :update]
   end
 
