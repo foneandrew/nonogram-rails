@@ -23,3 +23,13 @@ empty_game:
   time_started:  nil
   time_finished: nil
   nonogram:      nil
+
+game_player_1_lost:
+  time_started:  <%= Time.now %>
+  time_finished: <%= Time.now + (60 * 60) %>
+  nonogram:      nonogram_size_5
+
+game_player_1_won:
+  time_started:  <%= Time.now %>
+  time_finished: <%= Time.now + (60 * 60) %>
+  nonogram:      nonogram_size_5

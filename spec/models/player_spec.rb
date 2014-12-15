@@ -32,4 +32,28 @@ RSpec.describe Player, :type => :model do
       end
     end
   end
+
+  describe '#won' do
+    let(:player) { players(:player_1) }
+
+    context 'when the player has won' do
+      before do
+        player.won = true
+      end
+
+      it 'is true' do
+        expect(player.won?).to be_truthy
+      end
+    end
+
+    context 'when the player has lost' do
+      before do
+        player.won = false
+      end
+      
+      it 'is false' do
+        expect(player.won?).to be_falsey
+      end
+    end
+  end
 end

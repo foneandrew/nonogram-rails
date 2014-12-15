@@ -12,5 +12,8 @@ class Player < ActiveRecord::Base
   validates :user, presence: true
   validates :game, presence: true
 
+  def won?
+    won
+  end
   #index on won to find winner faster??
 end

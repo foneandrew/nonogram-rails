@@ -24,10 +24,10 @@ class PlayersController < ApplicationController
     player = game.players.find_by(user: current_user)
     cells = params[:cells]
 
-    end_game = EndGameService.new(game: game, cells: cells, player: player)
+    end_game = EndGameService.new(game: game, player: player, cells: cells)
 
     if end_game.call
-      if player.won
+      if player.won?
         flash.notice = "You won!"
       else
         flash.notice = "You lost"

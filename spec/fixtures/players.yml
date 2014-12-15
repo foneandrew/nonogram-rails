@@ -10,6 +10,16 @@ player_3:
   user: user_3
   game: game_1
 
+player_won:
+  user: user_1
+  game: game_player_1_won
+  won:  true
+
+player_lost:
+  user: user_1
+  game: game_player_1_lost
+  won:  false
+
 player_nil:
   user: nil
   game: nil
