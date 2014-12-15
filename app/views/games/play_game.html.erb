@@ -1,6 +1,6 @@
 <h1> game in progress... </h1>
 
-<%= form_tag game_players_path(@game), method: :put do %>
+<%= form_tag [@game, Player.new], method: :put do %>
   <table>
     <tr>
       <td></td>

@@ -9,3 +9,7 @@ player_2:
 player_3:
   user: user_3
   game: game_1
+
+player_nil:
+  user: nil
+  game: nil

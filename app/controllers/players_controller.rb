@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
     player = game.players.new(user: current_user)
 
     if player.save
-      flash.alert = "#{current_user.name} joined"
+      flash.notice = "#{current_user.name} joined"
       redirect_to game
     else
       flash.alert = "was not able to add the player"
@@ -28,12 +28,12 @@ class PlayersController < ApplicationController
 
     if end_game.call
       if player.won
-        flash.alert = "You won!"
+        flash.notice = "You won!"
       else
-        flash.alert = "You lost"
+        flash.notice = "You lost"
       end
     else
-      flash.alert = "Thats not the correct answer"
+      flash.notice = "Thats not the correct answer"
     end
 
     redirect_to game

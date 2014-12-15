@@ -18,3 +18,8 @@ finished:
   time_started:  <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
   nonogram:      nonogram_size_5
+
+empty_game:
+  time_started:  nil
+  time_finished: nil
+  nonogram:      nil

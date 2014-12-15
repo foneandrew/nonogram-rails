@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   resources :games, only: [:index, :show, :create, :update] do
-    resource :players, only: [:create, :update]
+    resource :player, only: [:create, :update]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
