@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20141209025826) do
   add_index "games", ["nonogram_id"], name: "index_games_on_nonogram_id"
 
   create_table "nonograms", force: true do |t|
+    t.text     "name",       null: false
     t.text     "solution",   null: false
     t.integer  "size",       null: false
     t.datetime "created_at"

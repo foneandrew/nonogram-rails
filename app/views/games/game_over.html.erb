@@ -1,4 +1,4 @@
-<h1> game results </h1>
+<h2> <%= @game.nonogram.name %> </h2>
 
 winner:
 <%= @game.players.find_by(won: true).user.name %>

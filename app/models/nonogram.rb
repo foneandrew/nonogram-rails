@@ -1,11 +1,11 @@
 class Nonogram < ActiveRecord::Base
   VALID_SIZES = [5, 10, 15, 20]
   VALID_COLORS = ("0".."1")
-
+  # t.text    :name,      null: false
   # t.text    :solution,  null: false
   # t.integer :size,      null: false
   
-  validates :solution, presence: true
+  validates :solution, :name, presence: true
   validates :size, presence: true, :inclusion => { :in => VALID_SIZES,
     message: "%{value} is not a valid size" }
   
