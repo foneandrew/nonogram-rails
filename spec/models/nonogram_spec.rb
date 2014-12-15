@@ -86,6 +86,38 @@ RSpec.describe Nonogram, :type => :model do
         end
       end
     end
+
+    context 'when missing information' do
+      context 'when missing the size' do
+        before do
+          nonogram.size = nil
+        end
+
+        it 'fails validation' do
+          expect(nonogram.valid?).to be_falsey
+        end
+      end
+
+      context 'when missing the solution' do
+        before do
+          nonogram.solution = nil
+        end
+
+        it 'fails validation' do
+          expect(nonogram.valid?).to be_falsey
+        end
+      end
+
+      context 'when missing a name' do
+        before do
+          nonogram.name = nil
+        end
+
+        it 'fails validation' do
+          expect(nonogram.valid?).to be_falsey
+        end
+      end
+    end
   end
 
   describe '#row_clues' do

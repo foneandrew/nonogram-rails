@@ -51,7 +51,7 @@ class Nonogram < ActiveRecord::Base
   #VALIDATORS:
 
   def size_matches
-    if size * size != solution.length
+    if size.present? && solution.present? && size * size != solution.length
       errors.add(:size, 'nonogram does not match given size')
     end
   end
