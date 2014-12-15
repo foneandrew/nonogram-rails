@@ -6,7 +6,7 @@ RSpec.describe Nonogram, :type => :model do
   describe '#valid?' do
     let(:nonogram) { nonograms(:nonogram_size_5) }
     let(:size) { nonogram.size }
-    let(:nonogram_data) { nonogram.raw_nonogram }
+    let(:nonogram_data) { nonogram.solution }
 
     context 'when the given size is one of the allowed sizes' do 
       context 'when the solution is correctly formatted' do
@@ -19,7 +19,7 @@ RSpec.describe Nonogram, :type => :model do
         context 'when the solution does not match the size' do
           context 'when the size is too small' do
             before do
-              nonogram.raw_nonogram += "0"
+              nonogram.solution += "0"
             end
 
             it 'fails validation' do
@@ -29,7 +29,7 @@ RSpec.describe Nonogram, :type => :model do
 
           context 'when the size is too large' do
             before do
-              nonogram.raw_nonogram += nonogram_data[0..-2]
+              nonogram.solution += nonogram_data[0..-2]
             end
 
             it 'fails validation' do
@@ -45,7 +45,7 @@ RSpec.describe Nonogram, :type => :model do
           context 'with a character that isnt 0 or 1' do
             it 'fails validation' do
               bad_characters.each do |character|
-                nonogram.raw_nonogram = nonogram_data[0..size - 1] + character + nonogram_data[size + 1..-1]
+                nonogram.solution = nonogram_data[0..size - 1] + character + nonogram_data[size + 1..-1]
                 expect(nonogram.valid?).to be_falsey
               end
             end
@@ -54,7 +54,7 @@ RSpec.describe Nonogram, :type => :model do
           context 'when the illegal character is at an end' do
             context 'when the character is at the start' do
               before do
-                nonogram.raw_nonogram = "X" +  nonogram_data[1..-1]
+                nonogram.solution = "X" +  nonogram_data[1..-1]
               end
 
               it 'fails validation' do
@@ -64,7 +64,7 @@ RSpec.describe Nonogram, :type => :model do
 
             context 'when the character is at the end' do
               before do
-                nonogram.raw_nonogram = nonogram_data[0..-2] + "X"
+                nonogram.solution = nonogram_data[0..-2] + "X"
               end
               
               it 'fails validation' do
@@ -88,7 +88,7 @@ RSpec.describe Nonogram, :type => :model do
     end
   end
 
-  describe '#clue' do
+  describe '#row_clues' do
     let(:nonogram) { nonograms(:nonogram_size_5) }
     #nonogram stored in nonogram_size_5:
     #1 1 1 0 0
@@ -101,19 +101,25 @@ RSpec.describe Nonogram, :type => :model do
       let(:correct_clues) { [[3], [2], [1,1], [2,1], [3]] }
 
       it 'returns an accurate clue' do
-        5.times do |index|
-          expect(nonogram.row_clue(index: index)).to eq correct_clues[index]
-        end
+        expect(nonogram.row_clues).to eq correct_clues
       end
     end
+  end
+
+  describe '#column_clues' do
+    let(:nonogram) { nonograms(:nonogram_size_5) }
+    #nonogram stored in nonogram_size_5:
+    #1 1 1 0 0
+    #1 1 0 0 0
+    #1 0 1 0 0
+    #1 1 0 1 0
+    #1 1 1 0 0
 
     context 'for a given column' do
       let(:correct_clues) { [[5], [2,2], [1,1,1], [1], []] }
 
       it 'returns an accurate clue' do
-        5.times do |index|
-          expect(nonogram.column_clue(index: index)).to eq correct_clues[index]
-        end
+        expect(nonogram.column_clues).to eq correct_clues
       end
     end
   end

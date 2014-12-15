@@ -1,8 +1,8 @@
 class Player < ActiveRecord::Base
-  #t.integer :user_id, null: false
-  #t.integer :game_id, null: false
-  #t.boolean :won
-  #t.text    :answer
+  # t.integer :user_id, null: false
+  # t.integer :game_id, null: false
+  # t.boolean :won
+  # t.text    :answer
 
   model_name.instance_variable_set :@route_key, 'player'
 
@@ -15,5 +15,6 @@ class Player < ActiveRecord::Base
   def won?
     won
   end
-  #index on won to find winner faster??
+  # index on won to find winner faster??
+  # change name of answer??
 end

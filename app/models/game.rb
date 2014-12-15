@@ -1,17 +1,15 @@
 class Game < ActiveRecord::Base
-  #t.datetime  :time_started
-  #t.datetime  :time_finished
-  #t.integer   :size
-  #t.integer   :nonogram_id
   MIN_PLAYERS = 2
+
+  # t.datetime  :time_started
+  # t.datetime  :time_finished
+  # t.integer   :nonogram_id
+  # t.index     :nonogram_id
 
   belongs_to  :nonogram
   has_many    :players
 
   validate    :nonogram_when_started
-  #needs to have solution stored in sensible format
-  #service will check answers (maybe another service
-  #to convert user answer to same format as solution?)
 
   def ready_to_play?
     players.length >= MIN_PLAYERS && !started?
@@ -33,7 +31,7 @@ class Game < ActiveRecord::Base
 
   def nonogram_when_started
     if started? && nonogram.blank?
-      errors.add(:size, 'nonogram does not match given size')
+      errors.add(:nonogram, 'game is started without a nonogram')
     end
   end
 end

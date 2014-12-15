@@ -5,7 +5,7 @@ class WinGameService
   end
 
   def call
-    if @game.nonogram.raw_nonogram.eql?(@answer)
+    if @game.nonogram.solution.eql?(@answer)
       @game.time_finished = Time.now
       @game.save
 
