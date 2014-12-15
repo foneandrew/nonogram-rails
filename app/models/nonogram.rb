@@ -10,7 +10,7 @@ class Nonogram < ActiveRecord::Base
     message: "%{value} is not a valid size" }
   
   validate :size_matches
-  validate :is_format_correct
+  validate :correct_format
 
   def row_clues
     size.times.map do |row|
@@ -56,7 +56,7 @@ class Nonogram < ActiveRecord::Base
     end
   end
 
-  def is_format_correct
+  def correct_format
     errors.add(:solution, 'nonogram contains illegal characters') unless /\A[#{VALID_COLORS.to_a.join}]*\z/ =~ solution
   end
 end

@@ -12,7 +12,7 @@ class Game < ActiveRecord::Base
   validate    :nonogram_when_started
 
   def ready_to_play?
-    players.length >= MIN_PLAYERS && !started?
+    players.length >= MIN_PLAYERS unless started?
   end
 
   def started?
@@ -30,8 +30,6 @@ class Game < ActiveRecord::Base
   private
 
   def nonogram_when_started
-    if started? && nonogram.blank?
-      errors.add(:nonogram, 'game is started without a nonogram')
-    end
+    errors.add(:nonogram, 'game is started without a nonogram') if started? && nonogram.blank?
   end
 end
