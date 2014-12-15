@@ -57,10 +57,6 @@ class Nonogram < ActiveRecord::Base
   end
 
   def is_format_correct
-    solution.chars do |char|
-      unless VALID_COLORS.include?(char)
-        errors.add(:solution, 'nonogram contains illegal characters')
-      end
-    end
+    errors.add(:solution, 'nonogram contains illegal characters') unless /\A[#{VALID_COLORS.to_a.join}]*\z/ =~ solution
   end
 end

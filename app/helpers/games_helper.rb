@@ -10,10 +10,10 @@ module GamesHelper
   end
 
   def row_clue(nonogram:, index:)
-    nonogram.row_clue(index: index).join(' ')
+    nonogram.row_clues[index].join(' ')
   end
 
   def column_clue(nonogram:, index:)
-    nonogram.column_clue(index: index).join("\n")
+    nonogram.column_clues[index].join(' ')
   end
 end

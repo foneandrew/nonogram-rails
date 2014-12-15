@@ -4,8 +4,14 @@ class GamesController < ApplicationController
   end
 
   def show
-    #how to handle when game not found?
     @game = Game.find(params[:id])
+    # find_by returns nil instead of raising
+
+    # unless @game = Game.find_by(id: params[:id])
+    #   flash.alert = 'could not find the requested game'
+    #   redirect_to Game
+    #   return
+    # end
 
     @player = @game.players.find_by(user: current_user)
 
