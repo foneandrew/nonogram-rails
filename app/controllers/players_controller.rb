@@ -4,19 +4,17 @@ class PlayersController < ApplicationController
 
     if check_player_exists?(game, current_user)
       flash.alert = "#{current_user.name} is already joined"
-      redirect_to game
-      return
-    end
-
-    player = game.players.new(user: current_user)
-
-    if player.save
-      flash.notice = "#{current_user.name} joined"
-      redirect_to game
     else
-      flash.alert = "was not able to add the player"
-      redirect_to game
+      player = game.players.new(user: current_user)
+
+      if player.save
+        flash.notice = "#{current_user.name} joined"
+      else
+        flash.alert = "was not able to add the player"
+      end
     end
+
+    redirect_to game
   end
 
   def update
@@ -26,14 +24,12 @@ class PlayersController < ApplicationController
 
     end_game = EndGameService.new(game: game, player: player, cells: cells)
 
-    if end_game.call
-      if player.won?
-        flash.notice = "You won!"
-      else
-        flash.notice = "You lost"
-      end
+    flash.notice = if !end_game.call
+      "That's not the correct answer"
+    elsif player.won?
+      "You won!"
     else
-      flash.notice = "Thats not the correct answer"
+      "You lost!"
     end
 
     redirect_to game
