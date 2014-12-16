@@ -35,3 +35,7 @@ player_lost:
 player_nil:
   user: nil
   game: nil
+
+player_still_playing_finshed_game:
+  user: user_1
+  game: finished

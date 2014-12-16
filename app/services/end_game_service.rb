@@ -12,15 +12,11 @@ class EndGameService
       @player.won = false
       @player.answer = answer
       @player.save
-
-      true
     else
       if WinGameService.new(game: @game, answer: answer).call
         @player.won = true
         @player.answer = answer
         @player.save
-
-        true
       else
         false
       end
