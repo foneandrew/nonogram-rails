@@ -10,6 +10,14 @@ player_3:
   user: user_3
   game: game_1
 
+player_4:
+  user: user_1
+  game: game_ready_to_play
+
+player_5:
+  user: user_2
+  game: game_ready_to_play
+
 player_1_playing_game:
   user: user_1
   game: started

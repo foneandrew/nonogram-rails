@@ -4,9 +4,14 @@ new_game:
   nonogram:      nil
 
 game_1:
-  nonogram: nonogram_size_5
+  nonogram:      nil
   time_started:  nil
   time_finished: nil
+
+game_ready_to_play:
+  time_started:  nil
+  time_finished: nil
+  nonogram:      nil
 
 not_started:
   time_started: nil
