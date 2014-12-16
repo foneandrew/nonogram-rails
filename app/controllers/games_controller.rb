@@ -5,20 +5,12 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    # find_by returns nil instead of raising
-
-    # unless @game = Game.find_by(id: params[:id])
-    #   flash.alert = 'could not find the requested game'
-    #   redirect_to Game
-    #   return
-    # end
-
     @player = @game.players.find_by(user: current_user)
 
     case
     when @game.completed? then render :game_over
-    when @game.started?   then render @player ? :play_game : :game_already_started
-    else                       render :lobby
+    when @game.started?   then render @player ? :game_play : :game_started_not_joined
+    else                       render :game_lobby
     end
   end
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, :type => :controller do
-  fixtures :games, :users
+  fixtures :games, :users, :players
 
   let(:user) { users(:user_1)}
 
@@ -18,6 +18,61 @@ RSpec.describe GamesController, :type => :controller do
     it 'renders the index page' do
       get :index
       expect(response).to render_template(:index)
+    end
+  end
+
+  describe 'GET show' do
+    let (:game) { games(:game_1) }
+    
+    it 'assigns @game' do
+      get :show, :id => game.id
+      expect(assigns(:game)).to eq game
+    end
+
+    context 'when the game is not started' do
+      it 'renders game_lobby' do
+        get :show, :id => game.id
+        expect(response).to render_template(:game_lobby)
+      end
+    end
+
+    context 'when the game is finished' do
+      let(:game) { games(:finished) }
+
+      it 'renders game_over' do
+        get :show, :id => game.id
+        expect(response).to render_template(:game_over)
+      end
+    end
+
+    context 'when there is a player for the current user' do
+      let(:player) { players(:player_1) }
+
+      it 'assigns the player' do
+        get :show, :id => game.id
+        expect(assigns(:player)).to eq player
+      end
+
+      context 'when the game is started but not finshed' do
+        let(:game) { games(:started) }
+
+        it 'renders game_play' do
+          get :show, :id => game.id
+          expect(response).to render_template(:game_play)
+        end
+      end
+    end
+
+    context 'when there is not a player for the current user' do
+      let(:user) { users(:user_2) }
+      let(:game) { games(:started) }
+
+      context 'when the game is started but not finished' do
+        it 'renders game_started_not_joined' do
+          get :show, :id => game.id
+          expect(response).to render_template(:game_started_not_joined)
+        end
+      end 
     end
   end
 

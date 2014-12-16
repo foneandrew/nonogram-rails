@@ -5,6 +5,8 @@ new_game:
 
 game_1:
   nonogram: nonogram_size_5
+  time_started:  nil
+  time_finished: nil
 
 not_started:
   time_started: nil
