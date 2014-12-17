@@ -10,6 +10,19 @@ require 'rails_helper'
 #     end
 #   end
 # end
+
 RSpec.describe GamesHelper, :type => :helper do
   pending "add some examples to (or delete) #{__FILE__}"
+  
+  context '#stage_message' do
+
+  end
+
+  context '#row_clue' do
+
+  end
+
+  context '#column_clue' do
+
+  end
 end

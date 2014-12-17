@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+ body {
+  font-family: helvetica;
+ }
+
+.alert {
+  color: red;
+}
+
+.alert-success {
+  color: green;
+}
