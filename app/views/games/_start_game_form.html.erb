@@ -1,4 +1,4 @@
-<div>
+<div class='pad-out'>
   <%= form_tag @game,method: :put do %>
     <%= text_field_tag :size, '', required: true, placeholder: 'Enter a nonogram size', title: 'Size can be 5, 10, 15, or 20' %>
     <%= submit_tag 'start game' %>

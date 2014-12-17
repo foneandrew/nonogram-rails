@@ -1,7 +1,7 @@
 <h1> Lobby </h1>
 
 <div>
-  Players:
+  <h3>Players</h3>
   <ul>
     <% @game.players.each do |joined_player| %>
       <li>
@@ -23,6 +23,4 @@
 
 <%= render 'start_game_form' if @game.ready_to_play? %>
 
-<div>  
-  <%= link_to "Back to index", Game %>
-</div>
+<%= render 'back_to_index' %>
