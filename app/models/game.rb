@@ -27,7 +27,23 @@ class Game < ActiveRecord::Base
     time_finished - time_started if completed?
   end
 
+  def state #bad name?
+    # only care if this is different to the last time it was called
+    # {'stage' => stage, 'player_count' =>  players.count}.to_json
+    {stage: stage, player_count: players.count}.to_json
+  end
+
   private
+
+  def stage
+    case
+    when completed?     then 3
+    when started?       then 2
+    when ready_to_play? then 1
+    else
+      0
+    end
+  end
 
   def nonogram_when_started
     errors.add(:nonogram, 'game is started without a nonogram') if started? && nonogram.blank?

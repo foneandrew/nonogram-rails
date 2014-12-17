@@ -23,18 +23,13 @@ module GamesHelper
     "Won by #{game.players.find_by(won: true).user.name} in #{minutes_and_seconds(game.seconds_taken_to_complete)}"
   end
 
-  def minutes_and_seconds(seconds)
-    mm, ss = seconds.divmod(60)
-    ss = ss.round
+  def minutes_and_seconds(total_seconds)
+    minutes, seconds = total_seconds.divmod(60)
+    seconds = seconds.round
 
-    if mm > 0
-      if ss > 1
-        "#{mm} #{'minute'.pluralize(mm)} and #{ss} #{'second'.pluralize(ss)}"
-      else
-        "#{mm} #{'minute'.pluralize(mm)}"
-      end
-    else
-      "#{ss} #{'second'.pluralize(ss)}"
-    end
+    output = []
+    output << pluralize(minutes, "minute") if minutes > 0
+    output << pluralize(seconds, "second") if seconds > 0
+    output.to_sentence
   end
 end

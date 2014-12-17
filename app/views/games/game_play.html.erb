@@ -1,4 +1,4 @@
-<h1> game in progress... </h1>
+<h1> <%= @game.nonogram.name %> </h1>
 
 <%= form_tag [@game, Player.new], method: :put do %>
   <table>
