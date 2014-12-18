@@ -1,28 +1,40 @@
 class Nonogram < ActiveRecord::Base
   VALID_SIZES = [5, 10, 15, 20]
-  VALID_COLORS = ("0".."1")
+  VALID_COLORS = %w(0 1)
   # t.text    :name,      null: false
   # t.text    :solution,  null: false
   # t.integer :size,      null: false
+
+  has_many :games, dependent: :destroy
   
-  validates :solution, :name, presence: true
-  validates :size, presence: true, :inclusion => { :in => VALID_SIZES,
-    message: "%{value} is not a valid size" }
-  
-  validate :size_matches
-  validate :correct_format
+  validates :name, presence: true
+    validates :size, :inclusion => { :in => VALID_SIZES,
+    message: 'is not a valid size' }
+  validates :solution, presence: true, format: { with: /\A[#{VALID_COLORS.join}]+\z/,
+    message: 'contains invalid characters' }
+
+  validate :size_matches_solution
 
   def row_clues
-    size.times.map do |row|
-      clue_from_line(row_slice(row))
+    size.times.map do |row_number|
+      # row slize to 'row'
+      line = row_slice(row_number)
+      clue_from_line(line)
     end
   end
 
   def column_clues
+    # match above
     size.times.map do |column|
       clue_from_line(column_slice(column))
     end
   end
+
+  # grid object
+  # clue decorator thinfg
+  # in controller, make cliue object from nonogram
+  # clue object does all the lcuyey ctuf
+  # whack in concepts
 
   private
 
@@ -43,20 +55,17 @@ class Nonogram < ActiveRecord::Base
   def solution_to_array
     solution.chars.each_slice(size).map do |row|
       row.map do |tile|
-        tile.eql?("1") ? 1 : 0
+        tile.eql?('1') ? 1 : 0
       end
     end
   end
 
   #VALIDATORS:
 
-  def size_matches
+  def size_matches_solution
+    # why size presnet?
     if size.present? && solution.present? && size * size != solution.length
-      errors.add(:size, 'nonogram does not match given size')
+      errors.add(:size, 'does not match given solution')
     end
-  end
-
-  def correct_format
-    errors.add(:solution, 'nonogram contains illegal characters') unless /\A[#{VALID_COLORS.to_a.join}]*\z/ =~ solution
   end
 end

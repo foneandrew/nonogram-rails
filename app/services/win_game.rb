@@ -1,4 +1,4 @@
-class WinGameService
+class WinGame
   def initialize(game:, answer:)
     @game = game
     @answer = answer
@@ -8,8 +8,6 @@ class WinGameService
     if @game.nonogram.solution.eql?(@answer)
       @game.time_finished = Time.now
       @game.save
-
-      true
     else
       false
     end

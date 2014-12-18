@@ -34,7 +34,7 @@ class PlayersController < ApplicationController
   end
 
   def attempt_to_end_game(game, player, cells)
-    end_game_service = EndGameService.new(game: game, player: player, cells: cells)
+    end_game_service = SubmitAnswer.new(game: game, player: player, cells: cells)
 
     flash.notice = if !end_game_service.call
       "That's not the correct answer"

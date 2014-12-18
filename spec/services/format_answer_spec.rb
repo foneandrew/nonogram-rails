@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FormatAnswerService, :type => :service do
+RSpec.describe FormatAnswer, :type => :service do
   fixtures :nonograms
 
   describe '#call' do
@@ -21,7 +21,7 @@ RSpec.describe FormatAnswerService, :type => :service do
     #1 1 1 0 0
 
     it 'will convert a hash of cells to a string' do
-      format_answer = FormatAnswerService.new(cells: cells, size: 5)
+      format_answer = FormatAnswer.new(cells: cells, size: 5)
       expect(format_answer.call).to eq solution
     end
   end

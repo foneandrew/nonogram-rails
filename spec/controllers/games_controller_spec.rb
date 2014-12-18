@@ -113,15 +113,15 @@ RSpec.describe GamesController, :type => :controller do
 
   describe 'PUT update' do
     let(:game) { games(:not_started) }
-    let(:start_game_service) { instance_double(StartGameService) }
+    let(:start_game) { instance_double(StartGame) }
 
     before do
-      expect(StartGameService).to receive(:new).and_return(start_game_service)
+      expect(StartGame).to receive(:new).and_return(start_game)
     end
 
     context 'when the game was able to be started' do
       before do
-        expect(start_game_service).to receive(:call).and_return(true)
+        expect(start_game).to receive(:call).and_return(true)
       end
 
       it 'redirects to the game' do
@@ -132,7 +132,7 @@ RSpec.describe GamesController, :type => :controller do
 
     context 'when the game was unable to be started' do
       before do
-        expect(start_game_service).to receive(:call).and_return(false)
+        expect(start_game).to receive(:call).and_return(false)
       end
 
       it 'redirects to the game' do

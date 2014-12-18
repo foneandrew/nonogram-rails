@@ -57,21 +57,21 @@ RSpec.describe PlayersController, :type => :controller do
     let(:game)              { games(:game_1) }
     let(:player)            { players(:player_1) }
     let(:cells)             { double }
-    let(:end_game_service)  { instance_double(EndGameService) }
+    let(:submit_answer)  { instance_double(SubmitAnswer) }
 
     before do
-      allow(EndGameService).to receive(:new).and_return(end_game_service)
-      allow(end_game_service).to receive(:call).and_return true
+      allow(SubmitAnswer).to receive(:new).and_return(submit_answer)
+      allow(submit_answer).to receive(:call).and_return true
     end
 
     it 'attempts to end the game' do
-      expect(EndGameService).to receive(:new).with(game: game, player: player, cells: "#{cells}").and_return(end_game_service)
+      expect(SubmitAnswer).to receive(:new).with(game: game, player: player, cells: "#{cells}").and_return(submit_answer)
       put :update, :game_id => game.id, :cells => cells
     end
 
     context 'when the guess is wrong' do
       before do
-        expect(end_game_service).to receive(:call).and_return false
+        expect(submit_answer).to receive(:call).and_return false
       end
 
       it 'sets a flash notice' do
@@ -82,7 +82,7 @@ RSpec.describe PlayersController, :type => :controller do
 
     context 'when the game is finished/or just won' do
       before do
-        expect(end_game_service).to receive(:call).and_return true
+        expect(submit_answer).to receive(:call).and_return true
       end
 
       context 'when the player won' do

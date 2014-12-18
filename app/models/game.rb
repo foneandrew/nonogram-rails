@@ -7,11 +7,12 @@ class Game < ActiveRecord::Base
   # t.index     :nonogram_id
 
   belongs_to  :nonogram
-  has_many    :players
+  has_many    :players, dependent: :destroy
 
-  validate    :nonogram_when_started
+  validates   :nonogram, presence: true, if: :started?
 
   def ready_to_play?
+    # if just display logic move into helper
     players.length >= MIN_PLAYERS unless started?
   end
 
@@ -20,32 +21,10 @@ class Game < ActiveRecord::Base
   end
 
   def completed?
-    time_started.present? && time_finished.present?
+    started? && time_finished.present?
   end
 
   def seconds_taken_to_complete
     time_finished - time_started if completed?
-  end
-
-  def state #bad name?
-    # only care if this is different to the last time it was called
-    # {'stage' => stage, 'player_count' =>  players.count}.to_json
-    {stage: stage, player_count: players.count}.to_json
-  end
-
-  private
-
-  def stage
-    case
-    when completed?     then 3
-    when started?       then 2
-    when ready_to_play? then 1
-    else
-      0
-    end
-  end
-
-  def nonogram_when_started
-    errors.add(:nonogram, 'game is started without a nonogram') if started? && nonogram.blank?
   end
 end

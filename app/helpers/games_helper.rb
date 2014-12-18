@@ -24,8 +24,7 @@ module GamesHelper
   end
 
   def minutes_and_seconds(total_seconds)
-    minutes, seconds = total_seconds.divmod(60)
-    seconds = seconds.round
+    minutes, seconds = total_seconds.round.divmod(60)
 
     output = []
     output << pluralize(minutes, "minute") if minutes > 0

@@ -1,4 +1,4 @@
-class StartGameService
+class StartGame
   def initialize(game:, size:)
     @game = game
     @size = size
