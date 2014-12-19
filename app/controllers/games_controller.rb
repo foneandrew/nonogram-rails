@@ -9,8 +9,10 @@ class GamesController < ApplicationController
 
     case
     when @game.completed? then render :game_over
-    when @game.started?   then render @player ? :game_play : :game_started_not_joined
-    else                       render :game_lobby
+    when @game.started?
+      @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
+      render @player ? :game_play : :game_started_not_joined
+    else render :game_lobby
     end
   end
 

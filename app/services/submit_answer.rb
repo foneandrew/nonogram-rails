@@ -9,7 +9,7 @@ class SubmitAnswer
     answer = FormatAnswer.new(cells: @cells, size: @game.nonogram.size).call
     
     @game.with_lock do
-      @game.reload
+      # @game.reload (not needed - transactions auto lock)
 
       if @game.completed?
         @player.won = false

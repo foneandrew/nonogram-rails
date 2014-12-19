@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, :type => :controller do
-  fixtures :games, :users, :players
+  fixtures :games, :users, :players, :nonograms
 
   let(:user) { users(:user_1)}
 
@@ -55,6 +55,17 @@ RSpec.describe GamesController, :type => :controller do
 
       context 'when the game is started but not finshed' do
         let(:game) { games(:started) }
+        let(:grid) { instance_double(Grid) }
+
+        before do
+          allow(Grid).to receive(:decode).and_return(grid)
+        end
+
+        it 'assigns @grid' do
+          expect(Grid).to receive(:decode).with(nonogram_data: game.nonogram.solution).and_return(grid)
+          get :show, :id => game.id
+          expect(assigns(:grid)).to eq grid
+        end
 
         it 'renders game_play' do
           get :show, :id => game.id

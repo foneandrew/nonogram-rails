@@ -9,12 +9,12 @@ module GamesHelper
     end
   end
 
-  def row_clue(nonogram:, index:)
-    nonogram.row_clues[index].join(' ')
+  def row_clue(grid:, index:)
+    grid.rows[index].clue.join(' ')
   end
 
-  def column_clue(nonogram:, index:)
-    nonogram.column_clues[index].join(' ')
+  def column_clue(grid:, index:)
+    grid.columns[index].clue.join(' ')
   end
 
   private

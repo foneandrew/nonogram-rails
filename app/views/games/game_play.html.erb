@@ -6,7 +6,7 @@
       <td></td>
       <% @game.nonogram.size.times do |top_of_column| %>
         <td>
-          <%= content_tag :div, column_clue(nonogram: @game.nonogram, index: top_of_column), class: 'column_clue' %>
+          <%= content_tag :div, column_clue(grid: @grid, index: top_of_column), class: 'column_clue' %>
         </td>
       <% end %>
     <td>
@@ -14,7 +14,7 @@
     <% @game.nonogram.size.times do |row| %>
       <tr>
         <% @game.nonogram.size.times do |column| %>
-          <%= content_tag :td, row_clue(nonogram: @game.nonogram, index: row) if column == 0 %>
+          <%= content_tag :td, row_clue(grid: @grid, index: row) if column == 0 %>
 
           <td>
             <%= check_box_tag("cells[#{row}][#{column}]") %>

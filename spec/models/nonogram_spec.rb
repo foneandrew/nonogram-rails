@@ -119,40 +119,4 @@ RSpec.describe Nonogram, :type => :model do
       end
     end
   end
-
-  describe '#row_clues' do
-    let(:nonogram) { nonograms(:nonogram_size_5) }
-    #nonogram stored in nonogram_size_5:
-    #1 1 1 0 0
-    #1 1 0 0 0
-    #1 0 1 0 0
-    #1 1 0 1 0
-    #1 1 1 0 0
-
-    context 'for a given row' do
-      let(:correct_clues) { [[3], [2], [1,1], [2,1], [3]] }
-
-      it 'returns an accurate clue' do
-        expect(nonogram.row_clues).to eq correct_clues
-      end
-    end
-  end
-
-  describe '#column_clues' do
-    let(:nonogram) { nonograms(:nonogram_size_5) }
-    #nonogram stored in nonogram_size_5:
-    #1 1 1 0 0
-    #1 1 0 0 0
-    #1 0 1 0 0
-    #1 1 0 1 0
-    #1 1 1 0 0
-
-    context 'for a given column' do
-      let(:correct_clues) { [[5], [2,2], [1,1,1], [1], []] }
-
-      it 'returns an accurate clue' do
-        expect(nonogram.column_clues).to eq correct_clues
-      end
-    end
-  end
 end
