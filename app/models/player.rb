@@ -10,7 +10,4 @@ class Player < ActiveRecord::Base
   belongs_to :game
 
   validates :user, :game, presence: true
-  
-  # index on won to find winner faster??
-  # change name of answer??
 end

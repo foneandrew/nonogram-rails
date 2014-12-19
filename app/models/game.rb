@@ -11,6 +11,8 @@ class Game < ActiveRecord::Base
 
   validates   :nonogram, presence: true, if: :started?
 
+
+
   def ready_to_play?
     # if just display logic move into helper
     players.length >= MIN_PLAYERS unless started?

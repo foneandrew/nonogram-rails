@@ -18,7 +18,6 @@ class Nonogram < ActiveRecord::Base
   private
 
   def size_matches_solution
-    # why size presnet?
     if size.present? && solution.present? && size ** 2 != solution.length
       errors.add(:size, 'does not match given solution')
     end
