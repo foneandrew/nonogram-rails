@@ -33,6 +33,18 @@ RSpec.describe Game, :type => :model do
     end
   end
 
+  describe '#completed' do
+    it 'gives the games that are finished'
+  end
+
+  describe '#completed_with' do
+    it 'gives the games that are finished with a certain nonogram'
+  end
+
+  describe '#fastest_game' do
+    it 'gives the fastest finshed game for a given nonogram'
+  end
+
   describe '#ready_to_play' do
     let (:game) { games(:game_1) }
 
