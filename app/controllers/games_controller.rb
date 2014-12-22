@@ -7,12 +7,18 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @player = @game.players.find_by(user: current_user)
 
-    case
-    when @game.completed? then render :game_over
-    when @game.started?
-      @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
-      render @player ? :game_play : :game_started_not_joined
-    else render :game_lobby
+    respond_to do |format|
+      format.json { render json: @game }
+      
+      format.html do
+        case
+        when @game.completed? then render :game_over
+        when @game.started?
+          @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
+          render @player ? :game_play : :game_started_not_joined
+        else render :game_lobby
+        end
+      end
     end
   end
 

@@ -18,6 +18,10 @@ RSpec.describe GamesHelper, :type => :helper do
     it 'i have no idea ow to test this'
   end
 
+  context '#top_players' do
+    it 'i have no idea how to test this either'
+  end
+
   context '#row_clue' do
     context 'when given a nonogram and an index' do
       let(:correct_clues) { ['3', '2', '1 1', '2 1', '3'] }
@@ -30,7 +34,7 @@ RSpec.describe GamesHelper, :type => :helper do
       #1 1 0 1 0
       #1 1 1 0 0
 
-      it 'retruns the clue for that row' do
+      it 'returns the clue for that row' do
         5.times do |index|
           expect(helper.row_clue(grid: grid, index: index)).to eq correct_clues[index]
         end

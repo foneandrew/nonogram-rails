@@ -1,5 +1,7 @@
 <h2> <%= @game.nonogram.name %> </h2>
 
+<template id="game" data-game-id="<%= @game.id %>"></template>
+
 [puzz image goeth here]
 
 <h4><%= game_finished_message(@game) %></h4>
