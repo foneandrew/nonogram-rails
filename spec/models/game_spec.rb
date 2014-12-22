@@ -34,15 +34,19 @@ RSpec.describe Game, :type => :model do
   end
 
   describe '#completed' do
-    it 'gives the games that are finished'
-  end
+    let(:completed_games) { Game.completed }
 
-  describe '#completed_with' do
-    it 'gives the games that are finished with a certain nonogram'
-  end
+    it 'gives the games that are finished' do
+      expect(completed_games.include?(games(:finished))).to be_truthy
+      expect(completed_games.include?(games(:game_player_1_lost))).to be_truthy
+      expect(completed_games.include?(games(:game_player_1_won))).to be_truthy
+    end
 
-  describe '#fastest_game' do
-    it 'gives the fastest finshed game for a given nonogram'
+    it 'does not give the games that are not yet finished' do
+      expect(completed_games.include?(games(:new_game))).to be_falsey
+      expect(completed_games.include?(games(:started))).to be_falsey
+      expect(completed_games.include?(games(:game_ready_to_play))).to be_falsey
+    end
   end
 
   describe '#ready_to_play' do

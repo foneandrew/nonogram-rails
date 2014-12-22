@@ -10,4 +10,6 @@ class Player < ActiveRecord::Base
   belongs_to :game
 
   validates :user, :game, presence: true
+
+  scope     :winners, -> { where(won: true) }
 end

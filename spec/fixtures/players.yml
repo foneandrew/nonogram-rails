@@ -32,10 +32,6 @@ player_lost:
   game: game_player_1_lost
   won:  false
 
-player_nil:
-  user: nil
-  game: nil
-
 player_still_playing_finshed_game:
   user: user_1
   game: finished

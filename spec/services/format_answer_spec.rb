@@ -20,7 +20,7 @@ RSpec.describe FormatAnswer, :type => :service do
     #1 1 0 1 0
     #1 1 1 0 0
 
-    it 'will convert a hash of cells to a string' do
+    it 'will convert a hash of cells to the formatted string' do
       format_answer = FormatAnswer.new(cells: cells, size: 5)
       expect(format_answer.call).to eq solution
     end

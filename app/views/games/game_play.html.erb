@@ -1,29 +1,5 @@
 <h1> <%= @game.nonogram.name %> </h1>
 
-<%= form_tag [@game, Player.new], method: :put do %>
-  <table>
-    <tr>
-      <td></td>
-      <% @game.nonogram.size.times do |top_of_column| %>
-        <td>
-          <%= content_tag :div, column_clue(grid: @grid, index: top_of_column), class: 'column_clue' %>
-        </td>
-      <% end %>
-    <td>
-
-    <% @game.nonogram.size.times do |row| %>
-      <tr>
-        <% @game.nonogram.size.times do |column| %>
-          <%= content_tag :td, row_clue(grid: @grid, index: row) if column == 0 %>
-
-          <td>
-            <%= check_box_tag("cells[#{row}][#{column}]") %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-  <%= submit_tag "check" %>
-<% end %>
+<%= render 'nonogram_input' %>
 
 <%= render 'back_to_index' %>

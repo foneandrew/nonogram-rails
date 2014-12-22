@@ -1,21 +1,21 @@
 new_game:
-  time_started:  nil
-  time_finished: nil
-  nonogram:      nil
+  time_started:  
+  time_finished: 
+  nonogram:      
 
 game_1:
-  nonogram:      nil
-  time_started:  nil
-  time_finished: nil
+  nonogram:      
+  time_started:  
+  time_finished: 
 
 game_ready_to_play:
-  time_started:  nil
-  time_finished: nil
-  nonogram:      nil
+  time_started:  
+  time_finished: 
+  nonogram:      
 
 not_started:
-  time_started: nil
-  nonogram:     nil
+  time_started: 
+  nonogram:     
 
 started:
   time_started: <%= Time.now %>
@@ -27,9 +27,9 @@ finished:
   nonogram:      nonogram_size_5
 
 empty_game:
-  time_started:  nil
-  time_finished: nil
-  nonogram:      nil
+  time_started:  
+  time_finished: 
+  nonogram:      
 
 game_player_1_lost:
   time_started:  <%= Time.now %>

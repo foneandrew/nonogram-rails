@@ -17,10 +17,24 @@ module GamesHelper
     grid.columns[index].clue.join(' ')
   end
 
-  private
+  def top_players(nonogram: nonogram)
+    top_fastest_players(3, nonogram).map do |name, time|
+      "#{name} in #{minutes_and_seconds(time)}"
+    end
+  end
 
   def game_finished_message(game)
     "Won by #{game.players.find_by(won: true).user.name} in #{minutes_and_seconds(game.seconds_taken_to_complete)}"
+  end
+
+  private
+
+  def top_fastest_players(num_players, nonogram)
+    nonogram.games.completed.sort_by do |game|
+      game.seconds_taken_to_complete
+    end.first(num_players).map do |game|
+      [game.players.find_by(won: true).user.name, game.seconds_taken_to_complete]
+    end
   end
 
   def minutes_and_seconds(total_seconds)

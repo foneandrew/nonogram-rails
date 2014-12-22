@@ -1,0 +1,11 @@
+<div>
+<h5>Top 3 players for this puzzle:</h5>
+
+  <ul>
+    <% top_players(nonogram: @game.nonogram).each do |player_and_time| %>
+      <li>
+        <%= player_and_time %>
+      </li>
+    <% end %>
+  </ul>
+</div>

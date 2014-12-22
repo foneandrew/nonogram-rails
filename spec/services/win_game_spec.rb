@@ -6,7 +6,7 @@ RSpec.describe WinGame, :type => :service do
   describe '#call' do
     context 'when the game is not finshed' do
       let(:game) { games(:started) }
-      #nonogram stored started's nonogram's solution:
+      #started's nonogram's solution:
         #1 1 1 0 0
         #1 1 0 0 0
         #1 0 1 0 0

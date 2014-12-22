@@ -42,8 +42,12 @@ RSpec.describe PlayersController, :type => :controller do
     end
 
     context 'if the player was unable to be saved' do
+      let(:nil_player) { players(:player_4) }
+
       before do
-        expect(Player).to receive(:new).and_return(players(:player_nil))
+        nil_player.user_id = nil
+        nil_player.game_id = nil
+        expect(Player).to receive(:new).and_return(nil_player)
       end
 
       it 'sets a flash alert' do
