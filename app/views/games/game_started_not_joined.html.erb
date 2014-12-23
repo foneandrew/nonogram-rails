@@ -2,10 +2,6 @@
 
 You are not a player in this game, Maybe you can start your own?
 
-<div>
-  <%= form_for Game.new do |f| %>
-    <%= f.submit "New Game" %>
-  <% end %>
-</div>
+<%= render 'new_game_form' %>
 
 <%= render 'back_to_index' %>

@@ -10,9 +10,9 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe 'GET index' do
-    it 'assigns @games' do
+    it 'assigns @games to be the incomplete games' do
       get :index
-      expect(assigns(:games)).to eq Game.all.reverse
+      expect(assigns(:games)).to eq Game.not_completed.reverse
     end
 
     it 'renders the index page' do

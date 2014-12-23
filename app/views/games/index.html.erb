@@ -2,20 +2,6 @@
 
 <h2> Games </h2>
 
-<div>
-  <%= form_for Game.new do |f| %>
-    <%= f.submit "New Game" %>
-  <% end %>
-</div>
+<%= render 'new_game_form' %>
 
-<div>
-  <ul>
-    <% @games.each do |game| %>
-      <li>
-        <%= link_to stage_message(game: game), game %>
-      </li>
-    <% end %>
-  </ul>
-</div>
-
-<input id="test" type="button" value="test" onclick="fuck();" />
+<div id='games_list'><%= render 'game_list' %></div>

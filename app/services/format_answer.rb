@@ -15,6 +15,8 @@ class FormatAnswer
   private
 
   def cell(row, col)
-    @cells.fetch(row.to_s, {})[col.to_s]
+    if @cells
+      @cells.fetch(row.to_s, {})[col.to_s]
+    end
   end
 end

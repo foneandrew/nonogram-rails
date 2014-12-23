@@ -24,5 +24,17 @@ RSpec.describe FormatAnswer, :type => :service do
       format_answer = FormatAnswer.new(cells: cells, size: 5)
       expect(format_answer.call).to eq solution
     end
+
+    context 'when cells are empty (nil)' do
+      let(:format_answer) { FormatAnswer.new(cells: nil, size: 5) }
+      let(:formatted_answer) { format_answer.call }
+
+      it 'returns string full of zeros (does not explode)' do
+        format_answer = FormatAnswer.new(cells: nil, size: 5)
+        formatted_answer = format_answer.call
+        expect(formatted_answer.length).to eq solution.length
+        expect(formatted_answer).to match /\A0+\z/
+      end
+    end
   end
 end

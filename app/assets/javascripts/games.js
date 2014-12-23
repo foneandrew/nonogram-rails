@@ -1,42 +1,62 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-var state
+var game_state
 
 $(function (){
   //this happens on page load
   if ($('#game').length) {
-    console.log("On a game page");
     poll(2000);
   } else if (($('#games').length)) {
-    console.log("On the index page")
-  } else {
-    console.log("Not on a game page")
+    refreshGamesList(5000);
   }
 });
 
-var poll = function(timeout){
-  var id = $('#game').attr('data-game-id');
+var refreshGamesList = function(timeout){
+  // this works!!
+  // $.get("games.js",function(data){
+  //   $("#games_list").html(data);
+  // });
 
-  var promise = $.getJSON(Routes.game_path(id));
+  $.ajax({
+    type : 'GET',
+    url : '',
+    accepts: 'script',
+    dataType: 'html',
+    success : function(data){
+      $('#games_list').html(data);
+    },
+    error : function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log(textStatus + ": " + errorThrown)
+    }
+  });
+
+  setTimeout(function() {
+    refreshGamesList(timeout);
+  }, timeout);
+};
+
+var poll = function(timeout){
+  var promise = $.getJSON("");
   
   promise.done(function(json) {
-    if (state) {
-      console.log("original: " + state);
-      console.log("new: " + JSON.stringify(json.game));
-      var compare = state.localeCompare(JSON.stringify(json.game));
-      console.log("compared: " + compare);
+    if (game_state) {
+      var compare = game_state.game.status.localeCompare(json.game.status);
+
       if (compare) {
-        console.log("CHANGE!!")
-        window.location.reload(true);
+        if ($('#player_answer').length) {
+          $('#player_answer').submit();
+        } else {
+          window.location.reload(true);
+        }
       }
     }
 
-    state = JSON.stringify(json.game);
+    game_state = json;
   });
 
   promise.always(function() {
     setTimeout(function() {
-      poll(timeout)
+      poll(timeout);
     }, timeout);
   });
 };

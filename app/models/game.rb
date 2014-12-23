@@ -11,6 +11,7 @@ class Game < ActiveRecord::Base
 
   validates   :nonogram, presence: true, if: :started?
 
+  scope       :not_completed, -> { where(time_finished: nil) }
   scope       :completed, -> { where.not(time_finished: nil) }
 
   def self.finished(nonogram)

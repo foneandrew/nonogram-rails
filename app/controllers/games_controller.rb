@@ -1,6 +1,11 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all.reverse
+    @games = Game.not_completed.reverse
+    
+    respond_to do |format|
+      format.js   { render :partial => 'game_list', :content_type => 'text/html' }
+      format.html { render :index }
+    end
   end
 
   def show
