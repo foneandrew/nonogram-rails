@@ -6,13 +6,36 @@ $(function (){
   //this happens on page load
   if ($('#game').length) {
     poll(2000);
+
+    if ($('#nonogram').length) {
+      // var cells = document.getElementsByClassName("cell")
+      
+      // for(var i=0; i < cells.length; i++){
+      //   cells[i].addEventListener('click', click_tile, false);
+      // } 
+
+      $('.cell').click(click_tile);
+    }
   } else if (($('#games').length)) {
     refreshGamesList(5000);
   }
 });
 
+var click_tile = function() {
+  // alert(this.id);
+  // $(this).css( "border", "3px solid red" );
+
+  if ($(this).hasClass('blank')) {
+    $(this).removeClass('blank');
+    $(this).addClass('filled');
+  } else if ($(this).hasClass('filled')) {
+    $(this).removeClass('filled');
+    $(this).addClass('blank');
+  }
+};
+
 var refreshGamesList = function(timeout){
-  // this works!!
+  // this works!?
   // $.get("games.js",function(data){
   //   $("#games_list").html(data);
   // });

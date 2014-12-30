@@ -1,20 +1,22 @@
 <%= form_tag [@game, Player.new], :id => 'player_answer', method: :put do %>
-  <table id="nonogram" align="center" >
+  <table align="center">
     <tr>
-      <th></th>
+      <td></td>
       <% @game.nonogram.size.times do |top_of_column| %>
-        <th>
+        <td>
           <%= content_tag :div, column_clue(grid: @grid, index: top_of_column), class: 'column_clue' %>
-        </th>
+        </td>
       <% end %>
-    </tr>
+    <td>
 
     <% @game.nonogram.size.times do |row| %>
       <tr>
         <% @game.nonogram.size.times do |column| %>
-          <%= content_tag :th, row_clue(grid: @grid, index: row) if column == 0 %>
+          <%= content_tag :td, row_clue(grid: @grid, index: row) if column == 0 %>
 
-            <%= content_tag(:td, '', class: 'cell blank', id: "cells[#{row}][#{column}]") %>
+          <td>
+            <%= check_box_tag("cells[#{row}][#{column}]") %>
+          </td>
         <% end %>
       </tr>
     <% end %>

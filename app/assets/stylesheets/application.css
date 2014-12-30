@@ -26,6 +26,24 @@ ul {
   font-weight: bold;
 }
 
+#nonogram {
+  border-collapse: collapse;
+}
+
+.cell {
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.blank {
+  background-color: white;
+}
+
+.filled {
+  background-color: black;
+}
+
 .pad-out {
   padding: 10px;
 }
