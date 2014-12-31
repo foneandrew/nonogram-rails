@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   def index
     @games = Game.not_completed.reverse
     
-    respond_to do |format|
+    respond_to do |format|t
       format.js   { render :partial => 'game_list', :content_type => 'text/html' }
       format.html { render :index }
     end
@@ -20,6 +20,10 @@ class GamesController < ApplicationController
         when @game.completed? then render :game_over
         when @game.started?
           @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
+          @rows = @grid.rows
+          @columns = @grid.columns
+          @clue_length = max_clue_length
+
           render @player ? :game_play : :game_started_not_joined
         else render :game_lobby
         end
@@ -43,5 +47,13 @@ class GamesController < ApplicationController
     start_game = StartGame.new(game: game, size: params[:size])
     flash.alert = "was not able to start the game" unless start_game.call
     redirect_to game
+  end
+
+  private
+
+  def max_clue_length
+    (@rows + @columns).map do |line|
+      line.clue.length
+    end.max
   end
 end

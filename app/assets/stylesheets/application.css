@@ -28,20 +28,39 @@ ul {
 
 #nonogram {
   border-collapse: collapse;
-}
-
-.cell {
-  border-color: black;
   border-width: 1px;
   border-style: solid;
 }
 
+.column-clue {
+  background-color: #f2f2f2;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.row-clue {
+  background-color: #f2f2f2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell {
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+}
+
 .blank {
   background-color: white;
+  border
 }
 
 .filled {
   background-color: black;
+}
+
+.crossed {
+  background-color: #cccccc;
 }
 
 .pad-out {

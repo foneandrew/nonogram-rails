@@ -8,11 +8,7 @@ $(function (){
     poll(2000);
 
     if ($('#nonogram').length) {
-      // var cells = document.getElementsByClassName("cell")
-      
-      // for(var i=0; i < cells.length; i++){
-      //   cells[i].addEventListener('click', click_tile, false);
-      // } 
+      $('.cell').bind('contextmenu', right_click_tile); 
 
       $('.cell').click(click_tile);
     }
@@ -25,13 +21,26 @@ var click_tile = function() {
   // alert(this.id);
   // $(this).css( "border", "3px solid red" );
 
-  if ($(this).hasClass('blank')) {
-    $(this).removeClass('blank');
-    $(this).addClass('filled');
-  } else if ($(this).hasClass('filled')) {
+  if ($(this).hasClass('filled')) {
     $(this).removeClass('filled');
     $(this).addClass('blank');
+  } else {
+    $(this).removeClass('blank');
+    $(this).removeClass('crossed');
+    $(this).addClass('filled');
   }
+};
+
+var right_click_tile = function() {
+  if ($(this).hasClass('crossed')) {
+    $(this).removeClass('crossed');
+    $(this).addClass('blank');
+  } else {
+    $(this).removeClass('blank');
+    $(this).removeClass('filled');
+    $(this).addClass('crossed');
+  }
+  return false;
 };
 
 var refreshGamesList = function(timeout){

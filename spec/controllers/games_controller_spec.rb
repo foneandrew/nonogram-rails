@@ -56,15 +56,37 @@ RSpec.describe GamesController, :type => :controller do
       context 'when the game is started but not finshed' do
         let(:game) { games(:started) }
         let(:grid) { instance_double(Grid) }
+        let(:rows) { [Line.new([:filled, :filled, :filled , :filled]), Line.new([:blank, :blank, :blank , :blank])] }
+        let(:columns) { [Line.new([:blank, :filled, :blank , :filled]), Line.new([:blank, :blank, :blank , :blank])] }
+        let(:max_clue_length) { 2 }
 
         before do
           allow(Grid).to receive(:decode).and_return(grid)
+          allow(grid).to receive(:rows).and_return(rows)
+          allow(grid).to receive(:columns).and_return(columns)
         end
 
         it 'assigns @grid' do
           expect(Grid).to receive(:decode).with(nonogram_data: game.nonogram.solution).and_return(grid)
           get :show, :id => game.id
           expect(assigns(:grid)).to eq grid
+        end
+
+        it 'assigns @rows' do
+          expect(grid).to receive(:rows).and_return(rows)
+          get :show, :id => game.id
+          expect(assigns(:rows)).to eq rows
+        end
+
+        it 'assigns @columns' do
+          expect(grid).to receive(:columns).and_return(columns)
+          get :show, :id => game.id
+          expect(assigns(:columns)).to eq columns
+        end
+
+        it 'assigns @clue_length' do
+          get :show, :id => game.id
+          expect(assigns(:clue_length)).to eq max_clue_length
         end
 
         it 'renders game_play' do

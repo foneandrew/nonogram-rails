@@ -9,6 +9,12 @@ module GamesHelper
     end
   end
 
+  def max_clue_legnth
+    (grid.rows + grid.columns).map do |clue|
+      clue.length
+    end.max
+  end
+
   def row_clue(grid:, index:)
     grid.rows[index].clue.join(' ')
   end
