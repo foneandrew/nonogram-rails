@@ -43,8 +43,10 @@ module GamesHelper
     nonogram.games.completed.sort_by do |game|
       game.seconds_taken_to_complete
     end.first(num_players).map do |game|
-      [game.players.find_by(won: true).user.name, game.seconds_taken_to_complete]
-    end
+      if winner = game.players.find_by(won: true)
+        [winner.user.name, game.seconds_taken_to_complete]
+      end
+    end.reject(&:blank?)
   end
 
   def minutes_and_seconds(total_seconds)

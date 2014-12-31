@@ -9,19 +9,55 @@ $(function (){
     poll(2000);
 
     if ($('#nonogram').length) {
-      $('.cell').bind('contextmenu', function() { return false; }); 
+      $('.game-cell').bind('contextmenu', function() { return false; }); 
 
       paint = '';
       update_cells();
 
-      $('.cell').mousedown(set_paint);
-      $('.cell').mouseover(paint_tile);
+      $('.game-cell').mousedown(set_paint);
+      $('.game-cell').mouseenter(select_tile);
+      $('.game-cell').mouseleave(deselect_tile)
+      // $('.game-cell').mouseover(paint_tile);
       $(document).mouseup(clear_paint_and_update);
     }
   } else if (($('#games').length)) {
     refreshGamesList(5000);
   }
 });
+
+var select_tile = function() {
+  highlight_row(this, true);
+  highlight_column(this, true);
+  paint_tile(this);
+};
+
+var deselect_tile = function() {
+  highlight_row(this, false);
+  highlight_column(this, false);
+};
+
+var highlight_row = function(cell, highlight) {
+  var row = $(cell).closest('tr');
+
+  if (highlight) {
+    row.addClass('highlight-clue');
+  } else {
+    row.removeClass('highlight-clue');
+  }
+}
+
+var highlight_column = function(cell, highlight) {
+  var index = $(cell).index();
+
+  var column = $(cell).closest('table')
+      .find('tr th:nth-child(' + (index + 1) + ')');
+
+  if (highlight) {
+    column.addClass('highlight-clue');
+  } else {
+    column.removeClass('highlight-clue');
+  }
+}
 
 var set_paint = function() {
   if (event.which == 1) {
@@ -44,9 +80,9 @@ var set_paint = function() {
   return false;
 };
 
-var paint_tile = function() {
+var paint_tile = function(cell) {
   if (paint.length) {
-    set_tile(this, paint)
+    set_tile(cell, paint)
   }
 };
 
