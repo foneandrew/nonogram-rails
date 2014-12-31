@@ -2,8 +2,11 @@ class GamesController < ApplicationController
   def index
     @games = Game.not_completed.reverse
     
-    respond_to do |format|t
-      format.js   { render :partial => 'game_list', :content_type => 'text/html' }
+    respond_to do |format|
+      format.js   do
+        response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+        render :partial => 'game_list', :content_type => 'text/html'
+      end
       format.html { render :index }
     end
   end
@@ -13,8 +16,6 @@ class GamesController < ApplicationController
     @player = @game.players.find_by(user: current_user)
 
     respond_to do |format|
-      format.json { render json: @game }
-      
       format.html do
         case
         when @game.completed? then render :game_over
@@ -27,6 +28,11 @@ class GamesController < ApplicationController
           render @player ? :game_play : :game_started_not_joined
         else render :game_lobby
         end
+      end
+
+      format.json do
+        response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+        render json: @game
       end
     end
   end

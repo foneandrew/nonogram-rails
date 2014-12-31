@@ -1,4 +1,7 @@
 <%= form_tag [@game, Player.new], :id => 'player_answer', method: :put do %>
+  <!-- hidden field for the javascript to store the cell data -->
+  <%= hidden_field_tag 'cells' %>
+
   <table id="nonogram" align="center" >
     
     <!-- display the column clues -->
@@ -33,14 +36,14 @@
 
             <% @clue_length.times do |clue_number| %>
               <% if row_clue.length == @clue_length - clue_number %>
-                <%= content_tag :th, row_clue.shift, class: 'row-clue' %>
+                <%= content_tag :th, " #{row_clue.shift}", class: 'row-clue' %>
               <% else %>
                 <%= content_tag(:th, '', class: 'row-clue') %>
               <% end %>
             <% end %>
           <% end %>
 
-          <%= content_tag(:td, '', class: 'cell blank', id: "cells[#{row}][#{column}]") %>
+          <%= content_tag(:td, '', class: 'cell game-cell blank', id: "#{row},#{column}") %>
         <% end %>
       </tr>
     <% end %>

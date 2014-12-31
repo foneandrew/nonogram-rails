@@ -1,6 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 var game_state
+var paint
 
 $(function (){
   //this happens on page load
@@ -8,19 +9,70 @@ $(function (){
     poll(2000);
 
     if ($('#nonogram').length) {
-      $('.cell').bind('contextmenu', right_click_tile); 
+      $('.cell').bind('contextmenu', function() { return false; }); 
 
-      $('.cell').click(click_tile);
+      paint = '';
+      update_cells();
+
+      $('.cell').mousedown(set_paint);
+      $('.cell').mouseover(paint_tile);
+      $(document).mouseup(clear_paint_and_update);
     }
   } else if (($('#games').length)) {
     refreshGamesList(5000);
   }
 });
 
-var click_tile = function() {
-  // alert(this.id);
-  // $(this).css( "border", "3px solid red" );
+var set_paint = function() {
+  if (event.which == 1) {
+    // left mouse button
+    if ($(this).hasClass('filled')) {
+      paint = 'blank';
+    } else {
+      paint = 'filled';
+    }
+    set_tile(this, paint);
+  } else if (event.which == 3) {
+    // right mouse button
+    if ($(this).hasClass('crossed')) {
+      paint = 'blank';
+    } else {
+      paint = 'crossed';
+    }
+    set_tile(this, paint);
+  }
+  return false;
+};
 
+var paint_tile = function() {
+  if (paint.length) {
+    set_tile(this, paint)
+  }
+};
+
+var set_tile = function(tile, paint) {
+  $(tile).removeClass('filled');
+  $(tile).removeClass('blank');
+  $(tile).removeClass('crossed');
+  $(tile).addClass(paint);
+}
+
+var clear_paint_and_update = function() {
+  paint = '';
+  update_cells();
+};
+
+var update_cells = function() {
+  $('#cells').val(format_cell_data());
+};
+
+var format_cell_data = function() {
+  var map = Array.prototype.map;
+  var formatted_data = map.call($('.filled'), function(cell) { return cell.id });
+  return JSON.stringify(formatted_data);
+}
+
+var click_tile = function() {
   if ($(this).hasClass('filled')) {
     $(this).removeClass('filled');
     $(this).addClass('blank');
@@ -31,20 +83,7 @@ var click_tile = function() {
   }
 };
 
-var right_click_tile = function() {
-  if ($(this).hasClass('crossed')) {
-    $(this).removeClass('crossed');
-    $(this).addClass('blank');
-  } else {
-    $(this).removeClass('blank');
-    $(this).removeClass('filled');
-    $(this).addClass('crossed');
-  }
-  return false;
-};
-
 var refreshGamesList = function(timeout){
-  // this works!?
   // $.get("games.js",function(data){
   //   $("#games_list").html(data);
   // });
@@ -76,6 +115,7 @@ var poll = function(timeout){
 
       if (compare) {
         if ($('#player_answer').length) {
+          update_cells();
           $('#player_answer').submit();
         } else {
           window.location.reload(true);

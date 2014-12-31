@@ -30,7 +30,11 @@ module GamesHelper
   end
 
   def game_finished_message(game)
-    "Won by #{game.players.find_by(won: true).user.name} in #{minutes_and_seconds(game.seconds_taken_to_complete)}"
+    if winner = game.players.find_by(won: true)
+      "Won by #{winner.user.name} in #{minutes_and_seconds(game.seconds_taken_to_complete)}"
+    else
+      "Could not find the winner for this game"
+    end
   end
 
   private
