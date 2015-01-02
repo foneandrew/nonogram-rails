@@ -1,0 +1,63 @@
+<%= form_tag [@game, Player.new], :id => 'player_answer', method: :put do %>
+  <!-- hidden field for the javascript to store the cell data -->
+  <%= hidden_field_tag 'cells' %>
+
+  <table id="nonogram" align="center" >
+    
+    <!-- display the column clues -->
+    <% column_clues = @columns.map { |column| column.clue } %>
+    
+    <% @clue_length.times do |clue_number| %>
+      <tr>
+        <!-- add blank headers to account for the row clues -->
+        <% @clue_length.times do %>
+          <%= content_tag(:th, '', class: 'cell') %>
+        <% end %>
+
+        <!-- draw the column clues (padding with blank header cells to ensure clues sit close to the grid) -->
+        <% @game.nonogram.size.times do |column_num| %>
+          <% if column_clues[column_num].length == @clue_length - clue_number %>
+            <%= content_tag :th, column_clues[column_num].shift, class: 'cell column-clue' %>
+          <% else %>
+            <%= content_tag(:th, '', class: 'cell column-clue') %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+
+    <!-- draw the row clues and the board -->
+    <% @game.nonogram.size.times do |row| %>
+      <tr>
+        <% @game.nonogram.size.times do |column| %>
+
+          <!-- have to do the clues for each row first -->
+          <% if column == 0 %>
+            <% row_clue = @rows[row].clue %>
+
+            <% @clue_length.times do |clue_number| %>
+              <% if row_clue.length == @clue_length - clue_number %>
+                <%= content_tag :th, " #{row_clue.shift}", class: 'cell row-clue' %>
+              <% else %>
+                <%= content_tag(:th, '', class: 'cell row-clue') %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <!-- apply thicker borders on groups of 5 cells -->
+          <% if row % 5 == 0 %>
+            <% if column % 5 == 0 %>
+              <%= content_tag(:td, '', class: 'cell game-cell top-border left-border blank', id: "#{row},#{column}") %>
+            <% else %>
+              <%= content_tag(:td, '', class: 'cell game-cell top-border blank', id: "#{row},#{column}") %>
+            <% end %>
+          <% elsif column % 5 == 0 %>
+            <%= content_tag(:td, '', class: 'cell game-cell left-border blank', id: "#{row},#{column}") %>
+          <% else %>
+            <%= content_tag(:td, '', class: 'cell game-cell blank', id: "#{row},#{column}") %>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <%= submit_tag "check" %>
+<% end %>

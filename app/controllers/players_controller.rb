@@ -10,9 +10,13 @@ class PlayersController < ApplicationController
   def update
     game = Game.find(params[:game_id])
     player = game.players.find_by(user: current_user)
-    cells = params[:cells]
+    # cells = params[:cells]
+    answer = FormatAnswer.new(cells: params[:cells], size: game.nonogram.size).call
 
-    attempt_to_end_game(game, player, cells)
+    attempt_to_end_game(game, player, answer)
+
+    session[:player] = player.id
+    session[:player_answer] = answer
 
     redirect_to game
   end
@@ -33,10 +37,10 @@ class PlayersController < ApplicationController
     end
   end
 
-  def attempt_to_end_game(game, player, cells)
-    end_game_service = SubmitAnswer.new(game: game, player: player, cells: cells)
+  def attempt_to_end_game(game, player, answer)
+    submit_answer = SubmitAnswer.new(game: game, player: player, answer: answer)
 
-    flash.notice = if !end_game_service.call
+    flash.notice = if !submit_answer.call
       "That's not the correct answer"
     elsif player.won?
       "You won!"

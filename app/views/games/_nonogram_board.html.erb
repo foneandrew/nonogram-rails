@@ -1,0 +1,3 @@
+<%= form_tag [@game, Player.new], :id => 'player_answer', method: :put do %>
+  <%= render partial: 'nonogram_input', locals: {nonogram: @player_answer} %>
+<% end %>

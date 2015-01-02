@@ -1,0 +1,2 @@
+module NonogramsHelper
+end

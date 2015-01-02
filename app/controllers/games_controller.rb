@@ -25,7 +25,17 @@ class GamesController < ApplicationController
           @columns = @grid.columns
           @clue_length = max_clue_length
 
-          render @player ? :game_play : :game_started_not_joined
+          if @player.present?
+            if session[:player] == @player.id && session[:player_answer].present?
+              # pass session[:player_answer] to the partial
+              @player_answer = Grid.decode(nonogram_data: session[:player_answer])
+              render :game_play
+            else
+              render :game_play
+            end
+          else
+            render :game_started_not_joined
+          end
         else render :game_lobby
         end
       end

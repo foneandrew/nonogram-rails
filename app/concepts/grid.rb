@@ -5,7 +5,6 @@ class Grid
     @data = data
   end
 
-# from data? from ...?
   def self.decode(nonogram_data:)
     data = nonogram_data.chars.map do |tile|
       tile == '0' ? :blank : :filled

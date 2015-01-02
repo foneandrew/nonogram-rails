@@ -37,6 +37,19 @@ module GamesHelper
     end
   end
 
+  def cell_class(row:, column:, nonogram:)
+    css_class = 'cell game-cell'
+
+    css_class << ' top-border' if row % 5 == 0
+    css_class << ' left-border' if column % 5 == 0
+
+    if nonogram.present? && nonogram.data[row][column] == :filled
+      css_class << ' filled'
+    else
+      css_class << ' blank'
+    end
+  end
+
   private
 
   def top_fastest_players(num_players, nonogram)
