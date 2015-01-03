@@ -18,24 +18,12 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html do
         case
-        when @game.completed? then render :game_over
+        when @game.completed?
+          @solution = Grid.decode(nonogram_data: @game.nonogram.solution)
+          @player_answers = player_answers
+          render :game_over
         when @game.started?
-          @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
-          @rows = @grid.rows
-          @columns = @grid.columns
-          @clue_length = max_clue_length
-
-          if @player.present?
-            if session[:player] == @player.id && session[:player_answer].present?
-              # pass session[:player_answer] to the partial
-              @player_answer = Grid.decode(nonogram_data: session[:player_answer])
-              render :game_play
-            else
-              render :game_play
-            end
-          else
-            render :game_started_not_joined
-          end
+          display_game_in_progress
         else render :game_lobby
         end
       end
@@ -66,6 +54,39 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def player_answers
+    answers = {}
+
+    @game.players.each do |player|
+      if player.answer?
+        if player.won == false
+          answers[player.user.name] = Grid.decode(nonogram_data: player.answer)
+        end
+      else
+        answers[player.user.name] = nil
+      end
+    end
+
+    answers
+  end
+
+  def display_game_in_progress
+    @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
+    @rows = @grid.rows
+    @columns = @grid.columns
+    @clue_length = max_clue_length
+
+    if @player.present?
+      if session[:player] == @player.id && session[:player_answer].present?
+        @player_answer = Grid.decode(nonogram_data: session[:player_answer])
+      end
+
+      render :game_play
+    else
+      render :game_started_not_joined
+    end
+  end
 
   def max_clue_length
     (@rows + @columns).map do |line|

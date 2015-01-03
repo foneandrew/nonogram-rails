@@ -2,6 +2,7 @@
 // All this logic will automatically be available in application.js.
 var game_state
 var paint
+var paint_over_filled
 
 $(function (){
   //this happens on page load
@@ -16,9 +17,10 @@ $(function (){
 
       $('.game-cell').mousedown(set_paint);
       $('.game-cell').mouseenter(select_tile);
-      $('.game-cell').mouseleave(deselect_tile)
-      // $('.game-cell').mouseover(paint_tile);
+      $('.game-cell').mouseleave(deselect_tile);
       $(document).mouseup(clear_paint_and_update);
+    } else if ($('#waiting-for-results').length) {
+      refreshGameOver(2000);
     }
   } else if (($('#games').length)) {
     refreshGamesList(5000);
@@ -60,6 +62,9 @@ var highlight_column = function(cell, highlight) {
 }
 
 var set_paint = function() {
+  if ($(this).hasClass('filled')) {
+    paint_over_filled = true;
+  } 
   if (event.which == 1) {
     // left mouse button
     if ($(this).hasClass('filled')) {
@@ -81,6 +86,9 @@ var set_paint = function() {
 };
 
 var paint_tile = function(cell) {
+  if ($(cell).hasClass('filled') && !paint_over_filled) {
+    return;
+  }
   if (paint.length) {
     set_tile(cell, paint)
   }
@@ -95,6 +103,7 @@ var set_tile = function(tile, paint) {
 
 var clear_paint_and_update = function() {
   paint = '';
+  paint_over_filled = false;
   update_cells();
 };
 
@@ -117,6 +126,12 @@ var click_tile = function() {
     $(this).removeClass('crossed');
     $(this).addClass('filled');
   }
+};
+
+var refreshGameOver = function(timeout){
+  setTimeout(function() {
+    location.reload();
+  }, timeout);
 };
 
 var refreshGamesList = function(timeout){

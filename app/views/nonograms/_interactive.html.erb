@@ -3,7 +3,7 @@
 
 <table id="nonogram" align="center" >
   
-  <%= render 'column_clues' %>
+  <%= render 'column_clues' if draw_clues %>
 
   <!-- draw the row clues and the board -->
   <% @game.nonogram.size.times do |row| %>
@@ -11,14 +11,14 @@
       <% @game.nonogram.size.times do |column| %>
 
         <!-- have to do the clues for each row first -->
-        <% if column == 0 %>
+        <% if draw_clues && column == 0 %>
           <%= render partial: 'row_clue', locals: {row: row} %>
         <% end %>
 
         <!-- a nonogram cell -->
-        <%= content_tag(:td, '', class: cell_class(row: row, column: column, nonogram: nonogram), id: "#{row},#{column}") %>
+        <%= content_tag(:td, '', class: editable_cell_class(row: row, column: column, nonogram: nonogram), id: "#{row},#{column}") %>
       <% end %>
     </tr>
   <% end %>
 </table>
-<%= submit_tag "Check Answer" %>
+<%= submit_tag 'Check Answer' %>

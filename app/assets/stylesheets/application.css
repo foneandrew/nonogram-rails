@@ -32,6 +32,10 @@ ul {
   border-style: solid;
 }
 
+#nonogram-display {
+  border-collapse: collapse;
+}
+
 .column-clue {
   background-color: #f2f2f2;
   border-left: 1px solid black;
@@ -51,6 +55,12 @@ ul {
 
 .game-cell {
   border: 1px solid #666666;
+}
+
+.display-cell {
+  width: 10px;
+  height: 10px;
+  border: none;
 }
 
 .blank {
