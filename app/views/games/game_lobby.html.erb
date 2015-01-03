@@ -24,6 +24,6 @@
   <%= stage_message(game: @game) %>
 </div>
 
-<%= render 'start_game_form' if @game.ready_to_play? %>
+<%= render 'start_game_form' if @game.ready_to_play? && @player.present? %>
 
 <%= render 'back_to_index' %>
