@@ -49,6 +49,23 @@ RSpec.describe Game, :type => :model do
     end
   end
 
+  describe '#not_completed' do
+    let(:not_completed_games) { Game.not_completed }
+
+    it 'gives the games that are not finished' do
+      expect(not_completed_games.include?(games(:new_game))).to be_truthy
+      expect(not_completed_games.include?(games(:started))).to be_truthy
+      expect(not_completed_games.include?(games(:game_ready_to_play))).to be_truthy
+      
+    end
+
+    it 'does not give the games that are finished' do
+      expect(not_completed_games.include?(games(:finished))).to be_falsey
+      expect(not_completed_games.include?(games(:game_player_1_lost))).to be_falsey
+      expect(not_completed_games.include?(games(:game_player_1_won))).to be_falsey
+    end
+  end
+
   describe '#ready_to_play' do
     let (:game) { games(:game_1) }
 
@@ -155,6 +172,29 @@ RSpec.describe Game, :type => :model do
       
       it 'will be false' do
         expect(game.seconds_taken_to_complete).to be_falsey
+      end
+    end
+  end
+
+  describe '#players' do
+    let(:game) { games(:game_1) }
+    let(:players_in_game) { [players(:player_1), players(:player_2), players(:player_3)] }
+
+    it 'contains the set of players in the game' do
+      players_in_game.each do |player|
+        expect(game.players.include?(player)).to be_truthy
+      end
+    end
+
+    context 'when the game is destroyed' do
+      it 'destroys the players' do
+        player_ids = players_in_game.map { |player| player.id }
+
+        game.destroy!
+
+        player_ids.each do |player_id|
+          expect { Player.find(player_id) }.to raise_error ActiveRecord::RecordNotFound
+        end
       end
     end
   end

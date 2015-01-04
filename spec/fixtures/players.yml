@@ -25,11 +25,13 @@ player_1_playing_game:
 player_won:
   user: user_1
   game: game_player_1_won
+  answer: "1110011000101001101011100"
   won:  true
 
 player_lost:
   user: user_1
   game: game_player_1_lost
+  answer: "1110011000101001101011100"
   won:  false
 
 player_still_playing_finshed_game:

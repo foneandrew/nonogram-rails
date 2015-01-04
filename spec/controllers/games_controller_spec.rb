@@ -10,6 +10,8 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe 'GET index' do
+    it '--need to test for js format response'
+
     it 'assigns @games to be the incomplete games' do
       get :index
       expect(assigns(:games)).to eq Game.not_completed.reverse
@@ -22,25 +24,47 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe 'GET show' do
-    let (:game) { games(:game_1) }
+    let(:game) { games(:game_1) }
+    let(:size) { game.nonogram.size }
+
+    it '--need to test for js format response'
+
+    it '--need to test for json format response'
     
     it 'assigns @game' do
-      get :show, :id => game.id
+      get :show, id: game.id
       expect(assigns(:game)).to eq game
+    end
+
+    it 'assigns @size' do
+      get :show, id: game.id
+      expect(assigns(:size)).to eq size
     end
 
     context 'when the game is not started' do
       it 'renders game_lobby' do
-        get :show, :id => game.id
+        get :show, id: game.id
         expect(response).to render_template(:game_lobby)
       end
     end
 
     context 'when the game is finished' do
       let(:game) { games(:finished) }
+      let(:grid) { instance_double(Grid) }
+
+      before do
+        allow(Grid).to receive(:decode).and_return(grid)
+      end
+
+      it 'assigns @solution' do
+        get :show, id: game.id
+        expect(assigns(:solution)).to eq grid
+      end
+
+      it 'assigns @player_answers -- move into new service'
 
       it 'renders game_over' do
-        get :show, :id => game.id
+        get :show, id: game.id
         expect(response).to render_template(:game_over)
       end
     end
@@ -49,7 +73,7 @@ RSpec.describe GamesController, :type => :controller do
       let(:player) { players(:player_1) }
 
       it 'assigns the player' do
-        get :show, :id => game.id
+        get :show, id: game.id
         expect(assigns(:player)).to eq player
       end
 
@@ -68,29 +92,29 @@ RSpec.describe GamesController, :type => :controller do
 
         it 'assigns @grid' do
           expect(Grid).to receive(:decode).with(nonogram_data: game.nonogram.solution).and_return(grid)
-          get :show, :id => game.id
+          get :show, id: game.id
           expect(assigns(:grid)).to eq grid
         end
 
         it 'assigns @rows' do
           expect(grid).to receive(:rows).and_return(rows)
-          get :show, :id => game.id
+          get :show, id: game.id
           expect(assigns(:rows)).to eq rows
         end
 
         it 'assigns @columns' do
           expect(grid).to receive(:columns).and_return(columns)
-          get :show, :id => game.id
+          get :show, id: game.id
           expect(assigns(:columns)).to eq columns
         end
 
         it 'assigns @clue_length' do
-          get :show, :id => game.id
+          get :show, id: game.id
           expect(assigns(:clue_length)).to eq max_clue_length
         end
 
         it 'renders game_play' do
-          get :show, :id => game.id
+          get :show, id: game.id
           expect(response).to render_template(:game_play)
         end
       end
@@ -100,9 +124,14 @@ RSpec.describe GamesController, :type => :controller do
       let(:user) { users(:user_2) }
       let(:game) { games(:started) }
 
+      it 'assigns @player to be blank' do
+        get :show, id: game.id
+        expect(assigns(:player)).to be_blank
+      end
+
       context 'when the game is started but not finished' do
         it 'renders game_started_not_joined' do
-          get :show, :id => game.id
+          get :show, id: game.id
           expect(response).to render_template(:game_started_not_joined)
         end
       end 
@@ -158,7 +187,7 @@ RSpec.describe GamesController, :type => :controller do
       end
 
       it 'redirects to the game' do
-        put :update, :id => game.id, :size => 5
+        put :update, id: game.id, :size => 5
         expect(response).to redirect_to(game)
       end
     end
@@ -169,12 +198,12 @@ RSpec.describe GamesController, :type => :controller do
       end
 
       it 'redirects to the game' do
-        put :update, :id => game.id, :size => 5
+        put :update, id: game.id, :size => 5
         expect(response).to redirect_to(game)
       end
 
       it 'sets a flash message' do
-        put :update, :id => game.id, :size => 5
+        put :update, id: game.id, :size => 5
         expect(flash[:alert]).to be_present
       end
     end

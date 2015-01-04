@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Nonogram, :type => :model do
-  fixtures :nonograms
+  fixtures :nonograms, :games
 
   describe '#valid?' do
     let(:nonogram) { nonograms(:nonogram_size_5) }
@@ -115,6 +115,39 @@ RSpec.describe Nonogram, :type => :model do
 
         it 'fails validation' do
           expect(nonogram.valid?).to be_falsey
+        end
+      end
+
+      context 'when missing the hint' do
+        before do
+          nonogram.hint = nil
+        end
+
+        it 'fails validation' do
+          expect(nonogram.valid?).to be_falsey
+        end
+      end
+    end
+  end
+
+  describe '#games' do
+    let(:nonogram) { nonograms(:nonogram_size_5) }
+    let(:games_in_nonogram) { [games(:game_1), games(:started), games(:finished)] }
+
+    it 'contains the set of games that have this nonogram' do
+      games_in_nonogram.each do |game|
+        expect(nonogram.games.include?(game)).to be_truthy
+      end
+    end
+
+    context 'when the nonogram is destroyed' do
+      it 'destroys the games that it had' do
+        game_ids = games_in_nonogram.map { |game| game.id }
+
+        nonogram.destroy!
+
+        game_ids.each do |game_id|
+          expect { Game.find(game_id) }.to raise_error ActiveRecord::RecordNotFound
         end
       end
     end

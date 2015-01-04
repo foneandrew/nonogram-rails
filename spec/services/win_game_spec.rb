@@ -43,7 +43,7 @@ RSpec.describe WinGame, :type => :service do
             expect(win_game.call).to be_falsey
           end
 
-          it 'game is still not finshed' do
+          it 'game remains un-finshed' do
             expect{
               win_game.call
             }.not_to change{game.completed?}.from(false)
@@ -58,7 +58,7 @@ RSpec.describe WinGame, :type => :service do
             expect(win_game.call).to be_falsey
           end
 
-          it 'game is still not finshed' do
+          it 'game remains un-finshed' do
             expect{
               win_game.call
             }.not_to change{game.completed?}.from(false)

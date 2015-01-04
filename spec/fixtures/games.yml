@@ -4,7 +4,7 @@ new_game:
   nonogram:      
 
 game_1:
-  nonogram:      
+  nonogram:       nonogram_size_5
   time_started:  
   time_finished: 
 

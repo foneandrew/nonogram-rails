@@ -29,13 +29,9 @@ class GamesController < ApplicationController
 
       format.html do
         case
-        when @game.completed?
-          @solution = Grid.decode(nonogram_data: @game.nonogram.solution)
-          @player_answers = player_answers
-          render :game_over
-        when @game.started?
-          display_game_in_progress
-        else render :game_lobby
+        when @game.completed? then display_game_over
+        when @game.started?   then display_game_in_progress
+        else                  render :game_lobby
         end
       end
     end
@@ -75,6 +71,12 @@ class GamesController < ApplicationController
     end
 
     answers
+  end
+
+  def display_game_over
+    @solution = Grid.decode(nonogram_data: @game.nonogram.solution)
+    @player_answers = player_answers
+    render :game_over
   end
 
   def display_game_in_progress

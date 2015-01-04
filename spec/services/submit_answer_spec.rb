@@ -6,9 +6,9 @@ RSpec.describe SubmitAnswer, :type => :service do
   context '#call' do
     let(:game) { games(:started) }
     let(:player) { players(:player_1_playing_game) }
+    let(:answer) { "010101" }
     let(:submit_answer) { SubmitAnswer.new(game: game, answer: answer, player: player) }
     let(:win_game) { instance_double(WinGame) }
-    let(:answer) { "010101" }
 
     before do
       allow(WinGame).to receive(:new).and_return(win_game)
@@ -60,6 +60,24 @@ RSpec.describe SubmitAnswer, :type => :service do
             submit_answer.call
           }.not_to change{player.answer}
         end
+      end
+    end
+
+    context 'when the player has already submitted an answer' do
+      let(:game) { games(:game_player_1_won) }
+      let(:player) { players(:player_won) }
+      let(:answer) { "010101" }
+      let(:submit_answer) { SubmitAnswer.new(game: game, answer: answer, player: player) }
+
+
+      it 'the service changes nothing' do
+        expect{
+            submit_answer.call
+          }.not_to change{player}
+
+        expect{
+            submit_answer.call
+          }.not_to change{game}
       end
     end
 

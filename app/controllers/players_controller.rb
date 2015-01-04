@@ -22,17 +22,12 @@ class PlayersController < ApplicationController
 
   private
 
-  def attempt_to_add_player(game, current_user)
-    if check_player_exists?(game, current_user)
-      flash.alert = "#{current_user.name} is already joined"
+  def attempt_to_add_player(game, user)
+    add_player = AddNewPlayer.new(game: game, user: user)
+    if add_player.call
+      flash.notice = "#{user.name} joined"
     else
-      player = game.players.new(user: current_user)
-
-      if player.save
-        flash.notice = "#{current_user.name} joined"
-      else
-        flash.alert = "was not able to add the player: #{player.errors.messages.values.join(', ')}"
-      end
+      flash.alert = "was not able to add the player: #{add_player.errors}"
     end
   end
 
@@ -46,9 +41,5 @@ class PlayersController < ApplicationController
     else
       "You lost!"
     end
-  end
-
-  def check_player_exists?(game, user)
-    game.players.find_by(user: user)
   end
 end
