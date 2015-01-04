@@ -1,0 +1,8 @@
+<div>
+  <%= content_tag(:h5, 'Create your own Nonogram') %>
+
+  <%= form_tag new_nonogram_path, method: :get do %>
+    <%= select_tag(:size, options_for_select([['5x5', 5], ['10x10', 10], ['15x15', 15], ['20x20', 20]])) %>
+    <%= submit_tag 'Create Nonogram' %>
+  <% end %>
+</div>

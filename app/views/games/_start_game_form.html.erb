@@ -1,6 +1,6 @@
 <div class='pad-out'>
-  <%= form_tag @game,method: :put do %>
+  <%= form_tag @game, method: :put do %>
     <%= select_tag(:size, options_for_select([['5x5', 5], ['10x10', 10], ['15x15', 15], ['20x20', 20]])) %>
-    <%= submit_tag 'start game' %>
+    <%= submit_tag 'Start Game' %>
   <% end %>
 </div>

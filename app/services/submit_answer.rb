@@ -6,10 +6,13 @@ class SubmitAnswer
   end
 
   def call
-    # answer = FormatAnswer.new(cells: @cells, size: @game.nonogram.size).call
-    
     @game.with_lock do
       # @game.reload (not needed - transactions auto lock)
+      if @player.answer.present?
+        # stop players overriding their answers
+        # possible cause is having two tabs open on the same puzzle for the same player
+        return
+      end
 
       if @game.completed?
         @player.won = false

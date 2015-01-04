@@ -1,4 +1,4 @@
-class FormatAnswer
+class FormatNonogramSolution
   def initialize(cells:, size:)
     @test = JSON.parse(cells)
     @size = size

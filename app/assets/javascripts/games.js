@@ -7,23 +7,23 @@ var paint_over_filled
 $(function (){
   //this happens on page load
   if ($('#game').length) {
-    poll(2000);
+    poll_game_changes(2000);
+  } else if (($('#games_list').length)) {
+    refreshElement('#games_list', 5000, '#games_list');
+  } else if ($('#waiting-for-results').length) {
+    refreshElement('#other_players_attempts', 2000, '#waiting-for-results');
+  }
 
-    if ($('#nonogram').length) {
-      $('.game-cell').bind('contextmenu', function() { return false; }); 
+  if ($('#nonogram').length) {
+    $('.game-cell').bind('contextmenu', function() { return false; }); 
 
-      paint = '';
-      update_cells();
+    paint = '';
+    update_cells();
 
-      $('.game-cell').mousedown(set_paint);
-      $('.game-cell').mouseenter(select_tile);
-      $('.game-cell').mouseleave(deselect_tile);
-      $(document).mouseup(clear_paint_and_update);
-    } else if ($('#waiting-for-results').length) {
-      refreshGameOver(2000);
-    }
-  } else if (($('#games').length)) {
-    refreshGamesList(5000);
+    $('.game-cell').mousedown(set_paint);
+    $('.game-cell').mouseenter(select_tile);
+    $('.game-cell').mouseleave(deselect_tile);
+    $(document).mouseup(clear_paint_and_update);
   }
 });
 
@@ -134,10 +134,10 @@ var refreshGameOver = function(timeout){
   }, timeout);
 };
 
-var refreshGamesList = function(timeout){
-  // $.get("games.js",function(data){
-  //   $("#games_list").html(data);
-  // });
+var refreshElement = function(element_id, timeout, do_while_element_id) {
+  if (! $(do_while_element_id).length) {
+    return;
+  }
 
   $.ajax({
     type : 'GET',
@@ -145,7 +145,7 @@ var refreshGamesList = function(timeout){
     accepts: 'script',
     dataType: 'html',
     success : function(data){
-      $('#games_list').html(data);
+      $(element_id).html(data);
     },
     error : function(XMLHttpRequest, textStatus, errorThrown) {
       console.log(textStatus + ": " + errorThrown)
@@ -153,11 +153,11 @@ var refreshGamesList = function(timeout){
   });
 
   setTimeout(function() {
-    refreshGamesList(timeout);
+    refreshElement(element_id, timeout, do_while_element_id);
   }, timeout);
 };
 
-var poll = function(timeout){
+var poll_game_changes = function(timeout){
   var promise = $.getJSON("");
   
   promise.done(function(json) {
@@ -179,7 +179,7 @@ var poll = function(timeout){
 
   promise.always(function() {
     setTimeout(function() {
-      poll(timeout);
+      poll_game_changes(timeout);
     }, timeout);
   });
 };

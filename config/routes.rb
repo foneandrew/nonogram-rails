@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
+  resource :nonogram, only: [:new, :create]
+
   resources :games, only: [:index, :show, :create, :update] do
     resource :player, only: [:create, :update]
   end

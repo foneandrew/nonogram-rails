@@ -10,8 +10,7 @@ class PlayersController < ApplicationController
   def update
     game = Game.find(params[:game_id])
     player = game.players.find_by(user: current_user)
-    # cells = params[:cells]
-    answer = FormatAnswer.new(cells: params[:cells], size: game.nonogram.size).call
+    answer = FormatNonogramSolution.new(cells: params[:cells], size: game.nonogram.size).call
 
     attempt_to_end_game(game, player, answer)
 

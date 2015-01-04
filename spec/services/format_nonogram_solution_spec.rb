@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe FormatAnswer, :type => :service do
+RSpec.describe FormatNonogramSolution, :type => :service do
   fixtures :nonograms
 
   describe '#call' do
@@ -23,18 +23,18 @@ RSpec.describe FormatAnswer, :type => :service do
     #1 1 1 0 0
 
     it 'will convert the given JSON of cell data to the formatted string' do
-      format_answer = FormatAnswer.new(cells: cells, size: 5)
-      expect(format_answer.call).to eq solution
+      format_nonogram_solution = FormatNonogramSolution.new(cells: cells, size: 5)
+      expect(format_nonogram_solution.call).to eq solution
     end
 
     context 'when cells are empty (nil)' do
       let(:empty_cells) { "[]" }
-      let(:format_answer) { FormatAnswer.new(cells: empty_cells, size: 5) }
-      let(:formatted_answer) { format_answer.call }
+      let(:format_nonogram_solution) { FormatNonogramSolution.new(cells: empty_cells, size: 5) }
+      let(:formatted_solution) { format_nonogram_solution.call }
 
       it 'returns string full of zeros (does not explode)' do
-        expect(formatted_answer.length).to eq solution.length
-        expect(formatted_answer).to match /\A0+\z/
+        expect(formatted_solution.length).to eq solution.length
+        expect(formatted_solution).to match /\A0+\z/
       end
     end
   end

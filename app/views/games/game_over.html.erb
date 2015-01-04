@@ -1,29 +1,14 @@
-<template id="game" data-game-id="<%= @game.id %>"></template>
-<% waiting_for_resutls = Time.now - @game.time_finished < 5 %>
-<% if waiting_for_resutls %>
-  <%= content_tag(:template, '', id: 'waiting-for-results') %>
-<% end %>
-
-<h2> <%= @game.nonogram.name %> </h2>
+<%= content_tag :h2, @game.nonogram.hint %>
+<%= content_tag :h1, @game.nonogram.name %>
 
 <% if @solution.present? %>
-  <%= render partial: 'nonograms/display', locals: {nonogram: @solution, draw_clues: false} %>
+  <%= render partial: 'nonograms/display', locals: {nonogram: @solution, size: @size, draw_clues: false} %>
 <% end %>
 
 <h4><%= game_finished_message(@game) %></h4>
 
 <%= render 'top_players' %>
 
-<h4>Other player's attempts for this game:</h4>
-<% @player_answers.each_key do |player| %>
-  <h5><%= player %></h5>
-  <% if @player_answers[player].present? %>
-    <%= render partial: 'nonograms/display', locals: {nonogram: @player_answers[player], draw_clues: false} %>
-  <% elsif waiting_for_resutls %>
-    <span>waiting for answer...</span>
-  <% else %>
-    <span>did not finish</span>
-  <% end %>
-<% end %>
+<%= content_tag(:div, (render partial: 'other_players_attempts', locals: {player_answers: @player_answers, size: @size, waiting_for_results: Time.now - @game.time_finished < 5}), id: 'other_players_attempts') %>
 
 <%= render 'back_to_index' %>

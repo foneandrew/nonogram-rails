@@ -1,7 +1,7 @@
 <table id="nonogram-display" align="center" >
-  <% @game.nonogram.size.times do |row| %>
+  <% size.times do |row| %>
     <tr>
-      <% @game.nonogram.size.times do |column| %>
+      <% size.times do |column| %>
         <%= content_tag(:td, '', class: presentable_cell_class(row: row, column: column, nonogram: nonogram)) %>
       <% end %>
     </tr>

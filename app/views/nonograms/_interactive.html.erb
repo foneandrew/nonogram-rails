@@ -6,9 +6,9 @@
   <%= render 'column_clues' if draw_clues %>
 
   <!-- draw the row clues and the board -->
-  <% @game.nonogram.size.times do |row| %>
+  <% size.times do |row| %>
     <tr>
-      <% @game.nonogram.size.times do |column| %>
+      <% size.times do |column| %>
 
         <!-- have to do the clues for each row first -->
         <% if draw_clues && column == 0 %>
@@ -21,4 +21,3 @@
     </tr>
   <% end %>
 </table>
-<%= submit_tag 'Check Answer' %>

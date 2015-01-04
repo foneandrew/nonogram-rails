@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20141209025826) do
 
   create_table "nonograms", force: true do |t|
     t.text     "name",       null: false
+    t.text     "hint",       null: false
     t.text     "solution",   null: false
     t.integer  "size",       null: false
     t.datetime "created_at"

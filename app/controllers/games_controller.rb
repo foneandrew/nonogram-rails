@@ -5,7 +5,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.js   do
         response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-        render :partial => 'game_list', :content_type => 'text/html'
+        render partial: 'game_list', content_type: 'text/html'
       end
       format.html { render :index }
     end
@@ -14,8 +14,19 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @player = @game.players.find_by(user: current_user)
+    @size = @game.nonogram.size if @game.nonogram.present?
 
     respond_to do |format|
+      format.js do
+        response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+        render partial: 'other_players_attempts', locals: {player_answers: player_answers, size: @size, waiting_for_results: Time.now - @game.time_finished < 5}, content_type: 'text/html'
+      end
+
+      format.json do
+        response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+        render json: @game
+      end
+
       format.html do
         case
         when @game.completed?
@@ -26,11 +37,6 @@ class GamesController < ApplicationController
           display_game_in_progress
         else render :game_lobby
         end
-      end
-
-      format.json do
-        response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-        render json: @game
       end
     end
   end

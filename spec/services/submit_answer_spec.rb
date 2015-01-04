@@ -4,25 +4,15 @@ RSpec.describe SubmitAnswer, :type => :service do
   fixtures :games, :players, :users
 
   context '#call' do
-    let(:cells) { double }
     let(:game) { games(:started) }
     let(:player) { players(:player_1_playing_game) }
-    let(:submit_answer) { SubmitAnswer.new(game: game, cells: cells, player: player) }
-    let(:format_answer) { instance_double(FormatAnswer) }
+    let(:submit_answer) { SubmitAnswer.new(game: game, answer: answer, player: player) }
     let(:win_game) { instance_double(WinGame) }
     let(:answer) { "010101" }
 
     before do
-      allow(FormatAnswer).to receive(:new).and_return(format_answer)
-      allow(format_answer).to receive(:call).and_return(answer)
       allow(WinGame).to receive(:new).and_return(win_game)
       allow(win_game).to receive(:call).and_return(true)
-    end
-
-    it 'gets the formatted answer' do
-      expect(FormatAnswer).to receive(:new).with(cells: cells, size: game.nonogram.size).and_return(format_answer)
-      expect(format_answer).to receive(:call)
-      submit_answer.call
     end
 
     context 'when the game is not yet won' do

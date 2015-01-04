@@ -6,6 +6,8 @@ class Nonogram < ActiveRecord::Base
   # t.text    :solution,  null: false
   # t.integer :size,      null: false
 
+  model_name.instance_variable_set :@route_key, 'nonogram'
+
   has_many :games, dependent: :destroy
   
   validates :name, :hint, presence: true

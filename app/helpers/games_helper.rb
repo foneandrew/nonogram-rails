@@ -2,7 +2,7 @@ module GamesHelper
   def stage_message(game:)
     case
     when game.completed?     then game_finished_message(game)
-    when game.started?       then "#{game.nonogram.name} (in progress...)"
+    when game.started?       then "#{game.nonogram.hint} (in progress...)"
     when game.ready_to_play? then 'ready to play!'
     else
       "waiting for #{Game::MIN_PLAYERS - game.players.length} #{'player'.pluralize(Game::MIN_PLAYERS - game.players.length)}..."      
