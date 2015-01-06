@@ -28,8 +28,7 @@ ul {
 
 #nonogram {
   border-collapse: collapse;
-  border-width: 2px;
-  border-style: solid;
+  border: 3px solid #666666;
 }
 
 #nonogram-display {
@@ -81,11 +80,11 @@ ul {
 }
 
 .left-border {
-  border-left: 2px solid #666666;
+  border-left: 3px solid #666666;
 }
 
 .top-border {
-  border-top: 2px solid #666666;
+  border-top: 3px solid #666666;
 }
 
 .pad-out {

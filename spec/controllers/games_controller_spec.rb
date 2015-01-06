@@ -10,16 +10,24 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe 'GET index' do
-    it '--need to test for js format response'
+    context 'in the js response' do
+      it 'renders partial for games list' do
+        get :index, format: 'js'
 
-    it 'assigns @games to be the incomplete games' do
-      get :index
-      expect(assigns(:games)).to eq Game.not_completed.reverse
+        expect(response).to render_template('games/_game_list')
+      end
     end
 
-    it 'renders the index page' do
-      get :index
-      expect(response).to render_template(:index)
+    context 'in the html response' do
+      it 'assigns @games to be the incomplete games' do
+        get :index
+        expect(assigns(:games)).to eq Game.not_completed.reverse
+      end
+
+      it 'renders the index page' do
+        get :index
+        expect(response).to render_template :index
+      end
     end
   end
 
@@ -27,114 +35,169 @@ RSpec.describe GamesController, :type => :controller do
     let(:game) { games(:game_1) }
     let(:size) { game.nonogram.size }
 
-    it '--need to test for js format response'
+    context 'when requesting js response' do
+      let(:game) { games(:game_over) }
 
-    it '--need to test for json format response'
-    
-    it 'assigns @game' do
-      get :show, id: game.id
-      expect(assigns(:game)).to eq game
-    end
-
-    it 'assigns @size' do
-      get :show, id: game.id
-      expect(assigns(:size)).to eq size
-    end
-
-    context 'when the game is not started' do
-      it 'renders game_lobby' do
-        get :show, id: game.id
-        expect(response).to render_template(:game_lobby)
-      end
-    end
-
-    context 'when the game is finished' do
-      let(:game) { games(:finished) }
-      let(:grid) { instance_double(Grid) }
-
-      before do
-        allow(Grid).to receive(:decode).and_return(grid)
-      end
-
-      it 'assigns @solution' do
-        get :show, id: game.id
-        expect(assigns(:solution)).to eq grid
-      end
-
-      it 'assigns @player_answers -- move into new service'
-
-      it 'renders game_over' do
-        get :show, id: game.id
-        expect(response).to render_template(:game_over)
-      end
-    end
-
-    context 'when there is a player for the current user' do
-      let(:player) { players(:player_1) }
-
-      it 'assigns the player' do
-        get :show, id: game.id
-        expect(assigns(:player)).to eq player
-      end
-
-      context 'when the game is started but not finshed' do
-        let(:game) { games(:started) }
-        let(:grid) { instance_double(Grid) }
-        let(:rows) { [Line.new([:filled, :filled, :filled , :filled]), Line.new([:blank, :blank, :blank , :blank])] }
-        let(:columns) { [Line.new([:blank, :filled, :blank , :filled]), Line.new([:blank, :blank, :blank , :blank])] }
-        let(:max_clue_length) { 2 }
+      context 'when the game is completed' do
+        let(:hash_player_grids) { instance_double(HashPlayerGrids) }
+        let(:player_grids) { double }
 
         before do
-          allow(Grid).to receive(:decode).and_return(grid)
-          allow(grid).to receive(:rows).and_return(rows)
-          allow(grid).to receive(:columns).and_return(columns)
+          allow(hash_player_grids).to receive(:call).and_return player_grids
         end
 
-        it 'assigns @grid' do
-          expect(Grid).to receive(:decode).with(nonogram_data: game.nonogram.solution).and_return(grid)
-          get :show, id: game.id
-          expect(assigns(:grid)).to eq grid
-        end
+        it 'renders partial for other (non-winning) players attempts' do
+          expect(HashPlayerGrids).to receive(:new).with(players: game.players.reject { |p| p.won == true }).and_return hash_player_grids
 
-        it 'assigns @rows' do
-          expect(grid).to receive(:rows).and_return(rows)
-          get :show, id: game.id
-          expect(assigns(:rows)).to eq rows
-        end
+          get :show, id: game.id, format: 'js'
 
-        it 'assigns @columns' do
-          expect(grid).to receive(:columns).and_return(columns)
-          get :show, id: game.id
-          expect(assigns(:columns)).to eq columns
+          expect(response).to render_template('games/_other_players_attempts')
         end
+      end
+      
+      context 'when the game is not completed' do
+        let(:game) { games(:not_started) }
 
-        it 'assigns @clue_length' do
-          get :show, id: game.id
-          expect(assigns(:clue_length)).to eq max_clue_length
-        end
+        it 'renders nothing' do
+          get :show, id: game.id, format: 'js'
 
-        it 'renders game_play' do
-          get :show, id: game.id
-          expect(response).to render_template(:game_play)
+          expect(response.body).to be_blank
         end
       end
     end
 
-    context 'when there is not a player for the current user' do
-      let(:user) { users(:user_2) }
-      let(:game) { games(:started) }
+    context 'when requesting json response' do
+      let(:id) { game.id }
+      let(:started) { game.started? }
+      let(:completed) { game.completed? }
+      let(:player_count) { game.players.count }
+      let(:status) { 'n3' }
 
-      it 'assigns @player to be blank' do
+      it 'renders json for that game using the serializer' do
+        get :show, id: game.id, format: 'json'
+
+        json = JSON.parse(response.body)
+        expect(json['game']['id']).to eq id
+        expect(json['game']['started']).to eq started
+        expect(json['game']['completed']).to eq completed
+        expect(json['game']['player_count']).to eq player_count
+        expect(json['game']['status']).to eq status
+      end
+    end
+    
+    context 'when requesting html response' do
+      it 'assigns @game' do
         get :show, id: game.id
-        expect(assigns(:player)).to be_blank
+        expect(assigns(:game)).to eq game
       end
 
-      context 'when the game is started but not finished' do
-        it 'renders game_started_not_joined' do
+      it 'assigns @size' do
+        get :show, id: game.id
+        expect(assigns(:size)).to eq size
+      end
+
+      context 'when the game is not started' do
+        it 'renders game_lobby' do
           get :show, id: game.id
-          expect(response).to render_template(:game_started_not_joined)
+          expect(response).to render_template :game_lobby
         end
-      end 
+      end
+
+      context 'when the game is finished' do
+        let(:game) { games(:game_over) }
+        let(:grid) { instance_double(Grid) }
+        let(:hash_player_grids) { instance_double(HashPlayerGrids) }
+        let(:player_grids) { double }
+
+        before do
+          allow(Grid).to receive(:decode).and_return grid
+          allow(HashPlayerGrids).to receive(:new).and_return hash_player_grids
+          allow(hash_player_grids).to receive(:call).and_return player_grids
+        end
+
+        it 'assigns @solution' do
+          get :show, id: game.id
+          expect(assigns(:solution)).to eq grid
+        end
+
+        it 'assigns @player_answers' do
+          expect(HashPlayerGrids).to receive(:new).with(players: game.players.reject { |p| p.won == true }).and_return hash_player_grids
+
+          get :show, id: game.id
+
+          expect(assigns(:player_answers))
+        end
+
+        it 'renders game_over' do
+          get :show, id: game.id
+          expect(response).to render_template :game_over
+        end
+      end
+
+      context 'when there is a player for the current user' do
+        let(:player) { players(:player_1) }
+
+        it 'assigns the player' do
+          get :show, id: game.id
+          expect(assigns(:player)).to eq player
+        end
+
+        context 'when the game is started but not finshed' do
+          let(:game) { games(:started) }
+          let(:grid) { instance_double(Grid) }
+          # let(:rows) { [Line.new([:filled, :filled, :filled , :filled]), Line.new([:blank, :blank, :blank , :blank])] }
+          # let(:columns) { [Line.new([:blank, :filled, :blank , :filled]), Line.new([:blank, :blank, :blank , :blank])] }
+          let(:rows) { double }
+          let(:columns) { double }
+          let(:max_clue_length) { 2 }
+
+          before do
+            allow(Grid).to receive(:decode).and_return grid
+            allow(grid).to receive(:rows).and_return rows
+            allow(grid).to receive(:columns).and_return columns
+          end
+
+          it 'assigns @grid' do
+            expect(Grid).to receive(:decode).with(nonogram_data: game.nonogram.solution).and_return grid
+            get :show, id: game.id
+            expect(assigns(:grid)).to eq grid
+          end
+
+          it 'assigns @rows' do
+            expect(grid).to receive(:rows).and_return rows
+            get :show, id: game.id
+            expect(assigns(:rows)).to eq rows
+          end
+
+          it 'assigns @columns' do
+            expect(grid).to receive(:columns).and_return columns
+            get :show, id: game.id
+            expect(assigns(:columns)).to eq columns
+          end
+
+          it 'renders game_play' do
+            get :show, id: game.id
+            expect(response).to render_template :game_play
+          end
+        end
+      end
+
+      context 'when there is not a player for the current user' do
+        let(:user) { users(:user_2) }
+        let(:game) { games(:started) }
+
+        it 'assigns @player to be blank' do
+          get :show, id: game.id
+          expect(assigns(:player)).to be_blank
+        end
+
+        context 'when the game is started but not finished' do
+          it 'renders game_started_not_joined' do
+            get :show, id: game.id
+            expect(response).to render_template :game_started_not_joined
+          end
+        end 
+      end
     end
   end
 
@@ -142,33 +205,38 @@ RSpec.describe GamesController, :type => :controller do
     let(:new_game) { games(:new_game) }
 
     before do
-      allow(Game).to receive(:new).and_return(new_game)
+      allow(Game).to receive(:new).and_return new_game
     end
 
     it 'creates a new game' do
-      expect(Game).to receive(:new).and_return(new_game)
+      expect(Game).to receive(:new).and_return new_game
       post :create
     end
 
     context 'if the game is valid' do
       before do        
-        expect(new_game).to receive(:save).and_return(true)
+        expect(new_game).to receive(:save).and_return true
       end
 
       it 'redirects to new game' do
         post :create
-        expect(response).to redirect_to(new_game)
+        expect(response).to redirect_to new_game
       end
     end
 
     context 'if the game is invalid' do
       before do        
-        expect(new_game).to receive(:save).and_return(false)
+        expect(new_game).to receive(:save).and_return false
       end
 
-      it 'redirects to new game' do
+      it 'redirects back to index' do
         post :create
-        expect(response).to redirect_to(Game)
+        expect(response).to redirect_to Game
+      end
+
+      it 'sets a flash alert' do
+        post :create
+        expect(flash[:alert]).to be_present
       end
     end
   end
@@ -178,32 +246,32 @@ RSpec.describe GamesController, :type => :controller do
     let(:start_game) { instance_double(StartGame) }
 
     before do
-      expect(StartGame).to receive(:new).and_return(start_game)
+      expect(StartGame).to receive(:new).and_return start_game
     end
 
     context 'when the game was able to be started' do
       before do
-        expect(start_game).to receive(:call).and_return(true)
+        expect(start_game).to receive(:call).and_return true
       end
 
       it 'redirects to the game' do
-        put :update, id: game.id, :size => 5
-        expect(response).to redirect_to(game)
+        put :update, id: game.id, size: 5
+        expect(response).to redirect_to game
       end
     end
 
     context 'when the game was unable to be started' do
       before do
-        expect(start_game).to receive(:call).and_return(false)
+        expect(start_game).to receive(:call).and_return false
       end
 
       it 'redirects to the game' do
-        put :update, id: game.id, :size => 5
-        expect(response).to redirect_to(game)
+        put :update, id: game.id, size: 5
+        expect(response).to redirect_to game
       end
 
       it 'sets a flash message' do
-        put :update, id: game.id, :size => 5
+        put :update, id: game.id, size: 5
         expect(flash[:alert]).to be_present
       end
     end

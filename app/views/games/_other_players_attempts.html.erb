@@ -4,11 +4,11 @@
 
 <%= content_tag(:h4, "Other player's attempts for this game:") %>
 
-<% player_answers.each_key do |player| %>
-  <%= content_tag(:h5, player) %>
+<% player_grids.each do |player_name, grid| %>
+  <%= content_tag(:h5, player_name) %>
 
-  <% if player_answers[player].present? %>
-    <%= render partial: 'nonograms/display', locals: {nonogram: player_answers[player], size: size, draw_clues: false} %>
+  <% if grid.present? %>
+    <%= render partial: 'nonograms/display', locals: {nonogram: grid, size: size, draw_clues: false} %>
   <% elsif waiting_for_results %>
     <%= content_tag(:span, 'waiting for answer...') %>
   <% else %>

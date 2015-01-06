@@ -9,20 +9,6 @@ module GamesHelper
     end
   end
 
-  def max_clue_legnth
-    (grid.rows + grid.columns).map do |clue|
-      clue.length
-    end.max
-  end
-
-  def row_clue(grid:, index:)
-    grid.rows[index].clue.join(' ')
-  end
-
-  def column_clue(grid:, index:)
-    grid.columns[index].clue.join(' ')
-  end
-
   def top_players(nonogram: nonogram)
     top_fastest_players(3, nonogram).map do |name, time|
       "#{name} in #{minutes_and_seconds(time)}"
@@ -37,28 +23,7 @@ module GamesHelper
     end
   end
 
-  def editable_cell_class(row:, column:, nonogram:)
-    css_class = 'cell game-cell'
-
-    css_class << ' top-border' if row % 5 == 0
-    css_class << ' left-border' if column % 5 == 0
-
-    css_class << cell_class(row, column, nonogram)
-  end
-
-  def presentable_cell_class(row:, column:, nonogram:)
-    'display-cell ' + cell_class(row, column, nonogram)
-  end
-
   private
-
-  def cell_class(row, column, nonogram)
-    if nonogram.present? && nonogram.data[row][column] == :filled
-      ' filled'
-    else
-      ' blank'
-    end
-  end
 
   def top_fastest_players(num_players, nonogram)
     nonogram.games.completed.sort_by do |game|

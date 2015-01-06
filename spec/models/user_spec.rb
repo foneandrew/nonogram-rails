@@ -6,6 +6,16 @@ RSpec.describe User, :type => :model do
   describe '#valid?' do
     let(:user) { users(:user_1) }
 
+    context 'when trying to save a user with the same name as another user' do
+      before do
+        user.name = users(:user_2).name
+      end
+
+      it 'fails validation' do
+        expect(user.valid?).to be_falsey
+      end
+    end
+
     context 'when given a valid name and email' do
       it 'is valid' do
         expect(user.valid?).to be_truthy

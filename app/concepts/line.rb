@@ -6,8 +6,8 @@ class Line
   end
 
   def clue
-    chunks = @data.chunk { |tile| tile == :blank }
+    chunks = @data.chunk { |cell| cell == :blank }
 
-    chunks.reject(&:first).map { |is_blank, tiles| tiles.length }
+    chunks.reject(&:first).map { |is_blank, cells| cells.length }
   end
 end

@@ -37,3 +37,21 @@ player_lost:
 player_still_playing_finshed_game:
   user: user_1
   game: finished
+
+player_won_game_over:
+  user: user_1
+  game: game_over
+  answer: "1110011000101001101011100"
+  won: true
+
+player_lost_game_over:
+  user: user_2
+  game: game_over
+  answer: "1110011000101001101011100"
+  won: false
+
+player_dnf_game_over:
+  user: user_3
+  game: game_over
+  answer:
+  won:

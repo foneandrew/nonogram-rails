@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
   
   has_many :players, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { message: 'already taken by another user' }
 end

@@ -16,7 +16,7 @@
         <% end %>
 
         <!-- a nonogram cell -->
-        <%= content_tag(:td, '', class: editable_cell_class(row: row, column: column, nonogram: nonogram), id: "#{row},#{column}") %>
+        <%= content_tag(:td, '', class: editable_cell_class(row_num: row, column_num: column, nonogram_grid: nonogram), id: "#{row},#{column}") %>
       <% end %>
     </tr>
   <% end %>

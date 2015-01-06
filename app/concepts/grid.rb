@@ -6,9 +6,7 @@ class Grid
   end
 
   def self.decode(nonogram_data:)
-    data = nonogram_data.chars.map do |tile|
-      tile == '0' ? :blank : :filled
-    end.each_slice(Math.sqrt(nonogram_data.length)).to_a
+    data = symbol_array(nonogram_data).each_slice(Math.sqrt(nonogram_data.length)).to_a
 
     Grid.new(data)
   end
@@ -29,5 +27,13 @@ class Grid
 
   def column(index)
     Line.new(@data.map { |row| row[index] })
+  end
+
+  private
+
+  def self.symbol_array(data)
+    data.chars.map do |cell|
+      cell == '0' ? :blank : :filled
+    end
   end
 end

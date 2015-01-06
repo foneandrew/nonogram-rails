@@ -10,11 +10,9 @@ class NonogramsController < ApplicationController
     nonogram_data = FormatNonogramSolution.new(cells: params[:cells], size: size).call
 
     if MakeNonogram.new(name: name, hint: hint, size: size, solution: nonogram_data).call
-      flash.notice = "Your Nonogram was sucessfully saved!"
-      redirect_to Game
+      redirect_to Game, notice: "Your Nonogram was sucessfully saved!"
     else
-      flash.alert = "Your Nonogram could not be saved!"
-      redirect_to :back
+      redirect_to :back, alert: "Your Nonogram could not be saved!"
     end
   end
 end

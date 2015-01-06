@@ -11,7 +11,7 @@ class Nonogram < ActiveRecord::Base
   has_many :games, dependent: :destroy
   
   validates :name, :hint, presence: true
-  validates :size, :inclusion => { :in => VALID_SIZES,
+  validates :size, inclusion: { in: VALID_SIZES,
     message: 'is not a valid size' }
   validates :solution, presence: true, format: { with: /\A[#{VALID_COLORS.join}]+\z/,
     message: 'contains invalid characters' }

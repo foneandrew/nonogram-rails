@@ -1,16 +1,17 @@
 <!-- display the column clues -->
 <% column_clues = @columns.map { |column| column.clue } %>
+<% clue_length = max_clue_length(rows: @rows, columns: @columns) %>
 
-<% @clue_length.times do |clue_number| %>
+<% clue_length.times do |clue_number| %>
   <tr>
     <!-- add blank headers to account for the row clues -->
-    <% @clue_length.times do %>
+    <% clue_length.times do %>
       <%= content_tag(:th, '', class: 'cell') %>
     <% end %>
 
     <!-- draw the column clues (padding with blank header cells to ensure clues sit close to the grid) -->
     <% @game.nonogram.size.times do |column_num| %>
-      <% if column_clues[column_num].length == @clue_length - clue_number %>
+      <% if column_clues[column_num].length == clue_length - clue_number %>
         <%= content_tag :th, column_clues[column_num].shift, class: 'cell column-clue' %>
       <% else %>
         <%= content_tag(:th, '', class: 'cell column-clue') %>

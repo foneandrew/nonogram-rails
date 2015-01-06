@@ -2,7 +2,7 @@
   <% size.times do |row| %>
     <tr>
       <% size.times do |column| %>
-        <%= content_tag(:td, '', class: presentable_cell_class(row: row, column: column, nonogram: nonogram)) %>
+        <%= content_tag(:td, '', class: presentable_cell_class(row_num: row, column_num: column, nonogram_grid: nonogram)) %>
       <% end %>
     </tr>
   <% end %>

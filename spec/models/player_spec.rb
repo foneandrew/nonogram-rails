@@ -34,15 +34,16 @@ RSpec.describe Player, :type => :model do
   end
 
   describe '#winners' do
-    let(:winning_players) { Player.winners }
-
-    it 'gives the players that have won' do
-      expect(winning_players.include?(players(:player_won))).to be_truthy
-    end
+    let(:game) { games(:game_over) }
+    let(:winning_players) { game.players.winners }
 
     it 'does not give the players that have lost' do
-      expect(winning_players.include?(players(:player_lost))).to be_falsey
-      expect(winning_players.include?(players(:player_1))).to be_falsey
+      expect(winning_players.include?(players(:player_lost_game_over))).to be_falsey
+      expect(winning_players.include?(players(:player_dnf_game_over))).to be_falsey
+    end
+
+    it 'gives the players that have won' do
+      expect(winning_players.include?(players(:player_won_game_over))).to be_truthy
     end
   end
 end

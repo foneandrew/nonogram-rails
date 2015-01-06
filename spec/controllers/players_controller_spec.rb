@@ -73,12 +73,12 @@ RSpec.describe PlayersController, :type => :controller do
     it 'formats the given json of cells' do
       expect(FormatNonogramSolution).to receive(:new).with(cells: cells, size: game.nonogram.size).and_return(format_nonogram)
       expect(format_nonogram).to receive(:call).and_return(formated_answer)
-      put :update, :game_id => game.id, :cells => cells
+      put :update, game_id: game.id, cells: cells
     end
 
     it 'attempts to end the game' do
       expect(SubmitAnswer).to receive(:new).with(game: game, player: player, answer: formated_answer).and_return(submit_answer)
-      put :update, :game_id => game.id, :cells => cells
+      put :update, game_id: game.id, cells: cells
     end
 
     context 'when the guess is wrong' do
@@ -87,7 +87,7 @@ RSpec.describe PlayersController, :type => :controller do
       end
 
       it 'sets a flash notice' do
-        put :update, :game_id => game.id, :cells => cells
+        put :update, game_id: game.id, cells: cells
         expect(flash[:notice]).to be_present
       end
     end
@@ -99,21 +99,21 @@ RSpec.describe PlayersController, :type => :controller do
 
       context 'when the player won' do
         it 'sets a flash notice' do
-          put :update, :game_id => games(:game_player_1_won).id, :cells => cells
+          put :update, game_id: games(:game_player_1_won).id, cells: cells
           expect(flash[:notice]).to be_present
         end
       end
 
       context 'when the player lost' do
         it 'sets a flash notice' do
-          put :update, :game_id => games(:game_player_1_lost).id, :cells => cells
+          put :update, game_id: games(:game_player_1_lost).id, cells: cells
           expect(flash[:notice]).to be_present
         end
       end
     end
 
     it 'redirects to the game' do
-      put :update, :game_id => game.id, :cells => cells
+      put :update, game_id: game.id, cells: cells
       expect(response).to redirect_to game
     end
   end

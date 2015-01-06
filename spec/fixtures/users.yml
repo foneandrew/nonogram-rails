@@ -9,3 +9,9 @@ user_2:
   #unecrypted password is: "password"
   encrypted_password: "$2a$10$n2zSgfDH/7g1RO6eNvzbru1.6dbKd3ztsjckxlC5h02GXW9I0fKKq"
   name: "test_user_2"
+
+user_3:
+  email: "test3@fixture.com"
+  #unecrypted password is: "password"
+  encrypted_password: "$2a$10$n2zSgfDH/7g1RO6eNvzbru1.6dbKd3ztsjckxlC5h02GXW9I0fKKq"
+  name: "test_user_3"

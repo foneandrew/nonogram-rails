@@ -7,6 +7,7 @@ class GamesController < ApplicationController
         response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
         render partial: 'game_list', content_type: 'text/html'
       end
+
       format.html { render :index }
     end
   end
@@ -18,8 +19,17 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       format.js do
-        response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-        render partial: 'other_players_attempts', locals: {player_answers: player_answers, size: @size, waiting_for_results: Time.now - @game.time_finished < 5}, content_type: 'text/html'
+        if @game.completed?
+          response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+          render partial: 'other_players_attempts', locals: {
+            player_grids: player_answers,
+            size: @size,
+            waiting_for_results: Time.now - @game.time_finished < 5
+          }, content_type: 'text/html'
+        else
+          # this is the prefered way to render nothing in rails 4?
+          head :ok, content_type: "text/html"
+        end
       end
 
       format.json do
@@ -29,8 +39,8 @@ class GamesController < ApplicationController
 
       format.html do
         case
-        when @game.completed? then display_game_over
-        when @game.started?   then display_game_in_progress
+        when @game.completed? then render_game_over
+        when @game.started?   then render_game_in_progress
         else                  render :game_lobby
         end
       end
@@ -43,8 +53,7 @@ class GamesController < ApplicationController
     if game.save
       redirect_to game
     else
-      flash.alert = "was not able to create a game: #{game.errors.messages.values.join(', ')}"
-      redirect_to Game
+      redirect_to Game, alert: "was not able to create a game: #{game.errors.messages.values.join(', ')}"
     end
   end
 
@@ -57,33 +66,20 @@ class GamesController < ApplicationController
 
   private
 
-  def player_answers
-    answers = {}
-
-    @game.players.each do |player|
-      if player.answer?
-        if player.won == false
-          answers[player.user.name] = Grid.decode(nonogram_data: player.answer)
-        end
-      else
-        answers[player.user.name] = nil
-      end
-    end
-
-    answers
-  end
-
-  def display_game_over
+  def render_game_over
     @solution = Grid.decode(nonogram_data: @game.nonogram.solution)
     @player_answers = player_answers
     render :game_over
   end
 
-  def display_game_in_progress
+  def player_answers
+    HashPlayerGrids.new(players: @game.players.reject(&:won)).call
+  end
+
+  def render_game_in_progress
     @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
     @rows = @grid.rows
     @columns = @grid.columns
-    @clue_length = max_clue_length
 
     if @player.present?
       if session[:player] == @player.id && session[:player_answer].present?
@@ -94,11 +90,5 @@ class GamesController < ApplicationController
     else
       render :game_started_not_joined
     end
-  end
-
-  def max_clue_length
-    (@rows + @columns).map do |line|
-      line.clue.length
-    end.max
   end
 end
