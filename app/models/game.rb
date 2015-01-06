@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   scope       :completed, -> { where.not(time_finished: nil) }
 
   def self.finished(nonogram)
-    self.where("nonogram_id is ?", nonogram.id)
+    self.where('nonogram_id is ?', nonogram.id)
   end
 
   def ready_to_play?

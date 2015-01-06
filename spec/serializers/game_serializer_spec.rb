@@ -23,6 +23,7 @@ RSpec.describe GameSerializer, :type => :serializer do
       it "has different status'" do
         expect(json_1[:game][:status]).not_to eq json_2[:game][:status]
         expect(json_2[:game][:status]).not_to eq json_3[:game][:status]
+        expect(json_1[:game][:status]).not_to eq json_3[:game][:status]
       end
     end
   end

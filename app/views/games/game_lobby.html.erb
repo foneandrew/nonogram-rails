@@ -2,17 +2,7 @@
 
 <h1> Lobby </h1>
 
-<div>
-  <h3>Players</h3>
-  
-  <ul>
-    <% @game.players.each do |joined_player| %>
-      <li>
-        <%= joined_player.user.name %>
-      </li>
-    <% end %>
-  </ul>
-</div>
+<%= render partial: 'joined_players' %>
 
 <% if @player.blank? %>
   <%= render 'join_game_form' %>

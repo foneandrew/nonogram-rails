@@ -1,0 +1,11 @@
+<div>
+  <h3>Players</h3>
+  
+  <ul>
+    <% @game.players.each do |joined_player| %>
+      <li>
+        <%= joined_player.user.name %>
+      </li>
+    <% end %>
+  </ul>
+</div>

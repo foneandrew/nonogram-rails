@@ -5,11 +5,13 @@ class WinGame
   end
 
   def call
-    if @game.nonogram.solution.eql?(@answer)
-      @game.time_finished = Time.now
-      @game.save
-    else
-      false
+    @game.with_lock do
+      if @game.nonogram.solution.eql?(@answer)
+        @game.time_finished = Time.now
+        @game.save!
+      else
+        false
+      end
     end
   end
 end

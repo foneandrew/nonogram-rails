@@ -3,7 +3,7 @@ class GamesController < ApplicationController
     @games = Game.not_completed.reverse
     
     respond_to do |format|
-      format.js   do
+      format.js do
         response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
         render partial: 'game_list', content_type: 'text/html'
       end

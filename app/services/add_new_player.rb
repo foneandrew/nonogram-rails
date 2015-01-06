@@ -12,7 +12,7 @@ class AddNewPlayer
       return false
     end
 
-    if player = check_player_exists
+    if check_player_exists?
       @errors = 'player is already joined'
       return false
     end
@@ -29,7 +29,7 @@ class AddNewPlayer
 
   private
 
-  def check_player_exists
-    @game.players.find_by(user: @user)
+  def check_player_exists?
+    @game.players.find_by(user: @user).present?
   end
 end

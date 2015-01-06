@@ -9,7 +9,7 @@ class Nonogram < ActiveRecord::Base
   model_name.instance_variable_set :@route_key, 'nonogram'
 
   has_many :games, dependent: :destroy
-  
+
   validates :name, :hint, presence: true
   validates :size, inclusion: { in: VALID_SIZES,
     message: 'is not a valid size' }
