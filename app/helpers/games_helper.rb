@@ -1,11 +1,15 @@
 module GamesHelper
-  def stage_message(game:)
+  def stage_message(game:, user: nil)
+    message = "#{game.id}: "
+
+    message << '(JOINED) ' if user_in_game?(user, game)
+
     case
-    when game.completed?     then game_finished_message(game)
-    when game.started?       then "#{game.nonogram.hint} (in progress...)"
-    when game.ready_to_play? then 'ready to play!'
+    when game.completed?     then message + game_finished_message(game)
+    when game.started?       then message + "#{game.nonogram.hint} (in progress...)"
+    when game.ready_to_play? then message + 'ready to play!'
     else
-      "waiting for #{Game::MIN_PLAYERS - game.players.length} #{'player'.pluralize(Game::MIN_PLAYERS - game.players.length)}..."      
+      message + "waiting for #{Game::MIN_PLAYERS - game.players.length} #{'player'.pluralize(Game::MIN_PLAYERS - game.players.length)}..."      
     end
   end
 
@@ -25,6 +29,12 @@ module GamesHelper
 
   private
 
+  def user_in_game?(user, game)
+    if user.present?
+      game.players.map { |player| player.user }.include?(user)
+    end
+  end
+
   def top_fastest_players(num_players, nonogram)
     nonogram.games.completed.sort_by do |game|
       game.seconds_taken_to_complete
@@ -39,8 +49,8 @@ module GamesHelper
     minutes, seconds = total_seconds.round.divmod(60)
 
     output = []
-    output << pluralize(minutes, "minute") if minutes > 0
-    output << pluralize(seconds, "second") if seconds > 0
+    output << pluralize(minutes, 'minute') if minutes > 0
+    output << pluralize(seconds, 'second') if seconds > 0
     output.to_sentence
   end
 end

@@ -2,7 +2,7 @@
   <ul>
     <% @games.each do |game| %>
       <li>
-        <%= link_to "[#{game.id}] #{stage_message(game: game)}", game %>
+        <%= link_to "#{stage_message(game: game, user: current_user)}", game %>
       </li>
     <% end %>
   </ul>
