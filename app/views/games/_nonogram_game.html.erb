@@ -1,4 +1,4 @@
-<%= form_tag [@game, Player], id: 'player_answer', method: :put do %>
+<%= form_tag [@game, @player], id: 'player-answer', method: :put do %>
   <%= render partial: 'nonograms/interactive', locals: {nonogram: @player_answer, size: @size, draw_clues: true} %>
   <%= submit_tag 'Check Answer' %>
 <% end %>

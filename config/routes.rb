@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resource :nonogram, only: [:new, :create]
 
   resources :games, only: [:index, :show, :create, :update] do
-    resource :player, only: [:create, :update]
+    resources :players, only: [:index, :create, :update]
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

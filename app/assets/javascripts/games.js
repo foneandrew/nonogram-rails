@@ -1,44 +1,65 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-var game_state
-var paint
-var paint_over_filled
+var gameId;
+var gameState;
+var paint;
+var paintOverFilled;
 
-$(function (){
+$(function() {
   //this happens on page load
+  if ($('#log-in').length) {
+    localStorage.removeItem('savedGames');
+  }
+
   if ($('#game').length) {
-    poll_game_changes(2000);
-  } else if (($('#games_list').length)) {
-    refreshElement('#games_list', 5000, '#games_list');
-  } else if ($('#waiting-for-results').length) {
-    refreshElement('#other_players_attempts', 2000, '#waiting-for-results');
+    gameId = $('#game').data('game-id');
+
+    if ($('#game-play').length) {
+      restoreFromSavedGames();
+      pollGameChanges(2000);
+    } else if ($('#game-lobby').length) {
+      pollGameChanges(2000);
+    } else {
+      if (localStorage.savedGames != undefined) {
+        var savedGames = JSON.parse(localStorage.savedGames);
+        delete savedGames[gameId];
+
+        localStorage.savedGames = JSON.stringify(savedGames);
+      }
+
+      refreshElement('#other-players-attempts', 2000, '#waiting-for-results');
+    }
+  }
+
+  if (($('#games-list').length)) {
+    refreshElement('#games-list', 5000, '#games-list');
   }
 
   if ($('#nonogram').length) {
     $('.game-cell').bind('contextmenu', function() { return false; }); 
 
     paint = '';
-    update_cells();
+    updateSavedGames();
 
-    $('.game-cell').mousedown(set_paint);
-    $('.game-cell').mouseenter(select_tile);
-    $('.game-cell').mouseleave(deselect_tile);
-    $(document).mouseup(clear_paint_and_update);
+    $('.game-cell').mousedown(setPaint);
+    $('.game-cell').mouseenter(selectTile);
+    $('.game-cell').mouseleave(deselectTile);
+    $(document).mouseup(clearPaintAndUpdate);
   }
 });
 
-var select_tile = function() {
-  highlight_row(this, true);
-  highlight_column(this, true);
-  paint_tile(this);
+var selectTile = function() {
+  highlightRow(this, true);
+  highlightColumn(this, true);
+  paintTile(this);
 };
 
-var deselect_tile = function() {
-  highlight_row(this, false);
-  highlight_column(this, false);
+var deselectTile = function() {
+  highlightRow(this, false);
+  highlightColumn(this, false);
 };
 
-var highlight_row = function(cell, highlight) {
+var highlightRow = function(cell, highlight) {
   var row = $(cell).closest('tr');
 
   if (highlight) {
@@ -48,7 +69,7 @@ var highlight_row = function(cell, highlight) {
   }
 }
 
-var highlight_column = function(cell, highlight) {
+var highlightColumn = function(cell, highlight) {
   var index = $(cell).index();
 
   var column = $(cell).closest('table')
@@ -61,9 +82,9 @@ var highlight_column = function(cell, highlight) {
   }
 }
 
-var set_paint = function() {
+var setPaint = function() {
   if ($(this).hasClass('filled')) {
-    paint_over_filled = true;
+    paintOverFilled = true;
   } 
   if (event.which == 1) {
     // left mouse button
@@ -72,7 +93,7 @@ var set_paint = function() {
     } else {
       paint = 'filled';
     }
-    set_tile(this, paint);
+    setTile(this, paint);
   } else if (event.which == 3) {
     // right mouse button
     if ($(this).hasClass('crossed')) {
@@ -80,42 +101,71 @@ var set_paint = function() {
     } else {
       paint = 'crossed';
     }
-    set_tile(this, paint);
+    setTile(this, paint);
   }
   return false;
 };
 
-var paint_tile = function(cell) {
-  if ($(cell).hasClass('filled') && !paint_over_filled) {
+var paintTile = function(cell) {
+  if ($(cell).hasClass('filled') && !paintOverFilled) {
     return;
   }
   if (paint.length) {
-    set_tile(cell, paint)
+    setTile(cell, paint)
   }
 };
 
-var set_tile = function(tile, paint) {
+var setTile = function(tile, paint) {
   $(tile).removeClass('filled');
   $(tile).removeClass('blank');
   $(tile).removeClass('crossed');
   $(tile).addClass(paint);
 }
 
-var clear_paint_and_update = function() {
+var clearPaintAndUpdate = function() {
   paint = '';
-  paint_over_filled = false;
-  update_cells();
+  paintOverFilled = false;
+  updateSavedGames();
 };
 
-var update_cells = function() {
-  $('#cells').val(format_cell_data());
-};
+var restoreFromSavedGames = function() {
+  if (localStorage.savedGames != undefined) {
+    var savedGames = JSON.parse(localStorage.savedGames);
 
-var format_cell_data = function() {
-  var map = Array.prototype.map;
-  var formatted_data = map.call($('.filled'), function(cell) { return cell.id });
-  return JSON.stringify(formatted_data);
+    if (savedGames[gameId] != undefined) {
+      setCells('filled', savedGames[gameId]['filled']);
+      setCells('crossed', savedGames[gameId]['crossed']);
+    }
+  }
 }
+
+var setCells = function(cssClass, cellIds) {
+  var cells = JSON.parse(cellIds);
+  for(var i = 0; i < cells.length; i++) {
+    var cellId = '#' + cells[i];
+    setTile(cellId, cssClass);
+  }
+};
+
+var updateSavedGames = function() {
+  $('#cells').val(formatCellData('.filled'));
+
+  var savedGames = JSON.parse(localStorage.savedGames || '{}');
+  savedGames[gameId] = {
+    filled: formatCellData('.filled'),
+    crossed: formatCellData('.crossed'),
+  };
+
+  localStorage.savedGames = JSON.stringify(savedGames);
+};
+
+var formatCellData = function(id) {
+  return JSON.stringify(cell_ids(id));
+};
+
+var cell_ids = function(id) {
+  return $(id).toArray().map(function(cell) { return cell.id });
+};
 
 var click_tile = function() {
   if ($(this).hasClass('filled')) {
@@ -134,8 +184,8 @@ var refreshGameOver = function(timeout){
   }, timeout);
 };
 
-var refreshElement = function(element_id, timeout, do_while_element_id) {
-  if (! $(do_while_element_id).length) {
+var refreshElement = function(elementId, timeout, doWhileElementId) {
+  if (! $(doWhileElementId).length) {
     return;
   }
 
@@ -145,7 +195,7 @@ var refreshElement = function(element_id, timeout, do_while_element_id) {
     accepts: 'script',
     dataType: 'html',
     success : function(data){
-      $(element_id).html(data);
+      $(elementId).html(data);
     },
     error : function(XMLHttpRequest, textStatus, errorThrown) {
       console.log(textStatus + ": " + errorThrown)
@@ -153,33 +203,36 @@ var refreshElement = function(element_id, timeout, do_while_element_id) {
   });
 
   setTimeout(function() {
-    refreshElement(element_id, timeout, do_while_element_id);
+    refreshElement(elementId, timeout, doWhileElementId);
   }, timeout);
 };
 
-var poll_game_changes = function(timeout){
+var pollGameChanges = function(timeout){
   var promise = $.getJSON("");
   
   promise.done(function(json) {
-    if (game_state) {
-      var compare = game_state.game.status.localeCompare(json.game.status);
+    if (gameState) {
+      if ($('#game-play').length) {
+        if (json['game']['completed']) {
+          updateSavedGames();
+          $('#player-answer').submit();
+        }
+      } else if ($('#game-lobby').length) {
+        // this is somewhat redundant, but will fix those cases where the game is started between the page reloading and the first JSON pull
+        var compare = gameState.game.status.localeCompare(json.game.status);
 
-      if (compare) {
-        if ($('#player_answer').length) {
-          update_cells();
-          $('#player_answer').submit();
-        } else {
+        if (compare || json['game']['started']) {
           window.location.reload(true);
         }
       }
     }
 
-    game_state = json;
+    gameState = json;
   });
 
   promise.always(function() {
     setTimeout(function() {
-      poll_game_changes(timeout);
+      pollGameChanges(timeout);
     }, timeout);
   });
 };

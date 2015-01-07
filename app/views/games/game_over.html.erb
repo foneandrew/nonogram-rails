@@ -1,3 +1,4 @@
+<template id="game" data-game-id="<%= @game.id %>"></template>
 <%= content_tag :h2, @game.nonogram.hint %>
 <%= content_tag :h1, @game.nonogram.name %>
 
@@ -9,6 +10,6 @@
 
 <%= render 'top_players' %>
 
-<%= content_tag(:div, (render partial: 'other_players_attempts', locals: {player_grids: @player_answers, size: @size, waiting_for_results: Time.now - @game.time_finished < 5}), id: 'other_players_attempts') %>
+<%= content_tag(:div, (render partial: 'other_players_attempts', locals: {player_grids: @player_answers, size: @size, waiting_for_results: Time.now - @game.time_finished < 5}), id: 'other-players-attempts') %>
 
 <%= render 'back_to_index' %>

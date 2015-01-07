@@ -7,7 +7,7 @@ class FormatNonogramSolution
   def call
     @size.times.flat_map do |row|
       @size.times.map do |col|
-        @cells.include?("#{row},#{col}") ? "1" : "0"
+        @cells.include?("#{row}-#{col}") ? "1" : "0"
       end
     end.join
   end

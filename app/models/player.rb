@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
   # t.boolean :won
   # t.text    :answer
 
-  model_name.instance_variable_set :@route_key, 'player'
+  # model_name.instance_variable_set :@route_key, 'player'
 
   belongs_to :user
   belongs_to :game

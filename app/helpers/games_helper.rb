@@ -6,7 +6,7 @@ module GamesHelper
 
     case
     when game.completed?     then message + game_finished_message(game)
-    when game.started?       then message + "#{game.nonogram.hint} (in progress...)"
+    when game.started?       then message + "#{game.nonogram.hint} (#{size(game.nonogram.size)})"
     when game.ready_to_play? then message + 'ready to play!'
     else
       message + "waiting for #{Game::MIN_PLAYERS - game.players.length} #{'player'.pluralize(Game::MIN_PLAYERS - game.players.length)}..."      
@@ -28,6 +28,10 @@ module GamesHelper
   end
 
   private
+
+  def size(s)
+    "#{s}x#{s}"
+  end
 
   def user_in_game?(user, game)
     if user.present?
