@@ -18,20 +18,6 @@ class GamesController < ApplicationController
     @size = @game.nonogram.size if @game.nonogram.present?
 
     respond_to do |format|
-      format.js do
-        if @game.completed?
-          response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-          render partial: 'other_players_attempts', locals: {
-            player_grids: player_answers,
-            size: @size,
-            waiting_for_results: Time.now - @game.time_finished < 5
-          }, content_type: 'text/html'
-        else
-          # this is the prefered way to render nothing in rails 4?
-          head :ok, content_type: "text/html"
-        end
-      end
-
       format.json do
         response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
         render json: @game
@@ -67,13 +53,10 @@ class GamesController < ApplicationController
   private
 
   def render_game_over
+    # business logic move elsewhere
     @solution = Grid.decode(nonogram_data: @game.nonogram.solution)
-    @player_answers = player_answers
+    # @player_answers = player_answers
     render :game_over
-  end
-
-  def player_answers
-    HashPlayerGrids.new(players: @game.players.reject(&:won)).call
   end
 
   def render_game_in_progress
@@ -82,10 +65,6 @@ class GamesController < ApplicationController
     @columns = @grid.columns
 
     if @player.present?
-      if session[:player] == @player.id && session[:player_answer].present?
-        @player_answer = Grid.decode(nonogram_data: session[:player_answer])
-      end
-
       render :game_play
     else
       render :game_started_not_joined

@@ -1,4 +1,23 @@
 class PlayersController < ApplicationController
+  def index 
+    @game = Game.find(params[:game_id])
+    @players = @game.players
+    @size = @game.nonogram.size
+    @waiting_for_results = Time.now - @game.time_finished < 5
+    @player_grids = player_answers
+
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    render layout: false
+
+    # if @game.completed?
+    #   response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    #   render :index
+    # else
+    #   # this is the prefered way to render nothing in rails 4?
+    #   head :ok, content_type: "text/html"
+    # end
+  end
+
   def create
     game = Game.find(params[:game_id])
 
@@ -14,13 +33,15 @@ class PlayersController < ApplicationController
 
     attempt_to_end_game(game, player, answer)
 
-    session[:player] = player.id
-    session[:player_answer] = answer
-
     redirect_to game
   end
 
   private
+
+  def player_answers
+    # business logic move elsewhere
+    HashPlayerGrids.new(players: @players.reject(&:won)).call
+  end
 
   def attempt_to_add_player(game, user)
     add_player = AddNewPlayer.new(game: game, user: user)

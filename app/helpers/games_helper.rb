@@ -1,4 +1,5 @@
 module GamesHelper
+
   def stage_message(game:, user: nil)
     message = "#{game.id}: "
 

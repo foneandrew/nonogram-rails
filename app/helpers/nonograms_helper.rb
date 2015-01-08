@@ -19,7 +19,7 @@ module NonogramsHelper
     css_class << ' top-border' if row_num % 5 == 0
     css_class << ' left-border' if column_num % 5 == 0
 
-    css_class << cell_class(row_num, column_num, nonogram_grid)
+    css_class << ' blank'
   end
 
   def presentable_cell_class(row_num:, column_num:, nonogram_grid:)
