@@ -11,6 +11,10 @@ class Grid
     Grid.new(data)
   end
 
+  def size
+    data.length
+  end
+
   def rows
     @data.map { |row| Line.new(row) }
   end

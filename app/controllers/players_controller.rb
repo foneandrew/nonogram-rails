@@ -2,7 +2,6 @@ class PlayersController < ApplicationController
   def index 
     @game = Game.find(params[:game_id])
     @players = @game.players
-    @size = @game.nonogram.size
     @waiting_for_results = Time.now - @game.time_finished < 5
     @player_grids = player_answers
 

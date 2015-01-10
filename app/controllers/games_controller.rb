@@ -1,6 +1,8 @@
+# require_relative '../decorators/descriptive_game'
+
 class GamesController < ApplicationController
   def index
-    @games = Game.not_completed.reverse
+    @games = Game.not_completed.reverse.map { |game| DescriptiveGame.new(game) }
     
     respond_to do |format|
       format.js do
@@ -13,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = DescriptiveGame.new(Game.find(params[:id]))
     @player = @game.players.find_by(user: current_user)
     @size = @game.nonogram.size if @game.nonogram.present?
 
@@ -53,8 +55,9 @@ class GamesController < ApplicationController
   private
 
   def render_game_over
-    # business logic move elsewhere
-    @solution = Grid.decode(nonogram_data: @game.nonogram.solution)
+    # is business logic => move elsewhere?
+    @nonogram = DescriptiveNonogram.new(@game.nonogram)
+    @solution_grid = Grid.decode(nonogram_data: @nonogram.solution)
     # @player_answers = player_answers
     render :game_over
   end

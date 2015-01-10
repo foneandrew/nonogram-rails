@@ -1,0 +1,6 @@
+<% row_clue = @rows[row].clue %>
+<% clue_length = max_clue_length(rows: @rows, columns: @columns) %>
+
+<% clue_length.times do |clue_number| %>
+  <%= row_clue_at_index(clue: row_clue, clue_length: clue_length, index: clue_number) %>
+<% end %>

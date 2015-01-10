@@ -1,16 +1,23 @@
 module NonogramsHelper
+  def size_dropdown
+    select_tag :size, options_for_select(Nonogram::VALID_SIZES.map do |size|
+      ["#{size}x#{size}", size]
+    end)
+  end
+
+  def row_clue_at_index(clue:, clue_length:, index:)
+    if clue.length == clue_length - index
+       content_tag :th, " #{clue.shift}", class: 'cell row-clue'
+    else
+       content_tag(:th, '', class: 'cell row-clue')
+    end
+  end
+
   def max_clue_length(rows:, columns:)
+    # where to put this???
     (rows + columns).map do |line|
       line.clue.length
     end.max
-  end
-
-  def row_clue(grid:, index:)
-    grid.rows[index].clue.join(' ')
-  end
-
-  def column_clue(grid:, index:)
-    grid.columns[index].clue.join(' ')
   end
 
   def editable_cell_class(row_num:, column_num:, nonogram_grid:)

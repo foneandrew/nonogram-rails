@@ -5,16 +5,12 @@
 
 <%= render partial: 'joined_players' %>
 
-<% if @player.blank? %>
-  <%= render 'join_game_form' %>
-<% else %>
-  <%= content_tag :div, 'You have joined this game' %>
-<% end %>
+<%= join_game_form(current_player: @player) %>
 
 <div>
-  <%= stage_message(game: @game) %>
+  <%= @game.stage_message %>
 </div>
 
-<%= render 'start_game_form' if @game.ready_to_play? && @player.present? %>
+<%= start_game_form(game: @game, player: @player) %>
 
-<%= render 'back_to_index' %>
+<%= link_to_main %>

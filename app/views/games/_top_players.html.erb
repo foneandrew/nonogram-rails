@@ -2,7 +2,7 @@
 <h5>Top 3 players for this puzzle:</h5>
 
   <ul>
-    <% top_players(nonogram: @game.nonogram).each do |player_and_time| %>
+    <% nonogram.top_players(3).each do |player_and_time| %>
       <li>
         <%= player_and_time %>
       </li>

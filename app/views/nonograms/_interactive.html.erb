@@ -3,7 +3,7 @@
 
 <table id="nonogram" align="center" >
   
-  <%= render 'column_clues' if draw_clues %>
+  <%= render partial: 'nonograms/column_clues' if draw_clues %>
 
   <!-- draw the row clues and the board -->
   <% size.times do |row| %>
@@ -12,7 +12,7 @@
 
         <!-- have to do the clues for each row first -->
         <% if draw_clues && column == 0 %>
-          <%= render partial: 'row_clue', locals: {row: row} %>
+          <%= render partial: 'nonograms/row_clue', locals: {row: row} %>
         <% end %>
 
         <!-- a nonogram cell -->

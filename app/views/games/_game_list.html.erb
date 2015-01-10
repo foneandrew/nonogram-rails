@@ -1,8 +1,9 @@
 <div>
   <ul>
     <% @games.each do |game| %>
+      <% game = DescriptiveGame.new(game) %>
       <li>
-        <%= link_to "#{stage_message(game: game, user: current_user)}", game %>
+        <%= link_to "#{game.stage_message(user: current_user)}", game %>
       </li>
     <% end %>
   </ul>

@@ -1,15 +1,9 @@
-<%= render_all_answers_in_template(game: @game) %>
+<%= render_submissions_over_template(game: @game) %>
 
 <%= content_tag(:h4, "Other player's attempts for this game:") %>
 
 <% @player_grids.each do |player_name, grid| %>
   <%= content_tag(:h5, player_name) %>
 
-  <% if grid.present? %>
-    <%= render partial: 'nonograms/display', locals: {nonogram: grid, size: @size, draw_clues: false} %>
-  <% elsif @waiting_for_results %>
-    <%= content_tag(:span, 'waiting for answer...') %>
-  <% else %>
-    <%= content_tag(:span, 'did not finish') %>
-  <% end %>
+  <%= render_answer(grid: grid, game: @game) %>
 <% end %>

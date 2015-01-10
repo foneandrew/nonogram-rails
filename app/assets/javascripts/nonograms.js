@@ -7,7 +7,7 @@ $(function() {
     Nonogram.init($('#game').data('game-id'));
 
     UiListeners.hook();
-  };
+  }
 });
 
 window.UiListeners = new function() {
@@ -57,12 +57,14 @@ window.Nonogram = new function() {
   };
 
   this.selectTile = function(tile) {
+    console.debug('N: selecting tile');
     highlightRow(tile, true);
     highlightColumn(tile, true);
     paintTile(tile);
   };
 
   this.deselectTile = function(tile) {
+    console.debug('N: deselecting tile');
     highlightRow(tile, false);
     highlightColumn(tile, false);
   };
@@ -100,14 +102,16 @@ window.Nonogram = new function() {
   };
 
   this.saveNonogram = function() {
-    console.debug('N: savig nonogram');
-    var savedGames = JSON.parse(localStorage.savedGames || '{}');
-    savedGames[gameId] = {
-      filled: formatCellData('.filled'),
-      crossed: formatCellData('.crossed'),
-    };
+    if (gameId != undefined) {
+      console.debug('N: savig nonogram');
+      var savedGames = JSON.parse(localStorage.savedGames || '{}');
+      savedGames[gameId] = {
+        filled: formatCellData('.filled'),
+        crossed: formatCellData('.crossed'),
+      };
 
-    localStorage.savedGames = JSON.stringify(savedGames);
+      localStorage.savedGames = JSON.stringify(savedGames);
+    }
   };
 
   this.removeSavedNonogram = function(id) {
@@ -136,6 +140,7 @@ window.Nonogram = new function() {
 
 
   var paintTile = function(cell) {
+    console.debug('N: painting tile');
     if ($(cell).hasClass('filled') && !paintOverFilled) {
       return;
     }
@@ -168,8 +173,8 @@ window.Nonogram = new function() {
   };
 
   var restoreNonogram = function() {
-    console.debug('N: restoring a nonogram from storage');
-    if (localStorage.savedGames != undefined) {
+    if (localStorage.savedGames != undefined && gameId != undefined) {
+      console.debug('N: restoring a nonogram from storage');
       var savedGames = JSON.parse(localStorage.savedGames);
 
       if (savedGames[gameId] != undefined) {
@@ -196,8 +201,3 @@ window.Nonogram = new function() {
     return $(id).toArray().map(function(cell) { return cell.id });
   };
 };
-
-
-
-
-
