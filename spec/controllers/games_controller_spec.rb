@@ -35,37 +35,6 @@ RSpec.describe GamesController, :type => :controller do
     let(:game) { games(:game_1) }
     let(:size) { game.nonogram.size }
 
-    context 'when requesting js response' do
-      let(:game) { games(:game_over) }
-
-      context 'when the game is completed' do
-        let(:hash_player_grids) { instance_double(HashPlayerGrids) }
-        let(:player_grids) { double }
-
-        before do
-          allow(hash_player_grids).to receive(:call).and_return player_grids
-        end
-
-        it 'renders partial for other (non-winning) players attempts' do
-          expect(HashPlayerGrids).to receive(:new).with(players: game.players.reject { |p| p.won == true }).and_return hash_player_grids
-
-          get :show, id: game.id, format: 'js'
-
-          expect(response).to render_template('games/_other_players_attempts')
-        end
-      end
-      
-      context 'when the game is not completed' do
-        let(:game) { games(:not_started) }
-
-        it 'renders nothing' do
-          get :show, id: game.id, format: 'js'
-
-          expect(response.body).to be_blank
-        end
-      end
-    end
-
     context 'when requesting json response' do
       let(:id) { game.id }
       let(:started) { game.started? }
@@ -108,24 +77,26 @@ RSpec.describe GamesController, :type => :controller do
         let(:grid) { instance_double(Grid) }
         let(:hash_player_grids) { instance_double(HashPlayerGrids) }
         let(:player_grids) { double }
+        let(:nonogram) { game.nonogram }
 
         before do
           allow(Grid).to receive(:decode).and_return grid
           allow(HashPlayerGrids).to receive(:new).and_return hash_player_grids
           allow(hash_player_grids).to receive(:call).and_return player_grids
+          allow(DescriptiveNonogram).to receive(:new).and_return nonogram
         end
 
-        it 'assigns @solution' do
+        it 'assigns @solution_grid' do
           get :show, id: game.id
-          expect(assigns(:solution)).to eq grid
+          expect(assigns(:solution_grid)).to eq grid
         end
 
-        it 'assigns @player_answers' do
-          expect(HashPlayerGrids).to receive(:new).with(players: game.players.reject { |p| p.won == true }).and_return hash_player_grids
+        it 'assigns @nonogram' do
+          expect(DescriptiveNonogram).to receive(:new).with(nonogram).and_return nonogram
 
           get :show, id: game.id
 
-          expect(assigns(:player_answers))
+          expect(assigns(:nonogram)).to eq nonogram
         end
 
         it 'renders game_over' do

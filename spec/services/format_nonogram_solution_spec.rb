@@ -4,7 +4,7 @@ RSpec.describe FormatNonogramSolution, :type => :service do
   fixtures :nonograms
 
   describe '#call' do
-    let(:cells_JSON) { "[\"0,0\",\"0,1\",\"0,2\",\"1,0\",\"1,1\",\"2,0\",\"2,2\",\"3,0\",\"3,1\",\"3,3\",\"4,0\",\"4,1\",\"4,2\"]" }
+    let(:cells_JSON) { "[\"0-0\",\"0-1\",\"0-2\",\"1-0\",\"1-1\",\"2-0\",\"2-2\",\"3-0\",\"3-1\",\"3-3\",\"4-0\",\"4-1\",\"4-2\"]" }
     let(:solution) { nonograms(:nonogram_size_5).solution }
     #nonogram stored in nonogram_size_5:
     #1 1 1 0 0

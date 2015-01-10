@@ -75,26 +75,12 @@ RSpec.describe NonogramsHelper, :type => :helper do
       end
     end
 
-    context 'when the cell is a filled cell' do
-      it 'has the class filled' do
-        expect(cell_class).to include 'filled'
-      end
-
-      it 'does not have the class blank' do
-        expect(cell_class).not_to include 'blank'
-      end
+    it 'has the class blank' do
+      expect(cell_class).to include 'blank'
     end
 
-    context 'when the cell is a blank cell' do
-      let(:column) { 4 }
-
-      it 'has the class blank' do
-        expect(cell_class).to include 'blank'
-      end
-
-      it 'does not have the class filled' do
-        expect(cell_class).not_to include 'filled'
-      end
+    it 'does not have the class filled' do
+      expect(cell_class).not_to include 'filled'
     end
   end
 

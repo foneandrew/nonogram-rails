@@ -9,6 +9,29 @@ RSpec.describe PlayersController, :type => :controller do
     sign_in user
   end
 
+  describe 'GET index' do
+    let(:game)    { games(:game_1) }
+    let(:hash_player_grids) { instance_double(HashPlayerGrids) }
+    let(:player_grids) { double }
+
+    before do
+      allow(HashPlayerGrids).to receive(:new).and_return(hash_player_grids)
+      allow(hash_player_grids).to receive(:call).and_return(player_grids)
+    end
+
+    it 'renders the index' do
+      get :index, game_id: game
+      expect(response).to render_template(:index)
+    end
+
+    it 'assigns player_grids' do
+      expect(HashPlayerGrids).to receive(:new).with(players: game.players).and_return(hash_player_grids)
+      expect(hash_player_grids).to receive(:call).and_return(player_grids)
+      get :index, game_id: game
+      expect(assigns(:player_grids)).to eq player_grids
+    end
+  end
+
   describe 'POST create' do
     let(:game)    { games(:empty_game) }
     let(:player)  { instance_double(Player) }
@@ -73,12 +96,12 @@ RSpec.describe PlayersController, :type => :controller do
     it 'formats the given json of cells' do
       expect(FormatNonogramSolution).to receive(:new).with(cells: cells, size: game.nonogram.size).and_return(format_nonogram)
       expect(format_nonogram).to receive(:call).and_return(formated_answer)
-      put :update, game_id: game.id, cells: cells
+      put :update, id: player, game_id: game, cells: cells
     end
 
     it 'attempts to end the game' do
       expect(SubmitAnswer).to receive(:new).with(game: game, player: player, answer: formated_answer).and_return(submit_answer)
-      put :update, game_id: game.id, cells: cells
+      put :update, id: player, game_id: game, cells: cells
     end
 
     context 'when the guess is wrong' do
@@ -87,7 +110,7 @@ RSpec.describe PlayersController, :type => :controller do
       end
 
       it 'sets a flash notice' do
-        put :update, game_id: game.id, cells: cells
+        put :update, id: player, game_id: game, cells: cells
         expect(flash[:notice]).to be_present
       end
     end
@@ -99,21 +122,21 @@ RSpec.describe PlayersController, :type => :controller do
 
       context 'when the player won' do
         it 'sets a flash notice' do
-          put :update, game_id: games(:game_player_1_won).id, cells: cells
+          put :update, id: player, game_id: games(:game_player_1_won), cells: cells
           expect(flash[:notice]).to be_present
         end
       end
 
       context 'when the player lost' do
         it 'sets a flash notice' do
-          put :update, game_id: games(:game_player_1_lost).id, cells: cells
+          put :update, id: player, game_id: games(:game_player_1_lost), cells: cells
           expect(flash[:notice]).to be_present
         end
       end
     end
 
     it 'redirects to the game' do
-      put :update, game_id: game.id, cells: cells
+      put :update, id: player, game_id: game, cells: cells
       expect(response).to redirect_to game
     end
   end

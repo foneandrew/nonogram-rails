@@ -2,7 +2,6 @@ class PlayersController < ApplicationController
   def index 
     @game = Game.find(params[:game_id])
     @players = @game.players
-    @waiting_for_results = Time.now - @game.time_finished < 5
     @player_grids = player_answers
 
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
