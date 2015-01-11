@@ -69,12 +69,13 @@ class GamesController < ApplicationController
   private
 
   def fetch_joined_and_unjoined_games
-    hosted_games = Game.hosted_by(current_user).reverse
-    joined_games = Game.not_completed.joined(current_user).reverse - hosted_games
-    games = Game.not_completed.reverse - joined_games - hosted_games
+    incomplete_games = Game.not_completed
+    hosted_games = incomplete_games.hosted_by(current_user).reverse
+    joined_games = incomplete_games.joined(current_user).reverse
+    unjoined_games = (incomplete_games - joined_games).reverse
     @hosted_games = hosted_games.map { |game| DescriptiveGame.new(game) }
-    @joined_games = joined_games.map { |game| DescriptiveGame.new(game) }
-    @unjoined_games = (games - joined_games).map { |game| DescriptiveGame.new(game) }
+    @joined_games = (joined_games - hosted_games).map { |game| DescriptiveGame.new(game) }
+    @unjoined_games = unjoined_games.map { |game| DescriptiveGame.new(game) }
   end
 
   def render_game_over

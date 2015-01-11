@@ -100,8 +100,41 @@ ul {
   color: green;
 }
 
-.new-nonogram-form {
-  padding: 10px;
+.small-text {
+  font-size: 15px
+}
+
+.navbar-link {
+  text-decoration: none;
+}
+
+.navbar-login-details {
+  float: left;
+}
+
+.navbar-title {
+  position: absolute;
+  font-size: 24px;
+  font-style: italic;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.navbar-new-nonogram {
+  float: right;
+}
+
+.navbar {
+  height: 30px;
+  border-bottom-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 2px; 
+}
+
+.mini-form {
+  width: 50%;
+  margin: 10px;
+  padding: 2px;
   display: inline-block;
   border-radius: 4px;
   border: 2px solid #cccccc;

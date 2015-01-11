@@ -1,8 +1,5 @@
-<div class="new-nonogram-form">
-  <%= content_tag(:h4, 'Create your own Nonogram!') %>
-
-  <%= form_tag new_nonogram_path, method: :get do %>
-    <%= nonogram_size_dropdown %>
-    <%= submit_tag 'Create Nonogram' %>
-  <% end %>
-</div>
+<%= form_tag new_nonogram_path, method: :get do %>
+  <span class="small-text">create your own</span>
+  <%= nonogram_size_dropdown %>
+  <%= submit_tag 'Create Nonogram' %>
+<% end %>

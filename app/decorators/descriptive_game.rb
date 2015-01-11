@@ -4,18 +4,19 @@ class DescriptiveGame < SimpleDelegator
   include IntervalHelper
   include ActionView::Helpers
 
-  def stage_message
+  def stage_message(user:)
     message = "##{id}: #{nonogram_hint}"
 
-    if started?
-      message << " STARTED!"
-    elsif completed?
-      message << " won in #{minutes_and_seconds(seconds_taken_to_complete)}"
-    else
+    player = players.find_by(user: user)
+
+    case
+    when started?
+      message << started_message(player)
+    when completed?
+      message << completed_message(player)
+    else 
       message << " #{pluralize(players.count, 'player')} joined"
     end
-
-    message
   end
 
   def finished_message
@@ -27,6 +28,22 @@ class DescriptiveGame < SimpleDelegator
   end
 
   private
+
+  def started_message(player)
+    if player.present? && player.gave_up
+      ' (gave up)'
+    else
+      ' STARTED!'
+    end
+  end
+
+  def completed_message(player)
+    if player.present? && player.won
+      " YOU won in #{minutes_and_seconds(seconds_taken_to_complete)}"
+    else
+      " won in #{minutes_and_seconds(seconds_taken_to_complete)}"
+    end
+  end
 
   def nonogram_hint
     if nonogram.present?
