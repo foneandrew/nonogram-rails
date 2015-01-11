@@ -1,8 +1,4 @@
 class Player < ActiveRecord::Base
-  # t.integer :user_id, null: false
-  # t.integer :game_id, null: false
-  # t.boolean :won
-  # t.text    :answer
 
   # model_name.instance_variable_set :@route_key, 'player'
 
@@ -11,5 +7,7 @@ class Player < ActiveRecord::Base
 
   validates :user, :game, presence: true
 
-  scope     :winners, -> { where(won: true) }
+  scope     :winners,   -> { where(won: true) }
+  scope     :quitters,  -> { where(gave_up: true) }
+  scope     :for_user,  -> (user) { where(user: user) }
 end

@@ -1,7 +1,17 @@
+<h3>Games you joined</h3>
 <div>
   <ul>
-    <% @games.each do |game| %>
-      <% game = DescriptiveGame.new(game) %>
+    <% @joined_games.each do |game| %>
+      <li>
+        <%= link_to "#{game.stage_message(user: current_user)}", game %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<h3>Other games</h3>
+<div>
+  <ul>
+    <% @unjoined_games.each do |game| %>
       <li>
         <%= link_to "#{game.stage_message(user: current_user)}", game %>
       </li>

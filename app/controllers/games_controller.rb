@@ -2,7 +2,7 @@
 
 class GamesController < ApplicationController
   def index
-    @games = Game.not_completed.reverse.map { |game| DescriptiveGame.new(game) }
+    fetch_joined_and_unjoined_games
     
     respond_to do |format|
       format.js do
@@ -35,6 +35,11 @@ class GamesController < ApplicationController
     end
   end
 
+  def new
+    @host = current_user
+    @nonograms = Nonogram.all
+  end
+
   def create
     game = Game.new
 
@@ -53,6 +58,13 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def fetch_joined_and_unjoined_games
+    games = Game.not_completed.reverse
+    joined_games = Game.not_completed.joined(current_user).reverse
+    @joined_games = joined_games.map { |game| DescriptiveGame.new(game) }
+    @unjoined_games = (games - joined_games).map { |game| DescriptiveGame.new(game) }
+  end
 
   def render_game_over
     # is business logic => move elsewhere?

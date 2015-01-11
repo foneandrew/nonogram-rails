@@ -17,25 +17,31 @@ ActiveRecord::Schema.define(version: 20141209025826) do
     t.datetime "time_started"
     t.datetime "time_finished"
     t.integer  "nonogram_id"
+    t.integer  "user_id",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "games", ["nonogram_id"], name: "index_games_on_nonogram_id"
+  add_index "games", ["user_id"], name: "index_games_on_user_id"
 
   create_table "nonograms", force: true do |t|
     t.text     "name",       null: false
     t.text     "hint",       null: false
     t.text     "solution",   null: false
     t.integer  "size",       null: false
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "nonograms", ["user_id"], name: "index_nonograms_on_user_id"
 
   create_table "players", force: true do |t|
     t.integer  "user_id",    null: false
     t.integer  "game_id",    null: false
     t.boolean  "won"
+    t.boolean  "gave_up"
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"

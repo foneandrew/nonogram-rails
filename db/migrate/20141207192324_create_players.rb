@@ -6,6 +6,7 @@ class CreatePlayers < ActiveRecord::Migration
       t.integer :game_id, null: false
       t.index   :game_id
       t.boolean :won
+      t.boolean :gave_up
       t.text    :answer
       t.timestamps
     end
