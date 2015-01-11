@@ -26,15 +26,30 @@ class PlayersController < ApplicationController
 
   def update
     game = Game.find(params[:game_id])
-    player = game.players.find_by(user: current_user)
+    # player = game.players.find_by(user: current_user)
+    player = Player.find(params[:id])
     answer = FormatNonogramSolution.new(cells: params[:cells], size: game.nonogram.size).call
 
-    attempt_to_end_game(game, player, answer)
+    type = params[:type]
+
+    if type == 'check'
+      attempt_to_end_game(game, player, answer)
+    else
+      player_give_up(game, player, answer)
+    end
 
     redirect_to game
   end
 
   private
+
+  def player_give_up(game, player, answer)
+    if GiveUpPlayer.new(player: player, game: game, answer: answer).call
+      flash.notice = 'gave up'
+    else
+      flash.alert = 'unable to give up'
+    end
+  end
 
   def player_answers
     # business logic move elsewhere

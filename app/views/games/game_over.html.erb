@@ -1,8 +1,7 @@
 <template id="game" data-game-id="<%= @game.id %>"></template>
 <template id="game-over"></template>
 
-<%= content_tag :h2, @nonogram.hint %>
-<%= content_tag :h1, @nonogram.name %>
+<%= nonogram_description(@nonogram) %>
 
 <% if @solution_grid.present? %>
   <%= render partial: 'nonograms/display', locals: {nonogram: @solution_grid, size: @size, draw_clues: false} %>

@@ -1,0 +1,20 @@
+<h1>Choose a <%= "#{@size}x#{@size}" %> Nonogram</h1>
+
+<%= form_tag Game.new do %>
+  <%= hidden_field_tag 'size', @size %>
+
+  <%= nonograms_dropdown(@nonograms) %>
+
+  <div>
+    <%= submit_tag 'Create the Game' %>
+  </div>
+<% end %>
+<span>or</span>
+<%= form_tag Game.new do %>
+  <%= hidden_field_tag 'size', @size %>
+  <div>
+    <%= submit_tag 'Use a random nonogram' %>
+  </div>
+<% end %>
+
+<%= link_to_main %>

@@ -3,7 +3,6 @@
 
 $(function() {
   if ($('#nonogram').length) {
-    console.debug('N: in nonogram');
     Nonogram.init($('#game').data('game-id'));
 
     UiListeners.hook();
@@ -12,7 +11,8 @@ $(function() {
 
 window.UiListeners = new function() {
   this.hook = function() {
-    console.debug('N: binding mouse');
+
+    bindGiveUpButton();
 
     bindMouseClick();
     bindMouseOver();
@@ -21,6 +21,10 @@ window.UiListeners = new function() {
   };
 
   // PRIVATE
+
+  var bindGiveUpButton = function() {
+    $('#give-up').click(giveUp);
+  };
 
   var bindMouseClick = function() {
     $('.game-cell').mousedown(tileClicked);
@@ -36,6 +40,14 @@ window.UiListeners = new function() {
     $('.game-cell').bind('contextmenu', function() { return false; }); 
   };
 
+  var giveUp = function() {
+    if (confirm('Are you sure you want to give up?')) {
+      $('#type').val('giveup');
+      Nonogram.saveForSubmission();
+      $('#player-answer').submit();
+    }
+  };
+
   var tileClicked = function() {
     Nonogram.setPaint(event, this);
     return false;
@@ -48,7 +60,6 @@ window.Nonogram = new function() {
   var gameId;
 
   this.init = function(id) {
-    console.debug('N: initialising Nonogram');
     gameId = id;
     paint = '';
     
@@ -57,20 +68,17 @@ window.Nonogram = new function() {
   };
 
   this.selectTile = function(tile) {
-    console.debug('N: selecting tile');
     highlightRow(tile, true);
     highlightColumn(tile, true);
     paintTile(tile);
   };
 
   this.deselectTile = function(tile) {
-    console.debug('N: deselecting tile');
     highlightRow(tile, false);
     highlightColumn(tile, false);
   };
 
   this.setPaint = function(mouseEvent, tile) {
-    console.debug('N: setting paint');
     if ($(tile).hasClass('filled')) {
       paintOverFilled = true;
     } 
@@ -103,7 +111,6 @@ window.Nonogram = new function() {
 
   this.saveNonogram = function() {
     if (gameId != undefined) {
-      console.debug('N: savig nonogram');
       var savedGames = JSON.parse(localStorage.savedGames || '{}');
       savedGames[gameId] = {
         filled: formatCellData('.filled'),
@@ -115,7 +122,6 @@ window.Nonogram = new function() {
   };
 
   this.removeSavedNonogram = function(id) {
-    console.debug('N: deleting nonogram');
     if (localStorage.savedGames != undefined) {
       var savedGames = JSON.parse(localStorage.savedGames);
       delete savedGames[id];
@@ -125,7 +131,6 @@ window.Nonogram = new function() {
   };
 
   this.saveForSubmission = function() {
-    console.debug('N: preparing data for submission');
     $('#cells').val(formatCellData('.filled'));
   };
 
@@ -140,7 +145,6 @@ window.Nonogram = new function() {
 
 
   var paintTile = function(cell) {
-    console.debug('N: painting tile');
     if ($(cell).hasClass('filled') && !paintOverFilled) {
       return;
     }
@@ -174,7 +178,6 @@ window.Nonogram = new function() {
 
   var restoreNonogram = function() {
     if (localStorage.savedGames != undefined && gameId != undefined) {
-      console.debug('N: restoring a nonogram from storage');
       var savedGames = JSON.parse(localStorage.savedGames);
 
       if (savedGames[gameId] != undefined) {

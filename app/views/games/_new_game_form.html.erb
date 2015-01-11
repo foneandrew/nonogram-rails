@@ -1,5 +1,6 @@
 <div>
-  <%= form_for Game.new do |f| %>
-    <%= f.submit 'New Game' %>
+  <%= form_tag new_game_path, method: :get do %>
+    <%= nonogram_size_dropdown %>
+    <%= submit_tag 'New Game' %>
   <% end %>
 </div>

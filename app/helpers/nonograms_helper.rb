@@ -1,5 +1,19 @@
 module NonogramsHelper
-  def size_dropdown
+  def nonogram_description(nonogram)
+    content_tag :div, (
+      content_tag(:h2, "#{nonogram.hint}:") +
+      content_tag(:h1, nonogram.name) +
+      content_tag(:h3, nonogram.author)
+    )
+  end
+
+  def nonograms_dropdown(nonograms)
+    select_tag :nonogram, options_for_select(nonograms.map do |nonogram|
+      ["#{nonogram.hint}", nonogram.id]
+    end)
+  end
+
+  def nonogram_size_dropdown
     select_tag :size, options_for_select(Nonogram::VALID_SIZES.map do |size|
       ["#{size}x#{size}", size]
     end)

@@ -1,9 +1,19 @@
+<h3>Games you are hosting</h3>
+<div>
+  <ul>
+    <% @hosted_games.each do |game| %>
+      <li>
+        <%= link_to "#{game.stage_message}", game %>
+      </li>
+    <% end %>
+  </ul>
+</div>
 <h3>Games you joined</h3>
 <div>
   <ul>
     <% @joined_games.each do |game| %>
       <li>
-        <%= link_to "#{game.stage_message(user: current_user)}", game %>
+        <%= link_to "#{game.stage_message}", game %>
       </li>
     <% end %>
   </ul>
@@ -13,7 +23,7 @@
   <ul>
     <% @unjoined_games.each do |game| %>
       <li>
-        <%= link_to "#{game.stage_message(user: current_user)}", game %>
+        <%= link_to "#{game.stage_message}", game %>
       </li>
     <% end %>
   </ul>

@@ -36,23 +36,32 @@ class GamesController < ApplicationController
   end
 
   def new
+    @size = params[:size]
     @host = current_user
-    @nonograms = Nonogram.all
+    @nonograms = Nonogram.where(size: @size)
   end
 
   def create
-    game = Game.new
+    if nonogram_id = params[:nonogram]
+      game = Game.new(user: current_user, nonogram: Nonogram.find(nonogram_id))
+    else
+      game = Game.new(user: current_user, size: params[:size])
+    end
 
     if game.save
-      redirect_to game
+      if game.players.create(user: current_user)
+        redirect_to game
+      else
+        redirect_to game, alert: 'was not able to automatically join host to the game'
+      end
     else
-      redirect_to Game, alert: "was not able to create a game: #{game.errors.messages.values.join(', ')}"
+      redirect_to Game, alert: "was not able to create the game: #{game.errors.messages.values.join(', ')}"
     end
   end
 
   def update
     game = Game.find(params[:id])
-    start_game = StartGame.new(game: game, size: params[:size])
+    start_game = StartGame.new(game: game)
     flash.alert = "was not able to start the game" unless start_game.call
     redirect_to game
   end
@@ -60,8 +69,10 @@ class GamesController < ApplicationController
   private
 
   def fetch_joined_and_unjoined_games
-    games = Game.not_completed.reverse
-    joined_games = Game.not_completed.joined(current_user).reverse
+    hosted_games = Game.hosted_by(current_user).reverse
+    joined_games = Game.not_completed.joined(current_user).reverse - hosted_games
+    games = Game.not_completed.reverse - joined_games - hosted_games
+    @hosted_games = hosted_games.map { |game| DescriptiveGame.new(game) }
     @joined_games = joined_games.map { |game| DescriptiveGame.new(game) }
     @unjoined_games = (games - joined_games).map { |game| DescriptiveGame.new(game) }
   end
@@ -80,7 +91,11 @@ class GamesController < ApplicationController
     @columns = @grid.columns
 
     if @player.present?
-      render :game_play
+      if @player.gave_up?
+        render :gave_up
+      else
+        render :game_play
+      end
     else
       render :game_started_not_joined
     end

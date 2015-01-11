@@ -4,18 +4,18 @@ class DescriptiveGame < SimpleDelegator
   include IntervalHelper
   include ActionView::Helpers
 
-  def stage_message(user: nil)
-    message = "#{id}: "
+  def stage_message
+    message = "##{id}: #{nonogram_hint}"
 
-    message << '(JOINED) ' if user_in_game?(user)
-
-    case
-    when completed?     then message + finished_message
-    when started?       then message + "#{nonogram.hint} (#{size(nonogram.size)})"
-    when ready_to_play? then message + 'ready to play!'
+    if started?
+      message << " STARTED!"
+    elsif completed?
+      message << " won in #{minutes_and_seconds(seconds_taken_to_complete)}"
     else
-      message + "waiting for #{Game::MIN_PLAYERS - players.length} #{'player'.pluralize(Game::MIN_PLAYERS - players.length)}..."      
+      message << " #{pluralize(players.count, 'player')} joined"
     end
+
+    message
   end
 
   def finished_message
@@ -28,7 +28,21 @@ class DescriptiveGame < SimpleDelegator
 
   private
 
-  def size(s)
+  def nonogram_hint
+    if nonogram.present?
+      "('#{nonogram.hint}' #{format_size(nonogram.size)})"
+    elsif size.present?
+      "(? #{format_size(size)})"
+    else
+      'cannot find puzzle information'
+    end
+  end
+
+  def thing
+    "waiting for #{user.name} to start the game"
+  end
+
+  def format_size(s)
     "#{s}x#{s}"
   end
 

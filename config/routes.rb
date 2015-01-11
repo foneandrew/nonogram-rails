@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resource :nonogram, only: [:new, :create]
 
-  resources :games, only: [:index, :show, :create, :update] do
+  resources :games, only: [:new, :index, :show, :create, :update] do
     resources :players, only: [:index, :create, :update]
   end
 

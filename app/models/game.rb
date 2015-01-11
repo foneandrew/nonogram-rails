@@ -1,10 +1,4 @@
 class Game < ActiveRecord::Base
-  MIN_PLAYERS = 2
-
-  # t.datetime  :time_started
-  # t.datetime  :time_finished
-  # t.integer   :nonogram_id
-  # t.index     :nonogram_id
 
   belongs_to  :nonogram
   belongs_to  :user
@@ -13,26 +7,22 @@ class Game < ActiveRecord::Base
 
   validates   :user,      presence: true, if: :ready_to_play?
   validates   :nonogram,  presence: true, if: :started?
+  validates   :size,      inclusion: { in: Nonogram::VALID_SIZES,
+    message: 'is not a valid size' }, if: :validate_size?
 
   scope       :not_completed, -> { where(time_finished: nil) }
   scope       :completed, -> { where.not(time_finished: nil) }
+
+  def self.hosted_by(user)
+    self.where(user: user)
+  end
 
   def self.joined(user)
     self.includes(:players).where(players: {user: user})
   end
 
-  def self.unjoined(user)
-    self.includes(:players).where.not(players: {user: user})
-  end
-
-  def self.finished(nonogram)
-    # this is not used anywhere??
-    self.where('nonogram_id is ?', nonogram.id)
-  end
-
   def ready_to_play?
-    # if just display logic move into helper
-    players.length >= MIN_PLAYERS unless started?
+    nil
   end
 
   def started?
@@ -45,5 +35,11 @@ class Game < ActiveRecord::Base
 
   def seconds_taken_to_complete
     time_finished - time_started if completed?
+  end
+
+  private
+
+  def validate_size?
+    nonogram.blank?
   end
 end

@@ -4,6 +4,14 @@ class DescriptiveNonogram < SimpleDelegator
   include IntervalHelper
   include ActionView::Helpers
 
+  def author
+    if user.present?
+      "by #{user.name}"
+    else
+      'unknown author'
+    end
+  end
+
   def top_players(num_players)
     top_fastest_players(num_players).map do |name, time|
       "#{name} in #{minutes_and_seconds(time)}"

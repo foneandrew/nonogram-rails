@@ -1,47 +1,57 @@
 new_game:
+  user: user_1
   time_started:  
   time_finished: 
   nonogram:      
 
 game_1:
+  user: user_1
   nonogram:       nonogram_size_5
   time_started:  
   time_finished: 
 
 game_ready_to_play:
+  user: user_1
   time_started:  
   time_finished: 
   nonogram:      
 
 not_started:
+  user: user_1
   time_started: 
   nonogram:     
 
 started:
+  user: user_1
   time_started: <%= Time.now %>
   nonogram:     nonogram_size_5
 
 finished:
+  user: user_1
   time_started:  <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
   nonogram:      nonogram_size_5
 
 empty_game:
+  user: user_1
   time_started:  
   time_finished: 
   nonogram:      
 
 game_player_1_lost:
+  user: user_1
   time_started:  <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
   nonogram:      nonogram_size_5
 
 game_player_1_won:
+  user: user_1
   time_started:  <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
   nonogram:      nonogram_size_5
 
 game_over:
+  user: user_1
   time_started:  <%= Time.now %>
   time_finished: <%= Time.now + (60 * 60) %>
   nonogram:      nonogram_size_5

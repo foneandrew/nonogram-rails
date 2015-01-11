@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20141209025826) do
   create_table "games", force: true do |t|
     t.datetime "time_started"
     t.datetime "time_finished"
+    t.integer  "size"
     t.integer  "nonogram_id"
     t.integer  "user_id",       null: false
     t.datetime "created_at"
