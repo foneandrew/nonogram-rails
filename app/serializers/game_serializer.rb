@@ -3,6 +3,8 @@ class GameSerializer < ActiveModel::Serializer
 
   private
 
+  # TODO remove status shite
+
   def player_count
     object.players.count
   end

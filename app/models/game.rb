@@ -22,6 +22,7 @@ class Game < ActiveRecord::Base
   end
 
   def ready_to_play?
+    # TODO why is this here?
     nil
   end
 
