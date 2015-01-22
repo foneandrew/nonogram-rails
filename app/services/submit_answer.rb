@@ -6,14 +6,9 @@ class SubmitAnswer
   end
 
   def call
-    @game.with_lock do
-      # @game.reload (not needed - transactions auto lock)
-      if @player.answer.present?
-        # stop players overriding their answers
-        # possible cause is having two tabs open on the same puzzle for the same player
-        return
-      end
+    return if @player.answer.present?
 
+    @game.with_lock do
       if @game.completed?
         @player.won = false
         @player.answer = @answer

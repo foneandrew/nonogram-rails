@@ -1,12 +1,12 @@
-<template id="game" data-game-id="<%= @game.id %>"></template>
+<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 <template id="game-lobby"></template>
 
 <h1> Lobby </h1>
 
 <%= render partial: 'joined_players' %>
 
-<%= join_game_form(game: @game, user: current_user, current_player: @player) %>
+<%= join_game_form(game: @game_presented, user: current_user, current_player: @player) %>
 
-<%= start_game_form(game: @game, user: current_user) %>
+<%= start_game_form(game: @game_presented, user: current_user) %>
 
 <%= link_to_main %>

@@ -1,15 +1,15 @@
-<template id="game" data-game-id="<%= @game.id %>"></template>
+<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 <template id="game-over"></template>
 
-<%= nonogram_description(@nonogram) %>
+<%= nonogram_description(@nonogram_presented) %>
 
 <% if @solution_grid.present? %>
   <%= render partial: 'nonograms/display', locals: {nonogram: @solution_grid, size: @size, draw_clues: false} %>
 <% end %>
 
-<h4><%= @game.finished_message %></h4>
+<h4><%= @game_presented.finished_message %></h4>
 
-<%= render partial: 'top_players', locals: { nonogram: @nonogram } %>
+<%= render partial: 'top_players', locals: { nonogram: @nonogram_presented } %>
 
 <%= content_tag(:div, '', id: 'other-players-attempts') %>
 

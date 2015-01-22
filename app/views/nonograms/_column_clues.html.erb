@@ -10,7 +10,7 @@
     <% end %>
 
     <!-- draw the column clues (padding with blank header cells to ensure clues sit close to the grid) -->
-    <% @game.nonogram.size.times do |column_num| %>
+    <% @game_presented.nonogram.size.times do |column_num| %>
       <% if column_clues[column_num].length == clue_length - clue_number %>
         <%= content_tag :th, column_clues[column_num].shift, class: 'cell column-clue' %>
       <% else %>

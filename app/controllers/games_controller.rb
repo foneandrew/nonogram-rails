@@ -15,20 +15,21 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = DescriptiveGame.new(Game.find(params[:id]))
-    @player = @game.players.find_by(user: current_user)
-    @size = @game.nonogram.size if @game.nonogram.present?
+    @game_presented = GamePresenter.new(Game.find(params[:id]))
 
     respond_to do |format|
       format.json do
         response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-        render json: @game
+        render json: @game_presented, serializer: GameSerializer
       end
 
       format.html do
+        @player = @game_presented.players.find_by(user: current_user)
+        @size = @game_presented.nonogram.size if @game_presented.nonogram.present?
+
         case
-        when @game.completed? then render_game_over
-        when @game.started?   then render_game_in_progress
+        when @game_presented.completed? then render_game_over
+        when @game_presented.started?   then render_game_in_progress
         else                  render :game_lobby
         end
       end
@@ -71,23 +72,22 @@ class GamesController < ApplicationController
   def fetch_joined_and_unjoined_games
     incomplete_games = Game.not_completed
     hosted_games = incomplete_games.hosted_by(current_user).reverse
-    joined_games = incomplete_games.joined(current_user).reverse
-    unjoined_games = (incomplete_games - joined_games).reverse
-    @hosted_games = hosted_games.map { |game| DescriptiveGame.new(game) }
-    @joined_games = (joined_games - hosted_games).map { |game| DescriptiveGame.new(game) }
-    @unjoined_games = unjoined_games.map { |game| DescriptiveGame.new(game) }
+    joined_games = incomplete_games.joined_by(current_user).reverse
+    @hosted_games_presented = hosted_games.map { |game| GamePresenter.new(game) }
+    @joined_games_presented = (joined_games - hosted_games).map { |game| GamePresenter.new(game) }
+    @unjoined_games_presented = (incomplete_games - joined_games).reverse.map { |game| GamePresenter.new(game) }
   end
 
   def render_game_over
     # is business logic => move elsewhere?
-    @nonogram = DescriptiveNonogram.new(@game.nonogram)
-    @solution_grid = Grid.decode(nonogram_data: @nonogram.solution)
+    @nonogram_presented = NonogramPresenter.new(@game_presented.nonogram)
+    @solution_grid = Grid.decode(nonogram_data: @nonogram_presented.solution)
     # @player_answers = player_answers
     render :game_over
   end
 
   def render_game_in_progress
-    @grid = Grid.decode(nonogram_data: @game.nonogram.solution)
+    @grid = Grid.decode(nonogram_data: @game_presented.nonogram.solution)
     @rows = @grid.rows
     @columns = @grid.columns
 

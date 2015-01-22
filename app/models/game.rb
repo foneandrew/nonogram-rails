@@ -17,7 +17,7 @@ class Game < ActiveRecord::Base
     self.where(user: user)
   end
 
-  def self.joined(user)
+  def self.joined_by(user)
     self.includes(:players).where(players: {user: user})
   end
 
