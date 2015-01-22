@@ -34,12 +34,14 @@ var refreshGamesList = function(timeout) {
 
 var pollGameChanges = function(timeout){
   var promise = $.getJSON('');
-  
+
   promise.done(function(json) {
+    var gameString = JSON.stringify(JSON.stringify(json.game));
+
     if (gameState) {
+      console.log('yesy')
       if ($('#game-lobby').length) {
-        // this is somewhat redundant, but will fix those cases where the game is started between the page reloading and the first JSON pull
-        var compare = gameState.game.status.localeCompare(json.game.status);
+        var compare = gameState.localeCompare(gameString);
 
         if (compare || json['game']['started']) {
           window.location.reload(true);
@@ -56,7 +58,7 @@ var pollGameChanges = function(timeout){
       }
     }
 
-    gameState = json;
+    gameState = gameString;
   });
 
   promise.always(function() {
