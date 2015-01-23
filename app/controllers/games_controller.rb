@@ -73,7 +73,7 @@ class GamesController < ApplicationController
     incomplete_games = Game.not_completed.order('games.id DESC')
     hosted_games = incomplete_games.hosted_by(current_user).order('games.id DESC')
     joined_games = incomplete_games.joined_by(current_user).order('games.id DESC')
-    @hosted_games_presented = hosted_games.paginate(page: params[:page], per_page: 2).map { |game| GamePresenter.new(game) }
+    @hosted_games_presented = hosted_games.map { |game| GamePresenter.new(game) }
     @joined_games_presented = (joined_games - hosted_games).map { |game| GamePresenter.new(game) }
     @unjoined_games_presented = (incomplete_games - joined_games).map { |game| GamePresenter.new(game) }
   end
