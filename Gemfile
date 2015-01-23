@@ -33,6 +33,7 @@ gem 'active_model_serializers', '~> 0.8.0'
 gem 'json', '~> 1.8.1'
 
 gem 'js-routes'
+gem 'unicorn'
 
 gem 'rspec-rails'
 
