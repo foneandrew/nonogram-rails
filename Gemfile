@@ -44,6 +44,8 @@ gem 'binding_of_caller'
 
 gem 'pry-byebug'
 
+gem 'rails_12factor'
+
 gem 'devise'
 
 group :development do
