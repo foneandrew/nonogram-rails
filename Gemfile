@@ -28,6 +28,8 @@ gem 'spring',        group: :development
 
 gem 'active_model_serializers', '~> 0.8.0'
 
+gem 'will_paginate'
+
 # gem 'decorators', '~> 1.0.0'
 
 gem 'json', '~> 1.8.1'
