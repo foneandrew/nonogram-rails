@@ -1,15 +1,17 @@
 # require_relative '../decorators/descriptive_game'
 
 class GamesController < ApplicationController
+  respond_to :html, :json
+
   def index
     fetch_joined_and_unjoined_games
     
-    respond_to do |format|
-      format.js do
-        response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-        render partial: 'game_list', content_type: 'text/html'
-      end
+    if request.xhr?
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      render partial: 'game_list', content_type: 'text/html'
+    end
 
+    respond_to do |format|
       format.html { render :index }
     end
   end
@@ -28,9 +30,10 @@ class GamesController < ApplicationController
         @size = @game_presented.nonogram.size if @game_presented.nonogram.present?
 
         case
-        when @game_presented.completed? then render_game_over
-        when @game_presented.started?   then render_game_in_progress
-        else                  render :game_lobby
+          when @game_presented.completed? then render_game_over
+          when @game_presented.started?   then render_game_in_progress
+          else                  
+            render :game_lobby
         end
       end
     end

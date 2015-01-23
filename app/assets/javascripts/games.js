@@ -39,7 +39,6 @@ var pollGameChanges = function(timeout){
     var gameString = JSON.stringify(JSON.stringify(json.game));
 
     if (gameState) {
-      console.log('yesy')
       if ($('#game-lobby').length) {
         var compare = gameState.localeCompare(gameString);
 

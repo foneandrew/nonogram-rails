@@ -48,7 +48,7 @@ window.UiListeners = new function() {
     }
   };
 
-  var tileClicked = function() {
+  var tileClicked = function(event) {
     Nonogram.setPaint(event, this);
     return false;
   };

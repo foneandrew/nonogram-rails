@@ -2,5 +2,58 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.column_clue {
-  transform: rotate(90deg);}
+
+.column-clue {
+  background-color: #f2f2f2;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.row-clue {
+  background-color: #f2f2f2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+}
+
+.game-cell {
+  border: 1px solid #666666;
+}
+
+.display-cell {
+  width: 10px;
+  height: 10px;
+  border: none;
+}
+
+.blank {
+  background-color: white;
+}
+
+.filled {
+  background-color: black;
+}
+
+.crossed {
+  background-color: #cccccc;
+}
+
+.highlight-clue {
+  color: #ff3300;
+}
+
+.left-border {
+  border-left: 3px solid #666666;
+}
+
+.top-border {
+  border-top: 3px solid #666666;
+}
+
+.pad-out {
+  padding: 10px;
+}
