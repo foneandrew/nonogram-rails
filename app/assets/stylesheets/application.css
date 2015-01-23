@@ -15,8 +15,9 @@
  */
 
 body {
-  font-family: helvetica;
-  background-color: #ededed
+  font-family: Questrial;
+  background-color: #ededed;
+  margin: 0px;
  }
 
 ul {
@@ -26,6 +27,14 @@ ul {
   font-weight: bold;
 }
 
+* 
+{
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
 
 .alert {
   color: red;
@@ -38,33 +47,6 @@ ul {
 
 .small-text {
   font-size: 15px
-}
-
-.navbar-link {
-  text-decoration: none;
-}
-
-.navbar-login-details {
-  float: left;
-}
-
-.navbar-title {
-  position: absolute;
-  font-size: 24px;
-  font-style: italic;
-  left: 50%;
-  transform: translate(-50%);
-}
-
-.navbar-new-nonogram {
-  float: right;
-}
-
-.navbar {
-  height: 30px;
-  border-bottom-color: black;
-  border-bottom-style: solid;
-  border-bottom-width: 2px; 
 }
 
 .mini-form {

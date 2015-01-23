@@ -1,22 +1,20 @@
-<div class="navbar">
-  <div class="navbar-login-details">
-    <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.name %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-    <% end %>
-  </div>
-  
-  <div class="navbar-title">
-    <strong>Nonograms</strong>
-  </div>
+<div class="navbar"> 
 
-  <div class="navbar-new-nonogram">
+  <div class="title">n o n o g r a m s</div>
+
+  <div class="login-details">
     <% if user_signed_in? %>
-      <%= render partial: 'nonograms/new_nonogram_form' %>
+
+      <div class="name">Logged in as <strong><%= current_user.name %></strong></div>
+        
+      <div class="options">
+        <ul><%= link_to 'Edit profile', edit_user_registration_path, :class => 'link' %></ul>
+        <ul><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'link'  %></ul>
+      </div>
+    <% else %>
+
+      <%= link_to "Sign up", new_user_registration_path, :class => 'link'  %> |
+      <%= link_to "Login", new_user_session_path, :class => 'link'  %>
     <% end %>
   </div>
 </div>
