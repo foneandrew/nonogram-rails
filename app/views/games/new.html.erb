@@ -2,19 +2,21 @@
 
 <%= form_tag Game.new do %>
   <%= hidden_field_tag 'size', @size %>
-
-  <%= nonograms_dropdown(@nonograms) %>
-
-  <div>
-    <%= submit_tag 'Create the Game' %>
-  </div>
-<% end %>
-<span>or</span>
-<%= form_tag Game.new do %>
-  <%= hidden_field_tag 'size', @size %>
   <div>
     <%= submit_tag 'Use a random nonogram' %>
   </div>
 <% end %>
+
+<h2>Or choose one below:</h2>
+
+<ul>
+  <% @nonograms.each do |nonogram| %>
+    <li>
+      <%= link_to nonogram.hint, games_path(size: @size, nonogram: nonogram), method: :post %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @nonograms, next_label: '', previous_label: '' %>
 
 <%= link_to_main %>

@@ -39,7 +39,7 @@ class GamesController < ApplicationController
   def new
     @size = params[:size]
     @host = current_user
-    @nonograms = Nonogram.where(size: @size).order('id DESC')
+    @nonograms = Nonogram.where(size: @size).order('id DESC').paginate(page: params[:page], per_page: 10)
   end
 
   def create
