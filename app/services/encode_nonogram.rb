@@ -1,6 +1,6 @@
-class FormatNonogramSolution
+class EncodeNonogram
   def initialize(cells:, size:)
-    @cells = JSON.parse(cells)
+    @cells = cells
     # handle parsing in controler
     @size = size
   end

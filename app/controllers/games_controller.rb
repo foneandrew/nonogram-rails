@@ -39,7 +39,7 @@ class GamesController < ApplicationController
   def new
     @size = params[:size]
     @host = current_user
-    @nonograms = Nonogram.where(size: @size)
+    @nonograms = Nonogram.where(size: @size).order('id DESC')
   end
 
   def create
@@ -70,12 +70,12 @@ class GamesController < ApplicationController
   private
 
   def fetch_joined_and_unjoined_games
-    incomplete_games = Game.not_completed
-    hosted_games = incomplete_games.hosted_by(current_user).reverse
-    joined_games = incomplete_games.joined_by(current_user).reverse
+    incomplete_games = Game.not_completed.order('games.id DESC')
+    hosted_games = incomplete_games.hosted_by(current_user).order('games.id DESC')
+    joined_games = incomplete_games.joined_by(current_user).order('games.id DESC')
     @hosted_games_presented = hosted_games.map { |game| GamePresenter.new(game) }
     @joined_games_presented = (joined_games - hosted_games).map { |game| GamePresenter.new(game) }
-    @unjoined_games_presented = (incomplete_games - joined_games).reverse.map { |game| GamePresenter.new(game) }
+    @unjoined_games_presented = (incomplete_games - joined_games).map { |game| GamePresenter.new(game) }
   end
 
   def render_game_over

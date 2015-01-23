@@ -28,7 +28,7 @@ class PlayersController < ApplicationController
     game = Game.find(params[:game_id])
     # player = game.players.find_by(user: current_user)
     player = Player.find(params[:id])
-    answer = FormatNonogramSolution.new(cells: params[:cells], size: game.nonogram.size).call
+    answer = EncodeNonogram.new(cells: JSON.parse(params[:cells]), size: game.nonogram.size).call
 
     type = params[:type]
 
