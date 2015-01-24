@@ -37,7 +37,7 @@ class GamesController < ApplicationController
   end
 
   def new
-    @size = params[:size]
+    @size = params[:size] || 5
     @host = current_user
     @nonograms = Nonogram.where(size: @size).order('id DESC').paginate(page: params[:page], per_page: 10)
   end
@@ -71,11 +71,12 @@ class GamesController < ApplicationController
 
   def fetch_joined_and_unjoined_games
     incomplete_games = Game.not_completed.order('games.id DESC')
-    hosted_games = incomplete_games.hosted_by(current_user).order('games.id DESC')
-    joined_games = incomplete_games.joined_by(current_user).order('games.id DESC')
-    @hosted_games_presented = hosted_games.map { |game| GamePresenter.new(game) }
-    @joined_games_presented = (joined_games - hosted_games).map { |game| GamePresenter.new(game) }
-    @unjoined_games_presented = (incomplete_games - joined_games).map { |game| GamePresenter.new(game) }
+    @hosted_games = incomplete_games.hosted_by(current_user).order('games.id DESC')
+    @joined_games = incomplete_games.joined_by(current_user).order('games.id DESC')
+    @unjoined_games = incomplete_games.not_completed.not_joined(current_user).order('games.id DESC')
+    @hosted_games_presented = @hosted_games.map { |game| GamePresenter.new(game) }
+    @joined_games_presented = @joined_games.map { |game| GamePresenter.new(game) }
+    @unjoined_games_presented = @unjoined_games.map { |game| GamePresenter.new(game) }
   end
 
   def render_game_over

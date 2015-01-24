@@ -90,6 +90,17 @@ ul {
   padding: 10px;
 }
 
+.nonogram-title-input {
+  width: 50%;
+  font-size: 25px;
+  text-align: center;
+}
+
+.nonogram-hint-input {
+  width: 50%;
+  text-align: center;
+}
+
 .alert {
   color: red;
   text-align: center;

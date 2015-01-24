@@ -1,4 +1,12 @@
 module GamesHelper
+  def title(game)
+    if game.nonogram.present?
+      content_tag :h1, "Nonogram: '#{game.nonogram.hint}' (#{game.nonogram.size}x#{game.nonogram.size})"
+    else
+      content_tag :h1, "Nonogram: Random (#{game.nonogram.size}x#{game.nonogram.size})"
+    end
+  end
+
   def list_games(games, title, user)
     if games.present?
       content_tag :div, (
@@ -16,7 +24,7 @@ module GamesHelper
     if current_player.blank?
       render 'join_game_form'
     elsif game.user == user
-      content_tag :div, 'Start the game when ready!'
+      content_tag :strong, 'You are hosting this game'
     else
       content_tag :div, 'You have joined this game'
     end

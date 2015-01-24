@@ -14,16 +14,18 @@ class Game < ActiveRecord::Base
   scope       :completed, -> { where.not(time_finished: nil) }
 
   def self.hosted_by(user)
-    self.where(user: user)
+    # self.where(user: user)
+    self.where("games.user_id = ?", user)
   end
 
   def self.joined_by(user)
     self.includes(:players).where(players: {user: user})
+    self.joins("INNER JOIN players ON players.game_id = games.id").where("players.user_id = ? AND games.user_id != ?", user, user)
   end
 
-  def ready_to_play?
-    # TODO why is this here?
-    nil
+  def self.not_joined(user)
+    subquery = Player.select("players.game_id").where("players.user_id = ?", user).to_sql
+    self.where("id NOT IN (#{subquery})")
   end
 
   def started?
