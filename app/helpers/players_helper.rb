@@ -7,7 +7,7 @@ module PlayersHelper
 
   def render_answer(grid:, game:)
     if grid.present?
-      render partial: 'nonograms/display', locals: {nonogram: grid, size: grid.size, color: game.nonogram.color, draw_clues: false}
+      render partial: 'nonograms/display', locals: {nonogram: grid, size: grid.size, nonogram: game.nonogram, draw_clues: false}
     elsif submission_time_over(game)
       content_tag(:span, 'did not finish')
     else

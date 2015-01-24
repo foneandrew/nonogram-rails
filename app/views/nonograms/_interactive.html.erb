@@ -1,9 +1,9 @@
 <!-- hidden field for the javascript to store the cell data -->
 <%= hidden_field_tag 'cells' %>
 
-<%= nonogram_color_template(color) %>
+<%= nonogram_color_template(nonogram) %>
 
-<table id="nonogram" align="center" >
+<table id="nonogram" data-size="<%= size %>" align="center" >
   
   <%= render partial: 'nonograms/column_clues' if draw_clues %>
 

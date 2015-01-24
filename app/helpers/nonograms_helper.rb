@@ -7,8 +7,9 @@ module NonogramsHelper
     )
   end
 
-  def nonogram_color_template(color)
-    content_tag :template, '', id: 'color', data: {color: (color || '#000000')}
+  def nonogram_color_template(nonogram)
+    color = nonogram.present? ? nonogram.color : '#000000'
+    content_tag :template, '', id: 'color', data: {color: color}
   end
 
   def nonograms_dropdown(nonograms)

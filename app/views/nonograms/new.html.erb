@@ -9,7 +9,7 @@
     <%= text_field_tag 'name', nil, placeholder: 'Puzzle name', required: true, class: 'nonogram-title-input' %>
   </div>
 
-  <%= render partial: 'interactive', locals: {nonogram: nil, size: @size, color: nil, draw_clues: false} %>
+  <%= render partial: 'interactive', locals: {nonogram: nil, size: @size, nonogram: nil, draw_clues: false} %>
   
   <div>
     <%= text_field_tag 'hint', nil, placeholder: 'Puzzle hint', required: true, class: 'nonogram-hint-input' %>

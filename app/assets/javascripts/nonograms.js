@@ -4,7 +4,7 @@
 $(function() {
   if ($('#nonogram').length) {
     setColor($('#color').data('color'));
-    Nonogram.init($('#game').data('game-id'));
+    Nonogram.init($('#game').data('game-id'), $('#nonogram').data('size'));
 
     UiListeners.hook();
   }
@@ -78,9 +78,11 @@ window.Nonogram = new function() {
   var paint;
   var paintOverFilled;
   var gameId;
+  var size;
 
-  this.init = function(id) {
+  this.init = function(id, size) {
     gameId = id;
+    size = size;
     paint = '';
 
     restoreNonogram();
@@ -127,6 +129,7 @@ window.Nonogram = new function() {
     paintOverFilled = false;
     this.saveForSubmission();
     this.saveNonogram();
+    updateClues();
   };
 
   this.saveNonogram = function() {
@@ -156,13 +159,98 @@ window.Nonogram = new function() {
 
   // PRIVATE
 
+  var updateClues = function() {
+    $('.th').removeClass('.completed-clue');
+
+    console.log('going to update clues')
+
+    solveClues(getRow(0));
+    solveClues(getCol(0));
+
+    // for (i = 0; i < size; i++) {
+    //   solveClues(getRow(i));
+    //   solveClues(getCol(i));
+    // }
+  };
+
+  var solveClues = function(line) {
+    var index = 0;
+    var currentRun = 0;
+
+    console.log('going to colve line')
+    console.log(line.clues)
+    console.log(line.clues.length)
+
+    for (var i = 0; i < line.clues.length; i++) {
+      var clue = line.clues[i];
+      
+      if (clue.length) {
+        var clueLength = parseInt($(clue).text());
+        currentRun = 0;
+
+        for (var a = index; a < size; a++) {
+          var cell = $(line.cells[index]);
+
+          if (cell.hasClass('filled')) {
+            console.log('found filled')
+            //increment current run
+            index++;
+            currentRun++;
+          } else if (cell.hasClass('crossed')) {
+            console.log('found crossed')
+            // check if solved a clue
+            index++;
+            if (currentRun == clueLength) {
+              $(clue).addClass('completed-clue');
+              console.log('finished clue')
+              break;
+            }
+            console.log('did not finish clue')
+          } else {
+            console.log('clue broke')
+            // no clue solved abort
+            return;
+          }
+        }
+
+        // if length matches solve clue (at end of row)
+        if (currentRun == clueLength) {
+          $(clue).addClass('completed-clue');
+          console.log('last chance filled clue')
+          break;
+        }
+      }
+    }
+  };
+
+  var getRow = function(index) {
+    var row = $('#' + index + '-0').closest('tr');
+    return {
+      clues: row.find('th'),
+      cells: row.find('td')
+    };
+  };
+
+  var getCol = function(index) {
+    var cell = $('#0-' + index);
+
+    var colTh = $(cell).closest('table')
+      .find('tr th:nth-child(' + (index + 1) + ')')
+    var colTd = $(cell).closest('table')
+      .find('tr td:nth-child(' + (index + 1) + ')');
+
+    return {
+      clues: colTh,
+      cells: colTd
+    };
+  };
+
   var setTile = function(tile, paint) {
     $(tile).removeClass('filled');
     $(tile).removeClass('blank');
     $(tile).removeClass('crossed');
     $(tile).addClass(paint);
   };
-
 
   var paintTile = function(cell) {
     if ($(cell).hasClass('filled') && !paintOverFilled) {
