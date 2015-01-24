@@ -1,3 +1,6 @@
-<%= list_games(@hosted_games_presented, 'Games you are hosting', current_user) %>
-<%= list_games(@joined_games_presented, 'Games you have joined', current_user) %>
-<%= list_games(@unjoined_games_presented, 'Other games', current_user) %>
+<%= button_to "Hosted Games", games_path, method: :get, params: {games_to_show: 'hosted', page: 1} %>
+<%= button_to "Joined Games", games_path, method: :get, params: {games_to_show: 'joined', page: 1} %>
+<%= button_to "Unjoined Games", games_path, method: :get, params: {games_to_show: '', page: 1} %>
+
+<%= list_games(@games_presented, @games_being_shown, current_user) %>
+<%= will_paginate @games, next_label: '', previous_label: '' %>

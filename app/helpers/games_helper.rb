@@ -7,12 +7,14 @@ module GamesHelper
     end
   end
 
-  def list_games(games, title, user)
+  def list_games(games, games_being_shown, user)
     if games.present?
       content_tag :div, (
-        content_tag(:h3, title) +
+        content_tag(:h3, games_list_title(games_being_shown)) +
         html_games_list(games, user)
       )
+    else
+      content_tag :h1, 'No games to show'
     end
   end
 
@@ -39,6 +41,17 @@ module GamesHelper
   end
 
   private
+
+  def games_list_title(games_being_shown)
+    case games_being_shown
+    when 'hosted'
+      'Games you are hosting:'
+    when 'joined'
+      'Games you have joined:'
+    else
+      'Unjoined games:'
+    end
+  end
 
   def html_games_list(games, user)
     content_tag :ul, (

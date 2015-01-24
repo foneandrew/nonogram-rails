@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
 
   has_many    :players, dependent: :destroy
 
-  validates   :user,      presence: true, if: :ready_to_play?
+  validates   :user,      presence: true
   validates   :nonogram,  presence: true, if: :started?
   validates   :size,      inclusion: { in: Nonogram::VALID_SIZES,
     message: 'is not a valid size' }, if: :validate_size?
