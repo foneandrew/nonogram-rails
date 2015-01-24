@@ -4,7 +4,8 @@ class GamesController < ApplicationController
   respond_to :html, :json
 
   def index
-    fetch_joined_and_unjoined_games
+    @games_being_shown = params[:games_to_show]
+    fetch_games(params[:page])
     
     if request.xhr?
       response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
@@ -40,9 +41,9 @@ class GamesController < ApplicationController
   end
 
   def new
-    @size = params[:size]
+    @size = params[:size] || 5
     @host = current_user
-    @nonograms = Nonogram.where(size: @size).order('id DESC')
+    @nonograms = Nonogram.where(size: @size).order('id DESC').paginate(page: params[:page], per_page: 10)
   end
 
   def create
@@ -72,13 +73,20 @@ class GamesController < ApplicationController
 
   private
 
-  def fetch_joined_and_unjoined_games
+  def fetch_games(page)
     incomplete_games = Game.not_completed.order('games.id DESC')
-    hosted_games = incomplete_games.hosted_by(current_user).order('games.id DESC')
-    joined_games = incomplete_games.joined_by(current_user).order('games.id DESC')
-    @hosted_games_presented = hosted_games.map { |game| GamePresenter.new(game) }
-    @joined_games_presented = (joined_games - hosted_games).map { |game| GamePresenter.new(game) }
-    @unjoined_games_presented = (incomplete_games - joined_games).map { |game| GamePresenter.new(game) }
+
+    case @games_being_shown
+    when 'hosted'
+      @games = incomplete_games.hosted_by(current_user).order('games.id DESC').paginate(page: page, per_page: 10)
+      @games_presented = @games.map { |game| GamePresenter.new(game) }
+    when 'joined'
+      @games = incomplete_games.joined_by(current_user).order('games.id DESC').paginate(page: page, per_page: 10)
+      @games_presented = @games.map { |game| GamePresenter.new(game) }
+    else
+      @games = incomplete_games.not_completed.not_joined(current_user).order('games.id DESC').paginate(page: page, per_page: 10)
+      @games_presented = @games.map { |game| GamePresenter.new(game) }
+    end
   end
 
   def render_game_over
@@ -90,7 +98,9 @@ class GamesController < ApplicationController
   end
 
   def render_game_in_progress
-    @grid = Grid.decode(nonogram_data: @game_presented.nonogram.solution)
+    nonogram = @game_presented.nonogram
+    @color = nonogram.color
+    @grid = Grid.decode(nonogram_data: nonogram.solution)
     @rows = @grid.rows
     @columns = @grid.columns
 

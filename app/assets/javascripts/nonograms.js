@@ -3,35 +3,49 @@
 
 $(function() {
   if ($('#nonogram').length) {
+    setColor($('#color').data('color'));
     Nonogram.init($('#game').data('game-id'));
 
     UiListeners.hook();
   }
+
+  if ($('#nonogram-display').length) {
+    setColor($('#color').data('color'));
+  }
 });
+
+var setColor = function(color) {
+  jss.set('.filled', { 'background-color': color });
+};
 
 window.UiListeners = new function() {
   this.hook = function() {
-
     bindGiveUpButton();
 
-    bindMouseClick();
-    bindMouseOver();
+    bindMouseClickTile();
+    bindMouseOverTile();
+
+    bindMouseClickColorCircle();
     
     disableContextMenu();
   };
 
   // PRIVATE
 
+  var bindMouseClickColorCircle = function() {
+    $('.color-circle').click(colorClicked);
+  };
+
   var bindGiveUpButton = function() {
     $('#give-up').click(giveUp);
   };
 
-  var bindMouseClick = function() {
+  var bindMouseClickTile = function() {
     $('.game-cell').mousedown(tileClicked);
     $(document).mouseup(function() { Nonogram.clearPaintAndUpdate(); });
   };
 
-  var bindMouseOver = function() {
+  var bindMouseOverTile = function() {
     $('.game-cell').mouseenter(function() { Nonogram.selectTile(this); });
     $('.game-cell').mouseleave(function() { Nonogram.deselectTile(this); });
   };
@@ -52,6 +66,12 @@ window.UiListeners = new function() {
     Nonogram.setPaint(event, this);
     return false;
   };
+
+  var colorClicked = function() {
+    var color = $(this).data('color')
+    $('#setColor').val(color);
+    setColor(color);
+  };
 };
 
 window.Nonogram = new function() {
@@ -62,7 +82,7 @@ window.Nonogram = new function() {
   this.init = function(id) {
     gameId = id;
     paint = '';
-    
+
     restoreNonogram();
     this.saveNonogram();
   };

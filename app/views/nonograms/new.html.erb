@@ -3,16 +3,20 @@
 <%= form_tag Nonogram.new do %>
   <%= hidden_field_tag 'size', @size %>
   <%= hidden_field_tag 'author_id', current_user.id %>
+  <%= hidden_field_tag 'setColor', '#000000' %>
 
-
-  <%= render partial: 'interactive', locals: {nonogram: nil, size: @size, draw_clues: false} %>
-  
   <div>
-    <%= text_field_tag 'name', nil, placeholder: 'Enter a name for the puzzle', required: true %>
+    <%= text_field_tag 'name', nil, placeholder: 'Puzzle name', required: true, class: 'nonogram-title-input' %>
   </div>
+
+  <%= render partial: 'interactive', locals: {nonogram: nil, size: @size, color: nil, draw_clues: false} %>
   
   <div>
-    <%= text_field_tag 'hint', nil, placeholder: 'Enter a hint for the puzzle here', required: true %>
+    <%= text_field_tag 'hint', nil, placeholder: 'Puzzle hint', required: true, class: 'nonogram-hint-input' %>
+  </div>
+
+  <div>
+  <%= render partial: 'colors' %>
   </div>
 
   <div>

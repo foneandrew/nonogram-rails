@@ -1,0 +1,3 @@
+<% Nonogram::COLORS.each do |color| %>
+  <%= content_tag(:div, '',  class: 'color-circle', style: "background-color: #{color}", data: {color: color}) %>
+<% end %>

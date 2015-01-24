@@ -1,6 +1,8 @@
 <!-- hidden field for the javascript to store the cell data -->
 <%= hidden_field_tag 'cells' %>
 
+<%= nonogram_color_template(color) %>
+
 <table id="nonogram" align="center" >
   
   <%= render partial: 'nonograms/column_clues' if draw_clues %>
@@ -16,7 +18,7 @@
         <% end %>
 
         <!-- a nonogram cell -->
-        <%= content_tag(:td, '', class: editable_cell_class(row_num: row, column_num: column, nonogram_grid: nonogram), id: "#{row}-#{column}") %>
+        <%= content_tag(:td, '', class: editable_cell_class(row_num: row, column_num: column), id: "#{row}-#{column}") %>
       <% end %>
     </tr>
   <% end %>

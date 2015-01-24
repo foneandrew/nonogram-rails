@@ -1,5 +1,5 @@
 <%= form_tag [@game_presented, @player], id: 'player-answer', method: :put do %>
-  <%= render partial: 'nonograms/interactive', locals: {nonogram: @player_answer, size: @size, draw_clues: true} %>
+  <%= render partial: 'nonograms/interactive', locals: {nonogram: @player_answer, size: @size, color: @game_presented.nonogram.color, draw_clues: true} %>
   <%= hidden_field_tag 'type', 'check' %>
   <%= submit_tag 'Check Answer' %>
   <button id="give-up" type="button">Give up</button>
