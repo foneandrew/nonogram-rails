@@ -1,0 +1,5 @@
+<% colors = ['#000000', '#50ed31', '#19ceed', '#ed2f2e', '#ed36d8', '#edac13'] %>
+
+<% colors.each do |color| %>
+  <%= content_tag(:div, '',  class: 'color-circle', style: "background-color: #{color}", data: {color: color}) %>
+<% end %>

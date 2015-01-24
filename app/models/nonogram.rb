@@ -8,6 +8,8 @@ class Nonogram < ActiveRecord::Base
   belongs_to  :user
 
   validates :name, :hint, presence: true
+  validates :color, presence: true, format: { with: /\A#([0-9a-f]{3}){1,2}\z/,
+    message: 'must be vaild hex color' }
   validates :size, inclusion: { in: VALID_SIZES,
     message: 'is not a valid size' }
   validates :solution, presence: true, format: { with: /\A[#{VALID_COLORS.join}]+\z/,

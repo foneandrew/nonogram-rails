@@ -7,6 +7,10 @@ module NonogramsHelper
     )
   end
 
+  def nonogram_color_template(color)
+    content_tag :template, '', id: 'color', data: {color: (color || '#000000')}
+  end
+
   def nonograms_dropdown(nonograms)
     select_tag :nonogram, options_for_select(nonograms.map do |nonogram|
       ["#{nonogram.hint}", nonogram.id]
@@ -34,7 +38,7 @@ module NonogramsHelper
     end.max
   end
 
-  def editable_cell_class(row_num:, column_num:, nonogram_grid:)
+  def editable_cell_class(row_num:, column_num:)
     css_class = 'cell game-cell'
 
     css_class << ' top-border' if row_num % 5 == 0

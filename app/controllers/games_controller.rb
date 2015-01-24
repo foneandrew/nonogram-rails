@@ -95,7 +95,9 @@ class GamesController < ApplicationController
   end
 
   def render_game_in_progress
-    @grid = Grid.decode(nonogram_data: @game_presented.nonogram.solution)
+    nonogram = @game_presented.nonogram
+    @color = nonogram.color
+    @grid = Grid.decode(nonogram_data: nonogram.solution)
     @rows = @grid.rows
     @columns = @grid.columns
 
