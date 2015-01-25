@@ -1,8 +1,11 @@
-<template id="game" data-game-id="<%= @game_presented.id %>"></template>
-<template id="game-play"></template>
+<div class="card">
+	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
+	<template id="game-play"></template>
 
-<h1> <%= @game_presented.nonogram.hint %> </h1>
+	<h1> <%= @game_presented.nonogram.hint %> </h1>
 
-<%= render 'nonogram_game' %>
+	<%= render 'nonogram_game' %>
 
-<%= link_to_main %>
+	<%= link_to_main %>
+
+</div>

@@ -1,29 +1,35 @@
-<h1>Choose a Nonogram</h1>
+<div class="card">
 
-<div>
-  <%= form_tag new_game_path, method: :get do %>
-    <%= nonogram_size_dropdown %>
-    <%= submit_tag 'Change Size' %>
-  <% end %>
-</div>
-
-<h2><%= "#{@size}x#{@size} nonograms:" %></h2>
-
-<%= form_tag Game.new do %>
-  <%= hidden_field_tag 'size', @size %>
-  <div>
-    <%= submit_tag 'Random' %>
+  <div class="heading">
+    <h1>Choose a Nonogram</h1>
   </div>
-<% end %>
+  
 
-<ul>
-  <% @nonograms.each do |nonogram| %>
-    <li>
-      <%= link_to nonogram.hint, games_path(size: @size, nonogram: nonogram), method: :post %>
-    </li>
+  <div>
+    <%= form_tag new_game_path, method: :get do %>
+      <%= nonogram_size_dropdown %>
+      <%= submit_tag 'Change Size' %>
+    <% end %>
+  </div>
+
+  <h2><%= "#{@size}x#{@size} nonograms:" %></h2>
+
+  <%= form_tag Game.new do %>
+    <%= hidden_field_tag 'size', @size %>
+    <div>
+      <%= submit_tag 'Random' %>
+    </div>
   <% end %>
-</ul>
 
-<%= will_paginate @nonograms, next_label: '', previous_label: '' %>
+  <ul>
+    <% @nonograms.each do |nonogram| %>
+      <li>
+        <%= link_to nonogram.hint, games_path(size: @size, nonogram: nonogram), method: :post %>
+      </li>
+    <% end %>
+  </ul>
 
-<%= link_to_main %>
+  <%= will_paginate @nonograms, next_label: '', previous_label: '' %>
+
+  <%= link_to_main %>
+</div>

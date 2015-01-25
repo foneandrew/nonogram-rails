@@ -1,7 +1,11 @@
-<template id="game" data-game-id="<%= @game_presented.id %>"></template>
-<template id="gave-up"></template>
+<div class="card">
 
-<h1>Waiting for the game to finish</h1>
-<span> You will be taken to the end game screen when the game has finished</span>
+	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
+	<template id="gave-up"></template>
 
-<%= link_to_main %>
+	<h1>Waiting for the game to finish</h1>
+	<span> You will be taken to the end game screen when the game has finished</span>
+
+	<%= link_to_main %>
+
+</div>
