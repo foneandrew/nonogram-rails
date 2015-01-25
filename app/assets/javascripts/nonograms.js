@@ -96,7 +96,7 @@ window.Clues = new function() {
 
     console.log('=========================going to update clues=====================')
 
-    // solveClues(getRow(10));
+    // solveClues(getRow(9));
     // solveClues(getCol(0));
 
     for (i = 0; i < size; i++) {
@@ -150,8 +150,11 @@ window.Clues = new function() {
           break;
         } else if (result == fail) {
           if (firstClueDone) {
+            //dont want to restore the first clue as it should always be attatched to the left side
             clues.unshift(clue);
           }
+          
+          cells.unshift(cell);
           break solveLeft;
         }
       }
@@ -192,7 +195,7 @@ window.Clues = new function() {
     }
 
     // MAKE SURE NO MORE FILLED CELLS
-    if (clues.length == 0) {
+    if (clues.length == 0 && firstClueDone) {
       console.log('need to check for additional filled cells');
       if (cells.indexOf(filled) >= 0) {
         console.log('found more cells, have to purge clue highlights :(');
