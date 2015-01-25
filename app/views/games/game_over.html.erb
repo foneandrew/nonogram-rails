@@ -4,7 +4,7 @@
 <%= nonogram_description(@nonogram_presented) %>
 
 <% if @solution_grid.present? %>
-  <%= render partial: 'nonograms/display', locals: {nonogram: @solution_grid, size: @size, nonogram: @nonogram_presented, draw_clues: false} %>
+  <%= render partial: 'nonograms/display', locals: {nonogram_grid: @solution_grid, size: @size, nonogram: @nonogram_presented, draw_clues: false} %>
 <% end %>
 
 <h4><%= @game_presented.finished_message %></h4>
