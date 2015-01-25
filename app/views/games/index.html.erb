@@ -1,7 +1,10 @@
 <template id="games"></template>
 
-<h2> Games </h2>
+<div class="card">
+	<h2> Games </h2>
 
-<%= render partial: 'new_game_form' %>
+	<%= render partial: 'new_game_form' %>
+	<div id='games-list' class='pad-out'><%= render 'game_list' %></div>
 
-<div id='games-list' class='pad-out'><%= render 'game_list' %></div>
+</div>
+

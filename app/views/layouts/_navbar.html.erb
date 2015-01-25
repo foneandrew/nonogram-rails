@@ -8,13 +8,14 @@
       <div class="name">Logged in as <strong><%= current_user.name %></strong></div>
         
       <div class="options">
-        <ul><%= link_to 'Edit profile', edit_user_registration_path, :class => 'link' %></ul>
-        <ul><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'link'  %></ul>
+        <div class="edit"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'link' %></div>
+        <div class="logout"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'link'  %></div>
       </div>
     <% else %>
-
-      <%= link_to "Sign up", new_user_registration_path, :class => 'link'  %> |
-      <%= link_to "Login", new_user_session_path, :class => 'link'  %>
+      <div class="options">
+        <div class="edit"><%= link_to "Sign up", new_user_registration_path, :class => 'link'  %></div>
+        <div class="logout"><%= link_to "Login", new_user_session_path, :class => 'link'  %></div>
+      </div>
     <% end %>
   </div>
 </div>

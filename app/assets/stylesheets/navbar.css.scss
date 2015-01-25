@@ -13,8 +13,10 @@
     .name {
       color: #fff;
       font-size: 16px;
-      display: inline-block;
-      margin-right: 10px;
+      position: absolute;
+      right: 130px;
+      top: 17px;
+      width: 100px;
 
       strong {
         text-transform: uppercase;
@@ -23,17 +25,45 @@
     }
 
     .options {
-      display: inline-block;
-      margin: 1px 1px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 120px;
 
-      ul {
+
+      div {
+        position: absolute;
         height: 34px;
-        margin: 10px 0 0 0;
+        width: 120px;
+        margin: 0;
       }
 
       a {
+        position: absolute;
+
+        text-transform: uppercase;
+        color: #fff;
         background-color: $primary_color_400;
         padding: 10px;
+        width: 120px;
+      }
+
+      a:hover {
+        background-color: $secondary_color_200;
+      }
+
+      a:active {
+        background-color: $secondary_color_400;
+      }
+
+      .edit {
+        position: absolute;
+        top: 0;
+      }
+
+      .logout {
+        position: absolute;
+        top: 34px;
       }
     }
   }
