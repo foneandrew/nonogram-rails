@@ -96,7 +96,7 @@ window.Clues = new function() {
 
     console.log('=========================going to update clues=====================')
 
-    // solveClues(getRow(14));
+    // solveClues(getRow(2));
     // solveClues(getCol(0));
 
     for (i = 0; i < size; i++) {
@@ -110,10 +110,23 @@ window.Clues = new function() {
     var clues = [].slice.call(line.clues, 0);
     var currentRun = 0;
     var firstClueDone = false;
+    var unmatchedCells = cells;
+    var checkRemains = true;
 
     console.log(cells);
 
     console.log('=================here we go================');
+
+    // check that there arent too many tiles
+    var sumCells = cells.reduce(function(pv, cell) { if (cell == filled) { return pv + 1; } else { return pv; }}, 0);
+    var sumClues = clues.reduce(function(pv, clue) { return pv + parseInt($(clue).text()); }, 0);
+
+    console.log(sumCells + ' : ' + sumClues);
+
+    if (sumCells > sumClues) {
+      console.log('too many filled tiles, do not highlight any');
+      return;
+    }
 
     // SPECIAL CASE NO CLUE
     if (clues.length == 0) {
@@ -122,16 +135,16 @@ window.Clues = new function() {
     }
 
     // SPECIAL CASE WHERE ONLY ONE CLUE
-    if (clues.length == 1) {
-      solveSingleClue(cells, clues[0]);
-      return;
-    }
+    // if (clues.length == 1) {
+    //   solveSingleClue(cells, clues[0]);
+    //   return;
+    // }
 
     // NORMAL START FROM LEFT SIDE (IGNORE FINAL CLUE)
     console.log('going to solve normally starting from the left...')
     
     solveLeft:
-    while (clues.length > 1) {
+    while (clues.length >= 1) {
       var clue = clues.shift();
       var clueLength = parseInt($(clue).text());
       currentRun = 0;
@@ -145,16 +158,25 @@ window.Clues = new function() {
 
         if (result == onRun) {
           currentRun++;
+          if (cells.length == 0 && currentRun == clueLength){
+            console.log('final cell completes the clue')
+            $(clue).addClass('completed-clue');
+            return;
+          }
         } else if (result == success) {
           $(clue).addClass('completed-clue');
+          //save for the right hand solver
+          unmatchedCells = cells.slice();
+          unmatchedCells.unshift(cell);
           break;
         } else if (result == fail) {
-          if (firstClueDone && cell == blank) {
+          if (cell == blank) {
             //dont want to restore the first clue as it should always be attatched to the left side
             clues.unshift(clue);
           }
           
           cells.unshift(cell);
+          cells = unmatchedCells;
           break solveLeft;
         }
       }
@@ -165,7 +187,6 @@ window.Clues = new function() {
     console.log(clues);
 
     // FINSH OFF WITH RIGHT SIDE
-    solveRight:
     while (clues.length > 0) {
       var clue = clues.pop();
       var clueLength = parseInt($(clue).text());
@@ -193,20 +214,9 @@ window.Clues = new function() {
           if (cell == filled) {
             //failed as run was too long
             console.log('(right side) failed as run was too long');
-            break solveRight;
+            return;
           }
           return;
-        }
-      }
-    }
-
-    // MAKE SURE NO MORE FILLED CELLS
-    if (clues.length == 0 && firstClueDone) {
-      console.log('need to check for additional filled cells');
-      if (cells.indexOf(filled) >= 0) {
-        console.log('found more cells, have to purge clue highlights :(');
-        for (var i = 0; i < line.clues.length; i++) {
-          $(line.clues[i]).removeClass('completed-clue');
         }
       }
     }
@@ -276,7 +286,7 @@ window.Clues = new function() {
     console.log('sucessfully completed-clue');
     $(clue).addClass('completed-clue');
     return;
-  }
+  };
 
   var getRow = function(index) {
     var row = $('#' + index + '-0').closest('tr');
