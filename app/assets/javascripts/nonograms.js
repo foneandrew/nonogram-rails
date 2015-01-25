@@ -4,7 +4,7 @@
 $(function() {
   if ($('#nonogram').length) {
     setColor($('#color').data('color'));
-    Nonogram.init($('#game').data('game-id'), $('#nonogram').data('size'));
+    Nonogram.init($('#game').data('game-id'), parseInt($('#nonogram').data('size')));
 
     UiListeners.hook();
   }
@@ -80,9 +80,9 @@ window.Nonogram = new function() {
   var gameId;
   var size;
 
-  this.init = function(id, size) {
+  this.init = function(id, size_in) {
     gameId = id;
-    size = size;
+    size = size_in;
     paint = '';
 
     restoreNonogram();
@@ -160,35 +160,54 @@ window.Nonogram = new function() {
   // PRIVATE
 
   var updateClues = function() {
-    $('.th').removeClass('.completed-clue');
+    $('th').removeClass('completed-clue');
 
     console.log('going to update clues')
 
-    solveClues(getRow(0));
-    solveClues(getCol(0));
+    // solveClues(getRow(0));
+    // solveClues(getCol(0));
 
-    // for (i = 0; i < size; i++) {
-    //   solveClues(getRow(i));
-    //   solveClues(getCol(i));
-    // }
+    for (i = 0; i < size; i++) {
+      solveClues(getRow(i));
+      solveClues(getCol(i));
+    }
   };
 
   var solveClues = function(line) {
     var index = 0;
     var currentRun = 0;
 
-    console.log('going to colve line')
+    console.log('going to solve line. clues: ')
     console.log(line.clues)
     console.log(line.clues.length)
 
     for (var i = 0; i < line.clues.length; i++) {
-      var clue = line.clues[i];
-      
+      var clueElement = line.clues[i];
+      // $(clueElement).removeClass('completed-clue');
+      console.log('removed class:')
+      console.log($(clueElement))
+
+      var clue = $(line.clues[i]).text();
+      console.log('clue: ');
+      console.log(clue);
+
       if (clue.length) {
-        var clueLength = parseInt($(clue).text());
+        console.log('length is true')
+      } else {
+        console.log('length is false')
+        console.log(clue.length)
+      }
+
+      if (clue.length) {
+        var clueLength = parseInt(clue);
+        console.log('clue actual: ');
+        console.log(clueLength);
         currentRun = 0;
 
+        console.log('about to attempt a run, index = ' + index + ', size = ' + size);
+
         for (var a = index; a < size; a++) {
+          console.log('beginning run, a= ' + a);
           var cell = $(line.cells[index]);
 
           if (cell.hasClass('filled')) {
@@ -196,13 +215,17 @@ window.Nonogram = new function() {
             //increment current run
             index++;
             currentRun++;
+            console.log('index now ' + index + ', currentRun at ' + currentRun);
           } else if (cell.hasClass('crossed')) {
             console.log('found crossed')
             // check if solved a clue
             index++;
             if (currentRun == clueLength) {
-              $(clue).addClass('completed-clue');
+              $(clueElement).addClass('completed-clue');
               console.log('finished clue')
+              console.log(clueElement)
+              console.log($(clueElement))
+              currentRun = 0;
               break;
             }
             console.log('did not finish clue')
@@ -215,9 +238,9 @@ window.Nonogram = new function() {
 
         // if length matches solve clue (at end of row)
         if (currentRun == clueLength) {
-          $(clue).addClass('completed-clue');
+          $(clueElement).addClass('completed-clue');
           console.log('last chance filled clue')
-          break;
+          return;
         }
       }
     }
@@ -233,6 +256,8 @@ window.Nonogram = new function() {
 
   var getCol = function(index) {
     var cell = $('#0-' + index);
+
+    index = $(cell).index();
 
     var colTh = $(cell).closest('table')
       .find('tr th:nth-child(' + (index + 1) + ')')
@@ -293,6 +318,7 @@ window.Nonogram = new function() {
         setCells('crossed', savedGames[gameId]['crossed']);
       }
     }
+    updateClues();
   };
 
   var setCells = function(cssClass, cellIds) {
