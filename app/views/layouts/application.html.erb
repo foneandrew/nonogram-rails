@@ -11,12 +11,6 @@
   <body>
     <%= render partial: 'layouts/navbar' %>
 
-    <div class="new-nonogram">
-      <% if user_signed_in? %>
-        <%= render partial: 'nonograms/new_nonogram_form' %>
-      <% end %>
-    </div>
-
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
     <% end %>

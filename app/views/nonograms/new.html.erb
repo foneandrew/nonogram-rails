@@ -1,5 +1,10 @@
 <h1>Edit your new Nonogram</h1>
 
+<%= form_tag new_nonogram_path, method: :get do %>
+  <%= nonogram_size_dropdown %>
+  <%= submit_tag 'Change size' %>
+<% end %>
+
 <%= form_tag Nonogram.new do %>
   <%= hidden_field_tag 'size', @size %>
   <%= hidden_field_tag 'author_id', current_user.id %>
