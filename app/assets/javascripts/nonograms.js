@@ -76,58 +76,14 @@ window.UiListeners = new function() {
   };
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 window.Clues = new function() {
   var onRun = 1;
   var success = 2;
   var fail = 3;
+
+  var blank = 0;
+  var crossed = 1;
+  var filled = 2;
 
   var size;
 
@@ -140,12 +96,12 @@ window.Clues = new function() {
 
     console.log('=========================going to update clues=====================')
 
-    // solveClues(getRow(0));
+    solveClues(getRow(0));
     // solveClues(getCol(0));
 
     for (i = 0; i < size; i++) {
-      solveClues(getRow(i));
-      solveClues(getCol(i));
+      // solveClues(getRow(i));
+      // solveClues(getCol(i));
     }
   };
 
@@ -184,7 +140,7 @@ window.Clues = new function() {
       while (cells.length > 0) {
         var cell = cells.shift();
 
-        result = thing(cell, currentRun, clueLength);
+        result = solveClue(cell, currentRun, clueLength);
 
         if (result == onRun) {
           currentRun++;
@@ -211,7 +167,7 @@ window.Clues = new function() {
       while (cells.length > 0) {
         var cell = cells.pop();
 
-        result = thing(cell, currentRun, clueLength);
+        result = solveClue(cell, currentRun, clueLength);
 
         if (result == onRun) {
           currentRun++;
@@ -229,10 +185,19 @@ window.Clues = new function() {
         }
       }
     }
+
+    // MAKE SURE NO MORE FILLED CELLS
+    console.log('need to check for additional filled cells');
+    if (cells.indexOf(filled) >= 0) {
+      console.log('found more cells, have to purge clue highlights :(');
+      for (var i = 0; i < line.clues.length; i++) {
+        $(line.clues[i]).removeClass('completed-clue');
+      }
+    }
   };
 
-  var thing = function(cell, currentRun, clueLength) {
-    if (cell == 2) {
+  var solveClue = function(cell, currentRun, clueLength) {
+    if (cell == filled) {
       currentRun++;
       console.log('found filled, ' + currentRun + ' : ' + clueLength);
       if (currentRun > clueLength) {
@@ -242,7 +207,7 @@ window.Clues = new function() {
       }
       // start/continue run
       return onRun;
-    } else if (cell == 1) {
+    } else if (cell == crossed) {
       console.log('found crossed');
       if (currentRun == clueLength){
         console.log('completed this run, moving on to next clue');
@@ -261,36 +226,6 @@ window.Clues = new function() {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   var solveSingleClue = function(cells, clue) {
     var currentRun = 0;
     cells = [].slice.call(cells, 0);
@@ -301,7 +236,7 @@ window.Clues = new function() {
       var clueLength = parseInt($(clue).text());
       var cell = cells.shift();
 
-      if (cell == 2) {
+      if (cell == filled) {
         console.log('found filled, ' + currentRun + ' : ' + clueLength);
         if (currentRun >= clueLength) {
           console.log('too many cells for this clueLength! aborting');
@@ -309,7 +244,7 @@ window.Clues = new function() {
         }
         currentRun++;
         // start/continue run
-      } else if (cell == 1) {
+      } else if (cell == crossed) {
         console.log('found crossed');
         if (0 < currentRun && currentRun < clueLength) {
           console.log('run is broken, aborting');
@@ -361,67 +296,14 @@ window.Clues = new function() {
 
   var mapCells = function(index, cell) {
     if ($(cell).hasClass('filled')) {
-      return 2;
+      return filled;
     } else if ($(cell).hasClass('crossed')) {
-      return 1;
+      return crossed;
     } else {
-      return 0;
+      return blank;
     }
   };
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 window.Nonogram = new function() {
   var paint;
