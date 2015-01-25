@@ -94,11 +94,6 @@ window.Clues = new function() {
   this.updateClues = function() {
     $('th').removeClass('completed-clue');
 
-    console.log('=========================going to update clues=====================')
-
-    // solveClues(getRow(2));
-    // solveClues(getCol(0));
-
     for (i = 0; i < size; i++) {
       solveClues(getRow(i));
       solveClues(getCol(i));
@@ -113,37 +108,26 @@ window.Clues = new function() {
     var unmatchedCells = cells;
     var checkRemains = true;
 
-    console.log(cells);
-
-    console.log('=================here we go================');
-
     // check that there arent too many tiles
     var sumCells = cells.reduce(function(pv, cell) { if (cell == filled) { return pv + 1; } else { return pv; }}, 0);
     var sumClues = clues.reduce(function(pv, clue) { return pv + parseInt($(clue).text()); }, 0);
 
-    console.log(sumCells + ' : ' + sumClues);
 
     if (sumCells > sumClues) {
-      console.log('too many filled tiles, do not highlight any');
       return;
     }
 
     // SPECIAL CASE NO CLUE
     if (clues.length == 0) {
-      console.log('no clue, aborting');
       return;
     }
 
     // NORMAL START FROM LEFT SIDE (IGNORE FINAL CLUE)
-    console.log('going to solve normally starting from the left...')
-    
     solveLeft:
     while (clues.length >= 1) {
       var clue = clues.shift();
       var clueLength = parseInt($(clue).text());
       currentRun = 0;
-
-      console.log('solving clue : ' + clueLength);
 
       while (cells.length > 0) {
         var cell = cells.shift();
@@ -153,7 +137,6 @@ window.Clues = new function() {
         if (result == onRun) {
           currentRun++;
           if (cells.length == 0 && currentRun == clueLength){
-            console.log('final cell completes the clue')
             $(clue).addClass('completed-clue');
             return;
           }
@@ -177,16 +160,11 @@ window.Clues = new function() {
       firstClueDone = true;
     }
 
-    console.log('checking the right side now');
-    console.log(clues);
-
     // FINSH OFF WITH RIGHT SIDE
     while (clues.length > 0) {
       var clue = clues.pop();
       var clueLength = parseInt($(clue).text());
       currentRun = 0;
-
-      console.log('solving clue : ' + clueLength);
 
       while (cells.length > 0) {
         var cell = cells.pop();
@@ -197,7 +175,6 @@ window.Clues = new function() {
           currentRun++;
           // check if end of cells
           if (cells.length == 0 && currentRun == clueLength){
-            console.log('final cell completes the clue')
             $(clue).addClass('completed-clue');
             return;
           }
@@ -214,28 +191,22 @@ window.Clues = new function() {
   var solveClue = function(cell, currentRun, clueLength) {
     if (cell == filled) {
       currentRun++;
-      console.log('found filled, ' + currentRun + ' : ' + clueLength);
       if (currentRun > clueLength) {
-        console.log('run is too long, aborting')
         // run is too long, break and move on to right side
         return fail;
       }
       // start/continue run
       return onRun;
     } else if (cell == crossed) {
-      console.log('found crossed');
       if (currentRun == clueLength){
-        console.log('completed this run, moving on to next clue');
         return success;
         // move onto next clue and set highlight
       } else if (0 < currentRun && currentRun < clueLength) {
         // run is broken abort and move to right side
-        console.log('run is interrupted, aborting and moving to right side');
         return fail;
       }
       // contine run unless run is broken
     } else {
-      console.log('line is broken by blank space, moving on to checking the right side');
       return fail;
       //break, move on to looking from right
     }
@@ -245,34 +216,26 @@ window.Clues = new function() {
     var currentRun = 0;
     cells = [].slice.call(cells, 0);
 
-    console.log('only one clue, going for the special case')
-
     while (cells.length) {
       var clueLength = parseInt($(clue).text());
       var cell = cells.shift();
 
       if (cell == filled) {
-        console.log('found filled, ' + currentRun + ' : ' + clueLength);
         if (currentRun >= clueLength) {
-          console.log('too many cells for this clueLength! aborting');
           return;
         }
         currentRun++;
         // start/continue run
       } else if (cell == crossed) {
-        console.log('found crossed');
         if (0 < currentRun && currentRun < clueLength) {
-          console.log('run is broken, aborting');
           return;
         }
         // contine run unless run is broken
       } else {
         // break! clue failed
-        console.log('found blank, run broken!');
         return;
       }
     }
-    console.log('sucessfully completed-clue');
     $(clue).addClass('completed-clue');
     return;
   };
