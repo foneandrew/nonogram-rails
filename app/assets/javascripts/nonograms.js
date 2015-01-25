@@ -3,35 +3,51 @@
 
 $(function() {
   if ($('#nonogram').length) {
+    setColor($('#color').data('color'));
+
+    Clues.init(parseInt($('#nonogram').data('size')));
     Nonogram.init($('#game').data('game-id'));
 
     UiListeners.hook();
   }
+
+  if ($('#nonogram-display').length) {
+    setColor($('#color').data('color'));
+  }
 });
+
+var setColor = function(color) {
+  jss.set('.filled', { 'background-color': color });
+};
 
 window.UiListeners = new function() {
   this.hook = function() {
-
     bindGiveUpButton();
 
-    bindMouseClick();
-    bindMouseOver();
+    bindMouseClickTile();
+    bindMouseOverTile();
+
+    bindMouseClickColorCircle();
     
     disableContextMenu();
   };
 
   // PRIVATE
 
+  var bindMouseClickColorCircle = function() {
+    $('.color-circle').click(colorClicked);
+  };
+
   var bindGiveUpButton = function() {
     $('#give-up').click(giveUp);
   };
 
-  var bindMouseClick = function() {
+  var bindMouseClickTile = function() {
     $('.game-cell').mousedown(tileClicked);
     $(document).mouseup(function() { Nonogram.clearPaintAndUpdate(); });
   };
 
-  var bindMouseOver = function() {
+  var bindMouseOverTile = function() {
     $('.game-cell').mouseenter(function() { Nonogram.selectTile(this); });
     $('.game-cell').mouseleave(function() { Nonogram.deselectTile(this); });
   };
@@ -52,6 +68,219 @@ window.UiListeners = new function() {
     Nonogram.setPaint(event, this);
     return false;
   };
+
+  var colorClicked = function() {
+    var color = $(this).data('color')
+    $('#setColor').val(color);
+    setColor(color);
+  };
+};
+
+window.Clues = new function() {
+  var onRun = 1;
+  var success = 2;
+  var fail = 3;
+
+  var blank = 0;
+  var crossed = 1;
+  var filled = 2;
+
+  var size;
+
+  this.init = function(size_in) {
+    size = size_in;
+  };
+
+  this.updateClues = function() {
+    $('th').removeClass('completed-clue');
+
+    for (i = 0; i < size; i++) {
+      solveClues(getRow(i));
+      solveClues(getCol(i));
+    }
+  };
+
+  var solveClues = function(line) {
+    var cells = [].slice.call(line.cells, 0);
+    var clues = [].slice.call(line.clues, 0);
+    var currentRun = 0;
+    var firstClueDone = false;
+    var unmatchedCells = cells;
+    var checkRemains = true;
+
+    // check that there arent too many tiles
+    var sumCells = cells.reduce(function(pv, cell) { if (cell == filled) { return pv + 1; } else { return pv; }}, 0);
+    var sumClues = clues.reduce(function(pv, clue) { return pv + parseInt($(clue).text()); }, 0);
+
+
+    if (sumCells > sumClues) {
+      return;
+    }
+
+    // SPECIAL CASE NO CLUE
+    if (clues.length == 0) {
+      return;
+    }
+
+    // NORMAL START FROM LEFT SIDE (IGNORE FINAL CLUE)
+    solveLeft:
+    while (clues.length >= 1) {
+      var clue = clues.shift();
+      var clueLength = parseInt($(clue).text());
+      currentRun = 0;
+
+      while (cells.length > 0) {
+        var cell = cells.shift();
+
+        result = solveClue(cell, currentRun, clueLength);
+
+        if (result == onRun) {
+          currentRun++;
+          if (cells.length == 0 && currentRun == clueLength){
+            $(clue).addClass('completed-clue');
+            return;
+          }
+        } else if (result == success) {
+          $(clue).addClass('completed-clue');
+          //save for the right hand solver
+          unmatchedCells = cells.slice();
+          unmatchedCells.unshift(cell);
+          break;
+        } else if (result == fail) {
+          if (cell == blank) {
+            //dont want to restore the first clue as it should always be attatched to the left side
+            clues.unshift(clue);
+          }
+          
+          cells.unshift(cell);
+          cells = unmatchedCells;
+          break solveLeft;
+        }
+      }
+      firstClueDone = true;
+    }
+
+    // FINSH OFF WITH RIGHT SIDE
+    while (clues.length > 0) {
+      var clue = clues.pop();
+      var clueLength = parseInt($(clue).text());
+      currentRun = 0;
+
+      while (cells.length > 0) {
+        var cell = cells.pop();
+
+        result = solveClue(cell, currentRun, clueLength);
+
+        if (result == onRun) {
+          currentRun++;
+          // check if end of cells
+          if (cells.length == 0 && currentRun == clueLength){
+            $(clue).addClass('completed-clue');
+            return;
+          }
+        } else if (result == success) {
+          $(clue).addClass('completed-clue');
+          break;
+        } else if (result == fail) {
+          return;
+        }
+      }
+    }
+  };
+
+  var solveClue = function(cell, currentRun, clueLength) {
+    if (cell == filled) {
+      currentRun++;
+      if (currentRun > clueLength) {
+        // run is too long, break and move on to right side
+        return fail;
+      }
+      // start/continue run
+      return onRun;
+    } else if (cell == crossed) {
+      if (currentRun == clueLength){
+        return success;
+        // move onto next clue and set highlight
+      } else if (0 < currentRun && currentRun < clueLength) {
+        // run is broken abort and move to right side
+        return fail;
+      }
+      // contine run unless run is broken
+    } else {
+      return fail;
+      //break, move on to looking from right
+    }
+  }
+
+  var solveSingleClue = function(cells, clue) {
+    var currentRun = 0;
+    cells = [].slice.call(cells, 0);
+
+    while (cells.length) {
+      var clueLength = parseInt($(clue).text());
+      var cell = cells.shift();
+
+      if (cell == filled) {
+        if (currentRun >= clueLength) {
+          return;
+        }
+        currentRun++;
+        // start/continue run
+      } else if (cell == crossed) {
+        if (0 < currentRun && currentRun < clueLength) {
+          return;
+        }
+        // contine run unless run is broken
+      } else {
+        // break! clue failed
+        return;
+      }
+    }
+    $(clue).addClass('completed-clue');
+    return;
+  };
+
+  var getRow = function(index) {
+    var row = $('#' + index + '-0').closest('tr');
+    return {
+      clues: row.find('th').filter(mapClues),
+      cells: row.find('td').map(mapCells)
+    };
+  };
+
+  var getCol = function(index) {
+    var cell = $('#0-' + index);
+
+    index = $(cell).index();
+
+    var colTh = $(cell).closest('table')
+      .find('tr th:nth-child(' + (index + 1) + ')').filter(mapClues);
+    var colTd = $(cell).closest('table')
+      .find('tr td:nth-child(' + (index + 1) + ')').map(mapCells);
+
+    return {
+      clues: colTh,
+      cells: colTd
+    };
+  };
+
+  var mapClues = function(index, clue, array) {
+    if ($(clue).text().length) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  var mapCells = function(index, cell) {
+    if ($(cell).hasClass('filled')) {
+      return filled;
+    } else if ($(cell).hasClass('crossed')) {
+      return crossed;
+    } else {
+      return blank;
+    }
+  };
 };
 
 window.Nonogram = new function() {
@@ -62,7 +291,7 @@ window.Nonogram = new function() {
   this.init = function(id) {
     gameId = id;
     paint = '';
-    
+
     restoreNonogram();
     this.saveNonogram();
   };
@@ -107,6 +336,7 @@ window.Nonogram = new function() {
     paintOverFilled = false;
     this.saveForSubmission();
     this.saveNonogram();
+    Clues.updateClues();
   };
 
   this.saveNonogram = function() {
@@ -142,7 +372,6 @@ window.Nonogram = new function() {
     $(tile).removeClass('crossed');
     $(tile).addClass(paint);
   };
-
 
   var paintTile = function(cell) {
     if ($(cell).hasClass('filled') && !paintOverFilled) {
@@ -185,6 +414,7 @@ window.Nonogram = new function() {
         setCells('crossed', savedGames[gameId]['crossed']);
       }
     }
+    Clues.updateClues();
   };
 
   var setCells = function(cssClass, cellIds) {

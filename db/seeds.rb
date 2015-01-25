@@ -38,17 +38,17 @@ nonograms_20 = [
 ]
 
 nonograms_5.each do |name, hint, size, nonogram|
-  Nonogram.create(name: name, hint: hint, size: 5, solution: nonogram)
+  Nonogram.create(name: name, hint: hint, size: 5, color: '#000000', solution: nonogram)
 end
 
 nonograms_10.each do |name, hint, size, nonogram|
-  Nonogram.create(name: name, hint: hint, size: 10, solution: nonogram)
+  Nonogram.create(name: name, hint: hint, size: 10, color: '#000000', solution: nonogram)
 end
 
 nonograms_15.each do |name, hint, size, nonogram|
-  Nonogram.create(name: name, hint: hint, size: 15, solution: nonogram)
+  Nonogram.create(name: name, hint: hint, size: 15, color: '#000000', solution: nonogram)
 end
 
 nonograms_20.each do |name, hint, size, nonogram|
-  Nonogram.create(name: name, hint: hint, size: 20, solution: nonogram)
+  Nonogram.create(name: name, hint: hint, size: 20, color: '#000000', solution: nonogram)
 end

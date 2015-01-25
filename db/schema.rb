@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20141209025826) do
     t.text     "hint",       null: false
     t.text     "solution",   null: false
     t.integer  "size",       null: false
+    t.text     "color",      null: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

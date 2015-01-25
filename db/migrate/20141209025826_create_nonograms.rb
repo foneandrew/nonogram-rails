@@ -5,6 +5,7 @@ class CreateNonograms < ActiveRecord::Migration
       t.text    :hint,      null: false
       t.text    :solution,  null: false
       t.integer :size,      null: false
+      t.text    :color,     null: false
       t.integer :user_id
       t.index   :user_id
       t.timestamps
