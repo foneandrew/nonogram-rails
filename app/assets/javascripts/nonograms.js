@@ -96,7 +96,7 @@ window.Clues = new function() {
 
     console.log('=========================going to update clues=====================')
 
-    // solveClues(getRow(9));
+    // solveClues(getRow(14));
     // solveClues(getCol(0));
 
     for (i = 0; i < size; i++) {
@@ -149,7 +149,7 @@ window.Clues = new function() {
           $(clue).addClass('completed-clue');
           break;
         } else if (result == fail) {
-          if (firstClueDone) {
+          if (firstClueDone && cell == blank) {
             //dont want to restore the first clue as it should always be attatched to the left side
             clues.unshift(clue);
           }
@@ -165,6 +165,7 @@ window.Clues = new function() {
     console.log(clues);
 
     // FINSH OFF WITH RIGHT SIDE
+    solveRight:
     while (clues.length > 0) {
       var clue = clues.pop();
       var clueLength = parseInt($(clue).text());
@@ -189,6 +190,11 @@ window.Clues = new function() {
           $(clue).addClass('completed-clue');
           break;
         } else if (result == fail) {
+          if (cell == filled) {
+            //failed as run was too long
+            console.log('(right side) failed as run was too long');
+            break solveRight;
+          }
           return;
         }
       }
