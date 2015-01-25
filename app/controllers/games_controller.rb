@@ -6,11 +6,8 @@ class GamesController < ApplicationController
   def index
     @games_being_shown = params[:games_to_show]
     fetch_games(params[:page])
-
-    puts request
     
     if request.xhr?
-      puts '====================request is xhr================'
       response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
       render partial: 'game_list', content_type: 'text/html'
       return;
