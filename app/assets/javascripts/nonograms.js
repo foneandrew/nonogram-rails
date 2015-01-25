@@ -96,12 +96,12 @@ window.Clues = new function() {
 
     console.log('=========================going to update clues=====================')
 
-    solveClues(getRow(0));
+    // solveClues(getRow(10));
     // solveClues(getCol(0));
 
     for (i = 0; i < size; i++) {
-      // solveClues(getRow(i));
-      // solveClues(getCol(i));
+      solveClues(getRow(i));
+      solveClues(getCol(i));
     }
   };
 
@@ -109,6 +109,7 @@ window.Clues = new function() {
     var cells = [].slice.call(line.cells, 0);
     var clues = [].slice.call(line.clues, 0);
     var currentRun = 0;
+    var firstClueDone = false;
 
     console.log(cells);
 
@@ -148,9 +149,13 @@ window.Clues = new function() {
           $(clue).addClass('completed-clue');
           break;
         } else if (result == fail) {
+          if (firstClueDone) {
+            clues.unshift(clue);
+          }
           break solveLeft;
         }
       }
+      firstClueDone = true;
     }
 
     console.log('checking the right side now');
@@ -187,11 +192,13 @@ window.Clues = new function() {
     }
 
     // MAKE SURE NO MORE FILLED CELLS
-    console.log('need to check for additional filled cells');
-    if (cells.indexOf(filled) >= 0) {
-      console.log('found more cells, have to purge clue highlights :(');
-      for (var i = 0; i < line.clues.length; i++) {
-        $(line.clues[i]).removeClass('completed-clue');
+    if (clues.length == 0) {
+      console.log('need to check for additional filled cells');
+      if (cells.indexOf(filled) >= 0) {
+        console.log('found more cells, have to purge clue highlights :(');
+        for (var i = 0; i < line.clues.length; i++) {
+          $(line.clues[i]).removeClass('completed-clue');
+        }
       }
     }
   };
