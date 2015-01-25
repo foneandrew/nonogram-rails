@@ -134,12 +134,6 @@ window.Clues = new function() {
       return;
     }
 
-    // SPECIAL CASE WHERE ONLY ONE CLUE
-    // if (clues.length == 1) {
-    //   solveSingleClue(cells, clues[0]);
-    //   return;
-    // }
-
     // NORMAL START FROM LEFT SIDE (IGNORE FINAL CLUE)
     console.log('going to solve normally starting from the left...')
     
@@ -211,11 +205,6 @@ window.Clues = new function() {
           $(clue).addClass('completed-clue');
           break;
         } else if (result == fail) {
-          if (cell == filled) {
-            //failed as run was too long
-            console.log('(right side) failed as run was too long');
-            return;
-          }
           return;
         }
       }
