@@ -3,7 +3,7 @@ module GamesHelper
     if game.nonogram.present?
       content_tag :h1, "Nonogram: '#{game.nonogram.hint}' (#{game.nonogram.size}x#{game.nonogram.size})"
     else
-      content_tag :h1, "Nonogram: Random (#{game.nonogram.size}x#{game.nonogram.size})"
+      content_tag :h1, "Nonogram: Random (#{game.size}x#{game.size})"
     end
   end
 
