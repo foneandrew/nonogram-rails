@@ -5,6 +5,30 @@
   background-color: $primary_color_300;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 
+  .help {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    width: 120px;
+
+
+    div {
+      position: absolute;
+      height: 34px;
+      width: 120px;
+      margin: 0;
+    }
+
+    a {
+      position: absolute;
+
+      text-transform: uppercase;
+      color: #fff;
+      padding: 10px;
+      width: 120px;
+    }
+  }
+
   .login-details {
     position: absolute;
     height: 70px;
