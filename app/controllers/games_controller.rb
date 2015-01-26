@@ -89,6 +89,7 @@ class GamesController < ApplicationController
       @games = incomplete_games.joined_by(current_user).order('games.id DESC').paginate(page: page, per_page: 10)
       @games_presented = @games.map { |game| GamePresenter.new(game) }
     else
+      @games_being_shown = 'unjoined'
       @games = incomplete_games.not_completed.not_joined(current_user).order('games.id DESC').paginate(page: page, per_page: 10)
       @games_presented = @games.map { |game| GamePresenter.new(game) }
     end

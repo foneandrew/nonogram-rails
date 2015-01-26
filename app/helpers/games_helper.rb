@@ -49,7 +49,7 @@ module GamesHelper
     when 'joined'
       'Games you have joined:'
     else
-      'Unjoined games:'
+      'Available games:'
     end
   end
 
