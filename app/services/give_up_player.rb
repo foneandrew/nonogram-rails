@@ -10,7 +10,7 @@ class GiveUpPlayer
       if @player.answer.present?
         # stop players overriding their answers
         # possible cause is having two tabs open on the same puzzle for the same player
-        return
+        return true
       end
 
       if @game.completed?
@@ -26,6 +26,7 @@ class GiveUpPlayer
           @game.time_finished = Time.now
           @game.save!
         end
+
         true
       end
     end
