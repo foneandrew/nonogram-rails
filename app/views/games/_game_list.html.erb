@@ -1,6 +1,11 @@
-<%= button_to "Hosted Games", games_path, method: :get, params: {games_to_show: 'hosted', page: 1} %>
-<%= button_to "Joined Games", games_path, method: :get, params: {games_to_show: 'joined', page: 1} %>
-<%= button_to "Unjoined Games", games_path, method: :get, params: {games_to_show: '', page: 1} %>
+<div class="game-filters">
+	<%= button_to "Hosted Games", games_path, method: :get, :class => @games_being_shown == 'hosted' ? "highlighted" : "unhighlighted", params: {games_to_show: 'hosted', page: 1} %>
+	<%= button_to "Joined Games", games_path, method: :get, :class => @games_being_shown == 'joined' ? "highlighted" : "unhighlighted", params: {games_to_show: 'joined', page: 1} %>
+	<%= button_to "Join a game", games_path, method: :get, :class => @games_being_shown == '' ? "highlighted" : "unhighlighted", params: {games_to_show: '', page: 1} %>
+</div>
 
-<%= list_games(@games_presented, @games_being_shown, current_user) %>
-<%= will_paginate @games, next_label: '', previous_label: '' %>
+<div class="games-list">
+	<%= list_games(@games_presented, @games_being_shown, current_user) %>
+	<%= will_paginate @games, next_label: '', previous_label: '' %>
+</div>
+

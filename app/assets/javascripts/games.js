@@ -8,6 +8,7 @@ $(function() {
   }
 
   if (($('#games-list').length)) {
+    
     refreshGamesList(5000);
   }
 
