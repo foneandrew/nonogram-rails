@@ -3,11 +3,15 @@
 	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 	<template id="game-lobby"></template>
 
-	<%= title(@game_presented) %>
+	<div class='heading'><%= title(@game_presented) %></div>
 
-	<%= render partial: 'joined_players' %>
+  <div class='pad-in'>
+  	<%= render partial: 'joined_players' %>
 
-	<%= join_game_form(game: @game_presented, user: current_user, current_player: @player) %>
+    <div align='center'>
+    	<%= join_game_form(game: @game_presented, user: current_user, current_player: @player) %>
 
-	<%= start_game_form(game: @game_presented, user: current_user) %>
+    	<%= start_game_form(game: @game_presented, user: current_user) %>
+    </div>
+  </div>
 </div>

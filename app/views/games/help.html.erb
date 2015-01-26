@@ -9,20 +9,35 @@
       <p>Once joined, you have to wait for the host to start the game.</p>
       <p>First one to complete the puzzle wins</p>
       <p>You can also create your own game, where you can choose a nonogram to solve, or let the game pick a random one for you.</p>
+      <p>And if you ever get lost, clicking the title will take you back you the main page</p>
     </div>
 
     <h2>Solving a Puzzle</h2>
+    <div>
       <p>A nonogram is a grid of tiles that make up a pattern or picture. Using the clues provided you can attempt to solve the puzzle to reveal the picture. The right mouse button will place a coloured square, and the left mouse button will create a grey square.</p>
       <p>Note: Most puzzles should be solvable using logic, however some users may have made puzzles that are not. If this is the case you can guess, or use the give up button</p> 
-      <h5>A completed Nonogram</h5>
-      <%= image_tag 'nonogram.png' %>
+      
+      <div align='center'>
+        <h5>A completed Nonogram</h5>
+        <%= image_tag 'nonogram.png' %>
+      </div>
+      
       <p>The clues show you how many 'runs' of coloured squares there are in that line. A run is a consecutive series of coloured squares. There can be multiple runs on a line seperated by one or more blank squares. This will be shown with the line having multiple clues, which are given in order.</p>
-      <h5>Solving clues</h5>
-      <%= image_tag 'multi_clues.png' %>
+      
+      <div align='center'>
+        <h5>Solving clues</h5>
+        <%= image_tag 'multi_clues.png' %>
+      </div>
+      
       <p>Use the grey squares as placeholders for squares that cannot possilby be a coloured square. They are not needed for submitting your answer, but they may be helpful for you to solve the Nonogram</p>
-      <h5>Using greys</h5>
-      <%= image_tag 'greys.png' %>
+      
+      <div align='center'>
+        <h5>Using greys</h5>
+        <%= image_tag 'greys.png' %>
+      </div>
+      
       <p>Clues will grey out when they are solved. Note that in order for a clue to detect that it is solved, it will need to be surrouneded by grey squares. Also note that although a clue is marked as solved, the run it pertains to may not be in the correct place in the puzzle.</p>
+    </div>
 
     <h2>Creating a Puzzle</h2>
     <div>
