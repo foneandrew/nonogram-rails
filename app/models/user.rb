@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_many :players, dependent: :destroy
+  has_many :games, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { message: 'already taken by another user' }
 end
