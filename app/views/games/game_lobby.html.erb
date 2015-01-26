@@ -8,8 +8,10 @@
   <div class='pad-in'>
   	<%= render partial: 'joined_players' %>
 
-  	<%= join_game_form(game: @game_presented, user: current_user, current_player: @player) %>
+    <div align='center'>
+    	<%= join_game_form(game: @game_presented, user: current_user, current_player: @player) %>
 
-  	<%= start_game_form(game: @game_presented, user: current_user) %>
+    	<%= start_game_form(game: @game_presented, user: current_user) %>
+    </div>
   </div>
 </div>
