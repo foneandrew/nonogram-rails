@@ -1,3 +1,6 @@
-<% Nonogram::COLORS.each do |color| %>
-  <%= content_tag(:div, '',  class: 'color-circle', style: "background-color: #{color}", data: {color: color}) %>
-<% end %>
+
+<div id="color-picker">
+	<% Nonogram::COLORS.each do |color| %>
+	  <%= content_tag(:div, '',  class: 'color-circle', style: "background-color: #{color}", data: {color: color}) %>
+	<% end %>
+</div>

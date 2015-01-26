@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import 'colors';
+
 #nonogram {
   border-collapse: collapse;
   border: 3px solid #666666;
@@ -9,4 +11,50 @@
 
 #nonogram-display {
   border-collapse: collapse;
+}
+
+#color-picker {
+	width: 335px;
+	margin: 10px auto;
+}
+
+.color-circle {
+  width: 30px;
+  height: 50px;
+  display: inline-block;
+}
+
+.nonogram-button {
+	width: 35px;
+	margin: 0 auto;
+
+	input[type=submit] {
+		background-color: $primary_color_200;
+		padding: 10px 20px;
+		border-width: 0;
+		border-radius: 2px;
+
+		text-transform: uppercase;
+		color: $neutral_color_50;
+	}
+
+	input[type=submit]:hover {
+		background-color: $secondary_color_200;
+	}
+
+	input[type=submit]:active {
+		background-color: $secondary_color_300;
+	}
+}
+
+.nonogram-textfield {
+	width: 200px;
+	margin: 20px auto;
+
+	input[type=text] {
+		width: 190px;
+		padding: 10px 5px;
+		font-family: Questrial;
+		font-size: 18px;
+	}
 }
