@@ -3,5 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .pad-in {
-  padding: 5px 15px;
+  padding: 10px 15px;
+}
+
+.shift-left {
+  padding-left: 10px;
+}
+
+.alert-danger {
+  text-align: center;
+  color: red;
 }
