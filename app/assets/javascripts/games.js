@@ -10,6 +10,9 @@ $(function() {
   if (($('#games-list').length)) {
     refreshGamesList(5000);
   }
+
+  DropDown.initEvents();
+
 });
 
 var refreshGamesList = function(timeout) {

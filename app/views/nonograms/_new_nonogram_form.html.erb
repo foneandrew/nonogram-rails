@@ -1,5 +1,13 @@
 <%= form_tag new_nonogram_path, method: :get do %>
-  <div class="small-text">create your own</div>
-  <%= nonogram_size_dropdown %>
-  <%= submit_tag 'Create Nonogram' %>
+  <h1>Create your own</h1>
+
+  <div id="dd" class="wrapper-dropdown-2">Select a size
+  	<ul class="dropdown">
+      <% Nonogram::VALID_SIZES.each do |size| %>
+
+    		<li><a href= <%= new_nonogram_path(size: size) %> ><i class="icon-facebook icon-large"></i><%= "#{size} x #{size}" %></a></li>
+
+      <% end %>
+  	</ul>
+	</div>
 <% end %>

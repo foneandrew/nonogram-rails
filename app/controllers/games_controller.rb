@@ -72,6 +72,10 @@ class GamesController < ApplicationController
     redirect_to game
   end
 
+  def help
+    render :help
+  end
+
   private
 
   def fetch_games(page)

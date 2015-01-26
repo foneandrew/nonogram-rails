@@ -1,13 +1,14 @@
 <template id="games"></template>
 
-<%= render partial: 'nonograms/new_nonogram_form' %>
+<div class="card" id="new-nonogram-card">
+	<%= render partial: 'nonograms/new_nonogram_form' %>
+</div>
 
 <div class="card">
 	<div class="heading">
-		<h1> Games </h1>
-
+		<h1>Games</h1>
 		<%= render partial: 'new_game_form' %>
+	</div>
 
-	
 	<div id='games-list' class='pad-out'><%= render 'game_list' %></div>
 </div>
