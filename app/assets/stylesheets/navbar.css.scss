@@ -7,25 +7,31 @@
 
   .help {
     position: absolute;
-    left: 20px;
-    top: 18px;
+    left: 0;
+    top: 0;
     width: 120px;
-
-
-    div {
-      position: absolute;
-      height: 34px;
-      width: 120px;
-      margin: 0;
-    }
+    height: 45px;
+    padding: 0;
 
     a {
+      height: 100%;
+
       position: absolute;
 
+      padding: 25px 0 0 0;
+      text-align: center;
       text-transform: uppercase;
       color: #fff;
-      padding: 10px;
       width: 120px;
+      background-color: $primary_color_400;
+    }
+
+    a:hover {
+      background-color: $secondary_color_200;
+    }
+
+    a:active {
+      background-color: $secondary_color_400;
     }
   }
 

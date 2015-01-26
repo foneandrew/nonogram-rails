@@ -14,7 +14,7 @@ module GamesHelper
         html_games_list(games, user)
       )
     else
-      content_tag :h1, 'No games to show'
+      content_tag :h2, 'No games to show'
     end
   end
 
