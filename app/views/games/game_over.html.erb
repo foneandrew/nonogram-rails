@@ -2,15 +2,20 @@
 	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 	<template id="game-over"></template>
 
-	<%= nonogram_description(@nonogram_presented) %>
+	<div class='heading' align="center"><%= nonogram_description(@nonogram_presented) %></div>
 
-	<% if @solution_grid.present? %>
-	  <%= render partial: 'nonograms/display', locals: {nonogram_grid: @solution_grid, size: @size, nonogram: @nonogram_presented, draw_clues: false} %>
-	<% end %>
+  <div class='pad-in'>
+  	<% if @solution_grid.present? %>
+  	  <%= render partial: 'nonograms/display', locals: {nonogram_grid: @solution_grid, size: @size, nonogram: @nonogram_presented, draw_clues: false} %>
+  	<% end %>
 
-	<h4><%= @game_presented.finished_message %></h4>
+    <div align="center">
+    	<h4><%= @game_presented.finished_message %></h4>
 
-	<%= render partial: 'top_players', locals: { nonogram: @nonogram_presented } %>
+    	<%= render partial: 'top_players', locals: { nonogram: @nonogram_presented } %>
 
-	<%= content_tag(:div, '', id: 'other-players-attempts') %>
+
+      <%= content_tag(:div, '', id: 'other-players-attempts') %>
+    </div>
+  </div>
 </div>

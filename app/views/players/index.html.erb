@@ -3,7 +3,9 @@
 <%= content_tag(:h4, "Other player's attempts for this game:") unless @player_grids.length == 0 %>
 
 <% @player_grids.each do |player_name, grid| %>
-  <%= content_tag(:h5, player_name) %>
+  <div align="center">
+    <%= content_tag(:h5, player_name) %>
 
-  <%= render_answer(grid: grid, game: @game) %>
+    <%= render_answer(grid: grid, game: @game) %>
+  </div>
 <% end %>

@@ -3,9 +3,9 @@
   
   <ul>
     <% @game_presented.players.each do |joined_player| %>
-      <li>
+      <li class='player-name'>
         <%= joined_player.user.name %>
-      </li>
+      </li class='player-name'>
     <% end %>
   </ul>
 </div>
