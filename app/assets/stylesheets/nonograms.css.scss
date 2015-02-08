@@ -24,6 +24,63 @@
   display: inline-block;
 }
 
+.completed-clue {
+  font-weight: lighter;
+  font-style: italic;
+  color: #666666 !important;
+}
+
+.column-clue {
+  background-color: #f2f2f2;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.row-clue {
+  background-color: #f2f2f2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+}
+
+.game-cell {
+  border: 1px solid #666666;
+}
+
+.display-cell {
+  width: 10px;
+  height: 10px;
+  border: none;
+}
+
+.blank {
+  background-color: white;
+}
+
+.filled {
+  background-color: black;
+}
+
+.crossed {
+  background-color: #cccccc;
+}
+
+.highlight-clue {
+  color: #ff3300;
+}
+
+.left-border {
+  border-left: 3px solid #666666;
+}
+
+.top-border {
+  border-top: 3px solid #666666;
+}
+
 .button2 {
 	background-color: $primary_color_200;
 	padding: 10px 20px;
@@ -52,8 +109,6 @@
 	}
 }
 
-
-
 .button2:hover {
 	background-color: $secondary_color_200;
 }
@@ -62,8 +117,12 @@
 	background-color: $secondary_color_300;
 }
 
+.biggify {
+  font-size: 15px;
+}
+
 .nonogram-button {
-	width: 35px;
+	width: 70px;
 	margin: 10px auto;
 
 	input[type=submit] {
@@ -86,13 +145,21 @@
 }
 
 .nonogram-textfield {
-	width: 200px;
+	width: 350px;
 	margin: 20px auto;
 
 	input[type=text] {
-		width: 190px;
+		text-align: center;
+		width: 350px;
 		padding: 10px 5px;
 		font-family: Questrial;
 		font-size: 18px;
+	}
+}
+
+.nonogram-title {
+
+	input[type=text] {
+		font-size: 25px;
 	}
 }

@@ -5,6 +5,7 @@ class Nonogram < ActiveRecord::Base
   ENCODED_FORMAT_REGEX = /\A[#{VALID_TILES.join}]+\z/
   COLORS = ['#000000', '#2ff00e', '#f0ef03', '#ff8000', '#f03e24', '#de2495', '#934fef', '#3549ef', '#20d8ef', '#cb6e55']
 
+
   model_name.instance_variable_set :@route_key, 'nonogram'
 
   has_many    :games, dependent: :destroy

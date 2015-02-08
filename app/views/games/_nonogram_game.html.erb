@@ -2,11 +2,10 @@
   <%= render partial: 'nonograms/interactive', locals: {size: @size, nonogram: @game_presented.nonogram, draw_clues: true} %>
   <%= hidden_field_tag 'type', 'check' %>
 
-
-
-  <div  class="button2">
-  	<%= submit_tag 'Check Answer' %>
+  <div class="pad-out">
+    <%= submit_tag 'Check Answer', class: 'button2 biggify' %>
   </div>
-  
+
   <button class="button2" id="give-up" type="button">Give up</button>
+
 <% end %>

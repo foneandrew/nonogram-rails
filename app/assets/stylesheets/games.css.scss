@@ -171,6 +171,7 @@
 
   .heading {
     padding: 0 0 5px 0;
+    margin-bottom: 15px;
 
     border-width: 0 0 1px 0;
     border-style: solid;
@@ -206,77 +207,20 @@
   }
 }
 
-.completed-clue {
-  font-weight: lighter;
-  font-style: italic;
-  color: #666666 !important;
-}
-
-.column-clue {
-  background-color: #f2f2f2;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.row-clue {
-  background-color: #f2f2f2;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-}
-
-.cell {
-  width: 20px;
-  height: 20px;
-}
-
-.game-cell {
-  border: 1px solid #666666;
-}
-
-.display-cell {
-  width: 10px;
-  height: 10px;
-  border: none;
-}
-
-.blank {
-  background-color: white;
-}
-
-.filled {
-  background-color: black;
-}
-
-.crossed {
-  background-color: #cccccc;
-}
-
-.highlight-clue {
-  color: #ff3300;
-}
-
-.left-border {
-  border-left: 3px solid #666666;
-}
-
-.top-border {
-  border-top: 3px solid #666666;
-}
-
 .pad-out {
   padding: 10px;
 }
 
 .new-nonogram {
-    width: 20%;
-    display: inline-block;
-    margin: 0 auto;
-    
-    .small-text {
+  width: 20%;
+  display: inline-block;
+  margin: 0 auto;
 
-      text-transform: uppercase;
-    }
+  .small-text {
+
+    text-transform: uppercase;
   }
+}
 
 .wrapper-dropdown-2 {
     /* Size and position */
@@ -308,7 +252,7 @@
 .wrapper-dropdown-2 .dropdown {
   /* Size & position */
     position: absolute;
-    top: 100%;
+    // top: 100%;
     left: -5px;
     right: 0px;
 

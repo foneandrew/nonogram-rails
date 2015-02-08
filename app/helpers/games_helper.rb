@@ -18,10 +18,6 @@ module GamesHelper
     end
   end
 
-  def link_to_main
-    content_tag :div, (link_to 'home', Game), class: 'pad-out'
-  end
-
   def join_game_form(game:, user:, current_player:)
     if current_player.blank?
       render 'join_game_form'

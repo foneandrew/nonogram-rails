@@ -7,7 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Questrial|Arvo' rel='stylesheet' type='text/css'>
     <%= csrf_meta_tags %>
   </head>
-  
+
   <body>
     <%= render partial: 'layouts/navbar' %>
 
@@ -24,5 +24,7 @@
         <%= yield %>
       </div>
     </div>
+
+    <%= link_home(current_user) %>
   </body>
 </html>

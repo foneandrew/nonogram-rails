@@ -4,17 +4,14 @@
     <h1>Edit your new Nonogram</h1>
   </div>
 
-  <!-- <%= form_tag new_nonogram_path, method: :get do %>
-    <%= nonogram_size_dropdown %>
-    <%= submit_tag 'Change size' %>
-  <% end %> -->
+  <%= render partial: 'new_nonogram_dropdown' %>
 
   <%= form_tag Nonogram.new do %>
     <%= hidden_field_tag 'size', @size %>
     <%= hidden_field_tag 'author_id', current_user.id %>
     <%= hidden_field_tag 'setColor', '#000000' %>
 
-    <div class="nonogram-textfield">
+    <div class="nonogram-textfield nonogram-title">
       <%= text_field_tag 'name', nil, placeholder: 'Puzzle name', required: true, class: 'nonogram-title-input' %>
     </div>
 
@@ -22,13 +19,13 @@
     <div>
     <%= render partial: 'colors' %>
     </div>
-    
+
     <div class="nonogram-textfield">
       <%= text_field_tag 'hint', nil, placeholder: 'Puzzle hint', required: true, class: 'nonogram-hint-input' %>
     </div>
 
-    <div class="nonogram-button">
-      <%= submit_tag 'Save' %>
-    </div>
+      <div class="nonogram-button">
+        <%= submit_tag 'Save' %>
+      </div>
   <% end %>
 </div>
