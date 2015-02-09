@@ -93,6 +93,7 @@ window.Clues = new function() {
 
   this.updateClues = function() {
     $('th').removeClass('completed-clue');
+    $('th').removeClass('broken-clue');
 
     for (i = 0; i < size; i++) {
       solveClues(getRow(i));
@@ -114,6 +115,7 @@ window.Clues = new function() {
 
 
     if (sumCells > sumClues) {
+      $(line.clues).addClass('broken-clue');
       return;
     }
 
