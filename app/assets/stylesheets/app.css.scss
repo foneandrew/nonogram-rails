@@ -1,0 +1,37 @@
+@import 'colors';
+
+.pagination {
+  .current {
+    color: $primary_color;
+    font-size: 20px;
+  }
+
+  a:link {
+    color: $secondary_color;
+    text-decoration: none;
+    font-size: 20px;
+  }
+
+  a:visited {
+    color: $secondary_color;
+  }
+
+  a:hover {
+    color: $secondary_color_200;
+  }
+}
+
+// .home-link {
+  a:link {
+    color: $primary_color;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: $primary_color_400;
+  }
+
+  a:hover {
+    color: $secondary_color_200;
+  }
+// }

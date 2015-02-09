@@ -3,7 +3,7 @@
 	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 	<template id="game-lobby"></template>
 
-	<div class='heading'><%= title(@game_presented) %></div>
+  <%= @game_presented.title %>
 
   <div class='pad-in'>
   	<%= render partial: 'joined_players' %>

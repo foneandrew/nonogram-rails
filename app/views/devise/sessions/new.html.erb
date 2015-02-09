@@ -5,17 +5,17 @@
   <div class='reg-pad-in'>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
-        <%= f.label :email %><br />
+        <div class="pad-out"><%= f.label :email, class: 'pad-out' %></div>
         <%= f.email_field :email, autofocus: true %>
       </div>
 
       <div class="field">
-        <%= f.label :password %><br />
+        <div class="pad-out"><%= f.label :password %></div>
         <%= f.password_field :password, autocomplete: "off" %>
       </div>
 
       <% if devise_mapping.rememberable? -%>
-        <div class="field">
+        <div class="field pad-out">
           <%= f.check_box :remember_me %>
           <%= f.label :remember_me %>
         </div>
@@ -26,6 +26,6 @@
       </div>
     <% end %>
 
-    <%= render "devise/shared/links" %>
+    <div class="pad-out"><%= render "devise/shared/links" %></div>
   </div>
 </div>

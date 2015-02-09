@@ -6,12 +6,12 @@
       <%= devise_error_messages! %>
 
       <div class="field">
-        <%= f.label :name %><br />
+        <div class="pad-out"><%= f.label :name %></div>
         <%= f.text_field :name, autofocus: true %>
       </div>
 
       <div class="field">
-        <%= f.label :email %><br />
+        <div class="pad-out"><%= f.label :email %></div>
         <%= f.email_field :email %>
       </div>
 
@@ -20,27 +20,27 @@
       <% end %>
 
       <div class="field">
-        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <div class="pad-out"><%= f.label :password %> <i>(leave blank if you don't want to change it)</i></div>
         <%= f.password_field :password, autocomplete: "off" %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation %><br />
+        <div class="pad-out"><%= f.label :password_confirmation %></div>
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </div>
 
       <div class="field">
-        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <div class="pad-out"><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i></div>
         <%= f.password_field :current_password, autocomplete: "off" %>
       </div>
 
-      <div class="actions">
+      <div class="actions pad-out">
         <%= f.submit "Update", class: 'button2' %>
       </div>
     <% end %>
 
     <h3>Cancel my account</h3>
 
-    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button2' %></p>
+    <div class="pad-out"><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button2' %></p>
   </div>
 </div>

@@ -1,9 +1,9 @@
 module GamesHelper
   def title(game)
     if game.nonogram.present?
-      content_tag :h1, "Nonogram: '#{game.nonogram.hint}' (#{game.nonogram.size}x#{game.nonogram.size})"
+      content_tag :h1, "##{game.id}: '#{game.nonogram.hint}' (#{game.nonogram.size}x#{game.nonogram.size})"
     else
-      content_tag :h1, "Nonogram: Random (#{game.size}x#{game.size})"
+      content_tag :h1, "##{game.id}: Random (#{game.size}x#{game.size})"
     end
   end
 
@@ -24,7 +24,7 @@ module GamesHelper
     elsif game.user == user
       content_tag :strong, 'You are hosting this game'
     else
-      content_tag :div, 'You have joined this game'
+      content_tag :p, 'You have joined this game'
     end
   end
 
@@ -32,7 +32,7 @@ module GamesHelper
     if user == game.user
       render 'start_game_form'
     else
-      content_tag :div, "Waiting on #{game.user.name} to start the game..."
+      content_tag :p, "Waiting on #{game.user.name} to start the game..."
     end
   end
 

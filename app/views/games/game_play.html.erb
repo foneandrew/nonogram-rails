@@ -2,7 +2,7 @@
 	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 	<template id="game-play"></template>
 
-	<div class='heading'><h1> <%= @game_presented.nonogram.hint %> </h1></div>
+  <%= @game_presented.title %>
 
   <div class='pad-in' align='center'>
     <%= render 'nonogram_game' %>
