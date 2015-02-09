@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
-  get 'help', to: 'games#help', as: :help
+  # get 'help', to: 'games#help', as: :help
+  resource :help, only: [:show]
 
   resource :nonogram, only: [:new, :create]
 

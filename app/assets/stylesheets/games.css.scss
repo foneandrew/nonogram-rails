@@ -154,7 +154,7 @@
 
   h1 {
     color: $neutral_color_300;
-    margin: 0 0 0 10px;
+    margin: 0;
 
     font-family: Questrial;
     font-size: 34px;
@@ -179,16 +179,14 @@
   }
 
   .new-game-button {
-    width: 10%;
     display: inline-block;
 
     input[type=submit] {
-      float: right;
-      padding: 0px 10px 2.5px 10px;
+      padding: 2px 10px 2px 10px;
       background-color: $primary_color_400;
       color: $neutral_color_50;
 
-      font-size: 34px;
+      font-size: 20px;
       font-family: Questrial;
       border: none;
       background-color: none;

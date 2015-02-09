@@ -45,9 +45,9 @@ class PlayersController < ApplicationController
 
   def player_give_up(game, player, answer)
     if GiveUpPlayer.new(player: player, game: game, answer: answer).call
-      flash.notice = 'gave up'
+      flash.notice = 'You have given up on this game'
     else
-      flash.alert = 'unable to give up'
+      flash.alert = 'Unable to give up'
     end
   end
 
@@ -61,7 +61,7 @@ class PlayersController < ApplicationController
     if add_player.call
       flash.notice = "#{user.name} joined"
     else
-      flash.alert = "was not able to add the player: #{add_player.errors}"
+      flash.alert = "Was not able to add the player: #{add_player.errors}"
     end
   end
 

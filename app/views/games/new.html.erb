@@ -5,29 +5,26 @@
   </div>
   
   <div class='pad-in' align="center">
-    <div>
-      <%= form_tag new_game_path, method: :get do %>
-        <%= nonogram_size_dropdown %>
-        <%= submit_tag 'Change Size' %>
-      <% end %>
-    </div>
+    <%= render partial: 'new_game_dropdown' %>
 
     <h2><%= "#{@size}x#{@size} nonograms:" %></h2>
 
     <%= form_tag Game.new do %>
       <%= hidden_field_tag 'size', @size %>
       <div>
-        <%= submit_tag 'Random' %>
+        <%= submit_tag 'Random', class: 'button2' %>
       </div>
     <% end %>
 
-    <ul align="center">
-      <% @nonograms.each do |nonogram| %>
-        <li>
-          <%= link_to nonogram.hint, games_path(size: @size, nonogram: nonogram), method: :post %>
-        </li>
-      <% end %>
-    </ul>
+    <div class="games-list">
+      <ul align="center">
+        <% @nonograms.each do |nonogram| %>
+          <li>
+            <%= link_to nonogram.hint, games_path(size: @size, nonogram: nonogram), method: :post %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
     <%= will_paginate @nonograms, next_label: '', previous_label: '' %>
   </div>
