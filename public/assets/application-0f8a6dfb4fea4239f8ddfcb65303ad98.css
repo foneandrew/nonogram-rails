@@ -1,0 +1,707 @@
+/* line 3, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#main-card {
+  padding-right: 350px;
+}
+
+/* line 8, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card {
+  width: 300px;
+  position: absolute;
+  right: 50px;
+  top: 100px;
+}
+/* line 14, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card h1 {
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #9c9c9c;
+  padding: 0 0 10px 0;
+  margin: 0 0 15px 0;
+  width: 100%;
+  font-family: Questrial;
+  font-size: 30px;
+}
+/* line 27, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card select {
+  float: left;
+  padding: 0px 10px 2.5px 10px;
+}
+/* line 32, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card .contents {
+  width: 60%;
+  margin: 0 auto;
+}
+/* line 37, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card input[type=submit] {
+  float: right;
+  padding: 0px 10px 2.5px 10px;
+  background-color: #42a5f5;
+  color: white;
+  font-size: 34px;
+  font-family: Questrial;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+/* line 51, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card input[type=submit]:hover {
+  background-color: #a5d6a7;
+}
+/* line 55, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+#new-nonogram-card input[type=submit]:active {
+  background-color: #66bb6a;
+}
+
+/* line 60, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.player-name {
+  color: green;
+  font-weight: bold;
+}
+
+/* line 65, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.pad-in {
+  padding: 5px 15px;
+}
+
+/* line 69, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters {
+  width: 100%;
+  margin: 10px auto;
+  padding: 0;
+  background-color: #42a5f5;
+}
+/* line 75, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters form.button_to {
+  width: 33%;
+  display: inline-block;
+  margin: 0;
+}
+/* line 80, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters form.button_to div {
+  width: 100%;
+  margin: 0;
+}
+/* line 86, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters .highlighted {
+  background-color: #a5d6a7;
+}
+/* line 90, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters .unhighlighted {
+  background-color: #64b5f6;
+}
+/* line 94, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters input[type=submit] {
+  font-size: 16px;
+  font-family: Questrial;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 10px 0px;
+}
+/* line 105, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters input[type=submit]:hover {
+  background-color: #a5d6a7;
+}
+/* line 109, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.game-filters input[type=submit]:active {
+  background-color: #66bb6a;
+}
+
+/* line 114, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.games-list {
+  margin: 0 0 0 10px;
+}
+/* line 117, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.games-list h3 {
+  text-align: center;
+}
+/* line 121, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.games-list li {
+  margin: 0 auto;
+  width: 60%;
+  text-align: center;
+  padding: 10px 5px;
+  background-color: #9c9c9c;
+}
+/* line 129, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.games-list a {
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+  height: 100%;
+}
+/* line 136, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.games-list li:hover {
+  background-color: #7f7f7f;
+}
+/* line 140, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.games-list li:active {
+  background-color: #3f3f3f;
+}
+
+/* line 145, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card {
+  background-color: #fff;
+  width: 700px;
+  margin: 30px auto 0 auto;
+  padding: 15px;
+  border-width: 0px;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+/* line 155, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card h1 {
+  color: #3f3f3f;
+  margin: 0;
+  font-family: Questrial;
+  font-size: 34px;
+  display: inline-block;
+  width: 85%;
+}
+/* line 166, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card h2 {
+  text-align: center;
+  font-size: 20px;
+  color: #3f3f3f;
+}
+/* line 172, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card .heading {
+  padding: 0 0 5px 0;
+  margin-bottom: 15px;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #9c9c9c;
+}
+/* line 181, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card .new-game-button {
+  display: inline-block;
+}
+/* line 184, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card .new-game-button input[type=submit] {
+  padding: 2px 10px 2px 10px;
+  background-color: #42a5f5;
+  color: white;
+  font-size: 20px;
+  font-family: Questrial;
+  border: none;
+  background-color: none;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+/* line 198, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card .new-game-button input[type=submit]:hover {
+  background-color: #a5d6a7;
+}
+/* line 202, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.card .new-game-button input[type=submit]:active {
+  background-color: #66bb6a;
+}
+
+/* line 208, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.pad-out {
+  padding: 10px;
+}
+
+/* line 212, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.new-nonogram {
+  width: 20%;
+  display: inline-block;
+  margin: 0 auto;
+}
+/* line 217, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.new-nonogram .small-text {
+  text-transform: uppercase;
+}
+
+/* line 223, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 {
+  /* Size and position */
+  position: relative;
+  /* Enable absolute positioning for children and pseudo elements */
+  width: 200px;
+  margin: 0 auto;
+  padding: 10px 15px;
+  /* Styles */
+  background: #fff;
+  border-left: 5px solid grey;
+  cursor: pointer;
+  outline: none;
+}
+
+/* line 237, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  margin-top: -3px;
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: grey transparent;
+}
+
+/* line 250, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown {
+  /* Size & position */
+  position: absolute;
+  left: -5px;
+  right: 0px;
+  /* Styles */
+  background: white;
+  transition: all 0.3s ease-out;
+  list-style: none;
+  /* Hiding */
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* line 267, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  border-left: 5px solid;
+  padding: 10px;
+  transition: all 0.3s ease-out;
+}
+
+/* line 276, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:nth-child(1) a {
+  border-left-color: #00ACED;
+}
+
+/* line 280, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:nth-child(2) a {
+  border-left-color: #4183C4;
+}
+
+/* line 284, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:nth-child(3) a {
+  border-left-color: #3B5998;
+}
+
+/* line 288, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li i {
+  margin-right: 5px;
+  color: inherit;
+  vertical-align: middle;
+}
+
+/* Hover state */
+/* line 296, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:hover a {
+  color: grey;
+}
+
+/* line 300, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2.active:after {
+  border-width: 0 6px 6px 6px;
+}
+
+/* line 304, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2.active .dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 1100px) {
+  /* line 310, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+  .card {
+    min-width: 700px;
+  }
+
+  /* line 314, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+  #main-card {
+    margin: 0 auto;
+  }
+
+  /* line 318, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/games.css.scss */
+  #new-nonogram-card {
+    position: static;
+    margin: 0 auto;
+  }
+}
+/* line 1, /Users/andyfone/Documents/rails dev/rails/Nonograms/app/assets/stylesheets/help.css.scss */
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* line 6, /Users/andyfone/Documents/rails dev/rails/Nonograms/app/assets/stylesheets/help.css.scss */
+.padded {
+  padding: 5px 15px;
+}
+/* line 3, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar {
+  height: 70px;
+  background-color: #64b5f6;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+/* line 8, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .help {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 45px;
+  padding: 0;
+}
+/* line 16, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .help a {
+  height: 100%;
+  position: absolute;
+  padding: 25px 0 0 0;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  width: 120px;
+  background-color: #42a5f5;
+}
+/* line 29, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .help a:hover {
+  background-color: #a5d6a7;
+}
+/* line 33, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .help a:active {
+  background-color: #66bb6a;
+}
+/* line 38, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details {
+  position: absolute;
+  height: 70px;
+  right: 0;
+}
+/* line 43, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .name {
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  right: 130px;
+  top: 17px;
+  width: 100px;
+}
+/* line 51, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .name strong {
+  text-transform: uppercase;
+  font-size: 18px;
+}
+/* line 57, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 120px;
+}
+/* line 64, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options div {
+  position: absolute;
+  height: 34px;
+  width: 120px;
+  margin: 0;
+}
+/* line 71, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options a {
+  position: absolute;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #42a5f5;
+  padding: 10px;
+  width: 120px;
+}
+/* line 81, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options a:hover {
+  background-color: #a5d6a7;
+}
+/* line 85, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options a:active {
+  background-color: #66bb6a;
+}
+/* line 89, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options .edit {
+  position: absolute;
+  top: 0;
+}
+/* line 94, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .login-details .options .logout {
+  position: absolute;
+  top: 34px;
+}
+/* line 101, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .title {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%);
+  text-decoration: none;
+  font-family: Arvo;
+  font-size: 24px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+}
+/* line 116, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/navbar.css.scss */
+.navbar .link {
+  text-decoration: none;
+}
+/* line 7, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+#nonogram {
+  border-collapse: collapse;
+  border: 3px solid #666666;
+}
+
+/* line 12, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+#nonogram-display {
+  border-collapse: collapse;
+}
+
+/* line 16, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+#color-picker {
+  width: 335px;
+  margin: 10px auto;
+}
+
+/* line 21, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.color-circle {
+  width: 30px;
+  height: 50px;
+  display: inline-block;
+}
+
+/* line 27, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.completed-clue {
+  font-weight: lighter;
+  font-style: italic;
+  color: #666666 !important;
+}
+
+/* line 33, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.column-clue {
+  background-color: #f2f2f2;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+/* line 39, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.row-clue {
+  background-color: #f2f2f2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+/* line 45, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.cell {
+  width: 20px;
+  height: 20px;
+}
+
+/* line 50, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.game-cell {
+  border: 1px solid #666666;
+}
+
+/* line 54, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.display-cell {
+  width: 10px;
+  height: 10px;
+  border: none;
+}
+
+/* line 60, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.blank {
+  background-color: white;
+}
+
+/* line 64, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.filled {
+  background-color: black;
+}
+
+/* line 68, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.crossed {
+  background-color: #cccccc;
+}
+
+/* line 72, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.highlight-clue {
+  color: #ff3300;
+}
+
+/* line 76, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.left-border {
+  border-left: 3px solid #666666;
+}
+
+/* line 80, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.top-border {
+  border-top: 3px solid #666666;
+}
+
+/* line 84, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.button2 {
+  background-color: #90caf9;
+  padding: 10px 20px;
+  border-width: 0;
+  border-radius: 2px;
+  text-transform: uppercase;
+  color: white;
+  display: inline-block;
+}
+/* line 94, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.button2 input[type=submit] {
+  background-color: #90caf9;
+  border-width: 0;
+  border-radius: 2px;
+  text-transform: uppercase;
+  color: white;
+}
+/* line 103, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.button2 input[type=submit]:hover {
+  background-color: #a5d6a7;
+}
+/* line 107, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.button2 input[type=submit]:active {
+  background-color: #81c784;
+}
+
+/* line 112, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.button2:hover {
+  background-color: #a5d6a7;
+}
+
+/* line 116, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.button2:active {
+  background-color: #81c784;
+}
+
+/* line 120, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.biggify {
+  font-size: 15px;
+}
+
+/* line 124, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-button {
+  width: 70px;
+  margin: 10px auto;
+}
+/* line 128, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-button input[type=submit] {
+  background-color: #90caf9;
+  padding: 10px 20px;
+  border-width: 0;
+  border-radius: 2px;
+  text-transform: uppercase;
+  color: white;
+}
+/* line 138, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-button input[type=submit]:hover {
+  background-color: #a5d6a7;
+}
+/* line 142, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-button input[type=submit]:active {
+  background-color: #81c784;
+}
+
+/* line 147, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-textfield {
+  margin: 20px auto;
+}
+/* line 151, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-textfield input[type=text] {
+  text-align: center;
+  width: 350px;
+  padding: 10px 5px;
+  font-family: Questrial;
+  font-size: 18px;
+}
+
+/* line 162, /Users/andyfone/Documents/rails dev/rails/nonograms/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-title input[type=text] {
+  font-size: 25px;
+}
+/* line 5, /Users/andyfone/Documents/rails dev/rails/Nonograms/app/assets/stylesheets/registrations.css.scss */
+.reg-pad-in {
+  padding: 10px 15px;
+}
+
+/* line 9, /Users/andyfone/Documents/rails dev/rails/Nonograms/app/assets/stylesheets/registrations.css.scss */
+.shift-left {
+  padding-left: 10px;
+}
+
+/* line 13, /Users/andyfone/Documents/rails dev/rails/Nonograms/app/assets/stylesheets/registrations.css.scss */
+.alert-danger {
+  text-align: center;
+  color: red;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+
+
+body {
+  font-family: Questrial;
+  background-color: #ededed;
+  margin: 0px;
+ }
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+*
+{
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.alert {
+  color: red;
+  text-align: center;
+}
+
+.alert-success {
+  color: green;
+}
+
+.small-text {
+  font-size: 15px
+}
+
+.mini-form {
+  width: 50%;
+  margin: 10px;
+  padding: 2px;
+  display: inline-block;
+  border-radius: 4px;
+  border: 2px solid #cccccc;
+}
+
+.page-container {
+  text-align: center;
+  margin: 10px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+.page-content {
+  position: relative;
+}
