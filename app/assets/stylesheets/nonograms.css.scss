@@ -107,6 +107,7 @@
 
 	input[type=submit]:hover {
 		background-color: $secondary_color_200;
+    cursor: pointer;
 	}
 
 	input[type=submit]:active {
@@ -116,6 +117,7 @@
 
 .button2:hover {
 	background-color: $secondary_color_200;
+  cursor: pointer;
 }
 
 .button2:active {
