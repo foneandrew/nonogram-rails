@@ -11,8 +11,12 @@ class NonogramsController < ApplicationController
     author_id = params['author_id']
     nonogram_data = EncodeNonogram.new(cells: JSON.parse(params[:cells]), size: size).call
 
-    if MakeNonogram.new(name: name, hint: hint, size: size, color: color, author_id: author_id, solution: nonogram_data).call
-      redirect_to Game, notice: "Your Nonogram was sucessfully saved!"
+    if CheckNonogramIsSolvable.new(nonogram_data).call
+      if MakeNonogram.new(name: name, hint: hint, size: size, color: color, author_id: author_id, solution: nonogram_data).call
+        redirect_to Game, notice: "Your Nonogram was sucessfully saved!"
+      else
+        redirect_to :back, alert: "Your Nonogram could not be saved!"
+      end
     else
       redirect_to :back, alert: "Your Nonogram could not be saved!"
     end
