@@ -1,0 +1,28 @@
+<div class="main-card">
+  <div class="card">
+    <div class="heading">
+      <h1><%= @user.name %></h1>
+    </div>
+
+    <p>
+      Games Played: <strong><%= @user.players.count %></strong>
+    </p>
+    <p>
+      Games Won: <strong><%= @user.players.winners.count %></strong>
+    </p>
+    <p>
+      Games Gave Up On: <strong><%= @user.players.quitters.count %></strong>
+    </p>
+
+    <div class="game-filters">
+      <%= button_to 'Completed Games', @user, method: :get, :class => @list_being_shown == 'games' ? 'highlighted' : 'unhighlighted', params: {list_to_show: 'games', page: 1} %>
+      <%= button_to 'Created Nonograms', @user, method: :get, :class => @list_being_shown == 'nonograms' ? 'highlighted' : 'unhighlighted', params: {list_to_show: 'nonograms', page: 1} %>
+    </div>
+
+    <div>
+  <div class="games-list">
+    <%= list_users_games(@games_presented, current_user) if @games_presented.present? %>
+    <%= list_users_nonograms(@nonograms_presented, current_user) if @nonograms_presented.present? %>
+  </div>
+  <%= will_paginate @list, next_label: '', previous_label: '' %>
+</div>

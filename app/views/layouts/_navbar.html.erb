@@ -11,7 +11,7 @@
   <div class="login-details">
     <% if user_signed_in? %>
 
-      <div class="name">Logged in as <strong><%= current_user.name %></strong></div>
+      <div class="name">Logged in as <strong><%= link_to_user(current_user) %></strong></div>
         
       <div class="options">
         <div class="edit"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'link' %></div>

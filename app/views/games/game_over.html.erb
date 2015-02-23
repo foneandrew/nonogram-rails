@@ -2,7 +2,11 @@
 	<template id="game" data-game-id="<%= @game_presented.id %>"></template>
 	<template id="game-over"></template>
 
-	<div class='heading' align="center"><%= nonogram_description(@nonogram_presented) %></div>
+	<div class='heading' align="center">
+    <h2><%= @nonogram_presented.hint %></h2>
+    <h1><%= @nonogram_presented.name %></h1>
+    <h3>by <%= @nonogram_presented.user.present? ? link_to_user(@nonogram_presented.user) : 'unknown' %></h3>
+  </div>
 
   <div class='pad-in'>
   	<% if @solution_grid.present? %>
@@ -13,7 +17,6 @@
     	<h4><%= @game_presented.finished_message %></h4>
 
     	<%= render partial: 'top_players', locals: { nonogram: @nonogram_presented } %>
-
 
       <%= content_tag(:div, '', id: 'other-players-attempts') %>
     </div>

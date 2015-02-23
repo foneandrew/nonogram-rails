@@ -22,10 +22,10 @@ class GamePresenter < SimpleDelegator
     player = players.find_by(user: user)
 
     case
-    when started?
-      message << started_message(player)
     when completed?
       message << completed_message(player)
+    when started?
+      message << started_message(player)
     else 
       message << ' waiting to start'
     end

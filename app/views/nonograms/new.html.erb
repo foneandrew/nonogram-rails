@@ -6,7 +6,7 @@
 
   <%= render partial: 'new_nonogram_dropdown' %>
 
-  <%= form_tag Nonogram.new do %>
+  <%= form_tag nonograms_path do %>
     <%= hidden_field_tag 'size', @size %>
     <%= hidden_field_tag 'author_id', current_user.id %>
     <%= hidden_field_tag 'setColor', '#000000' %>

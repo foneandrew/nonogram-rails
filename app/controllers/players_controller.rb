@@ -6,14 +6,6 @@ class PlayersController < ApplicationController
 
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
     render layout: false
-
-    # if @game.completed?
-    #   response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-    #   render :index
-    # else
-    #   # this is the prefered way to render nothing in rails 4?
-    #   head :ok, content_type: "text/html"
-    # end
   end
 
   def create

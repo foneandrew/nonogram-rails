@@ -13,9 +13,18 @@ class NonogramPresenter < SimpleDelegator
   end
 
   def top_players(num_players)
-    top_fastest_players(num_players).map do |name, time|
-      "#{name} in #{minutes_and_seconds(time)}"
+    top_fastest_players(num_players).map do |user, time|
+      # "#{name} in #{minutes_and_seconds(time)}"
+      [user, minutes_and_seconds(time)]
     end
+  end
+
+  def list_title
+    "(#{size}x#{size}) #{hint}"
+  end
+
+  def games_played
+    games.completed.count
   end
 
   private
@@ -25,7 +34,7 @@ class NonogramPresenter < SimpleDelegator
       game.seconds_taken_to_complete
     end.map do |game|
       if winner = game.players.find_by(won: true)
-        [winner.user.name, game.seconds_taken_to_complete]
+        [winner.user, game.seconds_taken_to_complete]
       end
     end.reject(&:blank?).first(num_players)
   end

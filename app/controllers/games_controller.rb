@@ -99,8 +99,12 @@ class GamesController < ApplicationController
     # is business logic => move elsewhere?
     @nonogram_presented = NonogramPresenter.new(@game_presented.nonogram)
     @solution_grid = Grid.decode(nonogram_data: @nonogram_presented.solution)
-    # @player_answers = player_answers
-    render :game_over
+
+    if @player.present?
+      render :game_over
+    else
+      render :game_over_not_joined
+    end
   end
 
   def render_game_in_progress
