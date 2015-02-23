@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def fetch_list(page)
     case @list_being_shown
     when 'games'
-      @list = @user.games.completed.paginate(page: page, per_page: 10)
+      @list = @user.player_games.completed.paginate(page: page, per_page: 10)
       @games_presented = @list.map { |game| GamePresenter.new(game) }
     when 'nonograms'
       @list = @user.nonograms.order('nonograms.id DESC').paginate(page: page, per_page: 10)
