@@ -1,0 +1,17 @@
+<div class="card">
+  <div class='heading' align="center">
+    <h2><%= @nonogram_presented.hint %></h2>
+    <h1>???</h1>
+    <h3>by <%= @nonogram_presented.user.present? ? link_to_user(@nonogram_presented.user) : 'unknown' %></h3>
+  </div>
+
+  <h3>You were not a player in this game, so you cannot see the full results.</h3>
+
+  <%= content_tag :div, '?', class: 'question-mark' %>
+
+  <p>Only the players in this game can see the solutions here</p>
+
+  <h4><%= @game_presented.finished_message %></h4>
+
+  <%= render partial: 'top_players', locals: { nonogram: @nonogram_presented } %>
+</div>

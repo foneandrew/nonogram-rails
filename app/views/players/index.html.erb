@@ -2,9 +2,11 @@
 
 <%= content_tag(:h4, "Other player's attempts for this game:") unless @player_grids.length == 0 %>
 
-<% @player_grids.each do |player_name, grid| %>
+<% @player_grids.each do |player_user, grid| %>
   <div align="center">
-    <%= content_tag(:h5, player_name) %>
+    <h5>
+      <%= link_to_user player_user %>:
+    </h5>
 
     <%= render_answer(grid: grid, game: @game) %>
   </div>

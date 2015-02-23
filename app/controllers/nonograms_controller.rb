@@ -1,6 +1,13 @@
 class NonogramsController < ApplicationController
+  def show
+    @nonogram = Nonogram.find(params[:id])
+    @nonogram_presented = NonogramPresenter.new(@nonogram)
+    @nonogram_grid = Grid.decode(nonogram_data: @nonogram.solution) if current_user == @nonogram.user
+  end
+
   def new
     @size = params['size'].to_i
+    render 'new'
   end
 
   def create

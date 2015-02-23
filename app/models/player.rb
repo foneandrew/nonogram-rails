@@ -1,7 +1,4 @@
 class Player < ActiveRecord::Base
-
-  # model_name.instance_variable_set :@route_key, 'player'
-
   belongs_to :user
   belongs_to :game
 

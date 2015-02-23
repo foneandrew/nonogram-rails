@@ -48,6 +48,18 @@
       top: 17px;
       width: 100px;
 
+      a {
+        color: white;
+      }
+
+      a:hover {
+        color: $secondary_color_200;
+      }
+
+      a:active {
+        color: $secondary_color_400;
+      }
+
       strong {
         text-transform: uppercase;
         font-size: 18px;
@@ -59,7 +71,6 @@
       right: 0;
       top: 0;
       width: 120px;
-
 
       div {
         position: absolute;

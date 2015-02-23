@@ -3,7 +3,15 @@ module NonogramsHelper
     content_tag :div, (
       content_tag(:h2, "#{nonogram.hint}:") +
       content_tag(:h1, nonogram.name) +
-      content_tag(:h3, nonogram.author)
+      content_tag(:h3, "by #{link_to_user(nonogram.user)}")
+    )
+  end
+
+  def obscured_nonogram_description(nonogram)
+    content_tag :div, (
+      content_tag(:h2, "#{nonogram.hint}:") +
+      content_tag(:h1, '???') +
+      content_tag(:h3, content_tag(:span, 'by ' + link_to_user(nonogram.user)))
     )
   end
 

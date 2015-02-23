@@ -1,0 +1,28 @@
+<div class="card">
+  <div class='heading' align="center">
+    <h2><%= @nonogram_presented.hint %></h2>
+    <h1><%= @nonogram_grid.present? ? @nonogram_presented.name : '???' %></h1>
+    <h3>by <%= @nonogram_presented.user.present? ? link_to_user(@nonogram_presented.user) : 'unknown' %></h3>
+  </div>
+
+  <div class='pad-in'>
+    <% if @nonogram_grid.present? %>
+      <%= render partial: 'nonograms/display', locals: {nonogram_grid: @nonogram_grid, size: @nonogram_presented.size, nonogram: @nonogram_presented, draw_clues: false} %>
+    <% else %>
+      <%= content_tag :div, '?', class: 'question-mark' %>
+      Only the Author can see the name and the solution here
+    <% end %>
+
+    <p>This Nonogram has been used in <%= pluralize(@nonogram_presented.games_played, 'game') %></p>
+
+    <%= render partial: 'games/top_players', locals: { nonogram: @nonogram_presented } %>
+
+    <%= form_tag Game.new do %>
+      <%= hidden_field_tag 'size', @nonogram_presented.size %>
+      <%= hidden_field_tag 'nonogram', @nonogram_presented.id %>
+      <div>
+        <%= submit_tag 'Play this nonogram', class: 'button2' %>
+      </div>
+    <% end %>
+  </div>
+</div>

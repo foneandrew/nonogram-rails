@@ -6,6 +6,6 @@
 
 <div class="games-list">
 	<%= list_games(@games_presented, @games_being_shown, current_user) %>
-	<%= will_paginate @games, next_label: '', previous_label: '' %>
 </div>
+<%= will_paginate @games, next_label: '', previous_label: '' %>
 
