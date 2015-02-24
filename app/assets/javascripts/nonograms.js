@@ -60,10 +60,10 @@ window.ImageImporter = new function() {
     imageWidth = Math.round(imageWidth);
     imageHeight = Math.round(imageHeight);
 
-    canvas.width  = imageWidth;
-    canvas.height = imageHeight;
-    canvas.style.width = imageWidth * 2.5;
-    canvas.style.height = imageHeight * 2.5;
+    // canvas.width  = imageWidth * 10;
+    // canvas.height = imageHeight * 10;
+    canvas.style.width  = (imageWidth  * 5) + "px";
+    canvas.style.height = (imageHeight * 5) + "px";
 
     var xCenterFactor = Math.floor((20 - imageWidth)  / 2);
     var yCenterFactor = Math.floor((20 - imageHeight) / 2);
@@ -75,8 +75,6 @@ window.ImageImporter = new function() {
     context.drawImage(image, 0, 0, imageWidth, imageHeight);
 
     var imageData = context.getImageData(0, 0, 20, 20);
-
-
 
     var cells = [];
 

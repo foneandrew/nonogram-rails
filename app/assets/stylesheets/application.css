@@ -70,3 +70,15 @@ input {
 .page-content {
   position: relative;
 }
+
+.container {
+
+}
+
+.col1 {
+  display: inline-block;
+}
+
+.col2 {
+  display: inline-block;
+}
