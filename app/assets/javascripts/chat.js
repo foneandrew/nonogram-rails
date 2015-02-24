@@ -9,8 +9,9 @@
   window.Chat = {};
 
   Chat.User = (function() {
-    function User(user_name) {
+    function User(user_name, user_id) {
       this.user_name = user_name;
+      this.user_id = user_id;
       this.chat_color = ColorPicker.getColor()
       this.serialize = bind(this.serialize, this);
     }
@@ -18,6 +19,7 @@
     User.prototype.serialize = function() {
       return {
         user_name: this.user_name,
+        user_id: this.user_id,
         chat_color: this.chat_color
       };
     };
@@ -30,7 +32,7 @@
     Controller.prototype.template = function(message) {
       var html;
       // html = "<div class=\"chat_message\"" + " style=\"background-color:" + this.user.chat_color + "\"" + ">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " " + message.user_name + "\n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
-      html = "<div class=\"chat_message\">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " " + message.user_name + "\n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
+      html = "<div class=\"chat_message\">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " <a href=\"/users/" + message.user_name.split(' ')[0] + "\">" + message.user_name.split(' ')[1] + "</a> \n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
       return $(html);
     };
 
@@ -123,7 +125,9 @@
     Controller.prototype.createGuestUser = function() {
       var rand_num;
       rand_num = Math.floor(Math.random() * 1000);
-      var userName = $("meta[property=currentUserName").attr("content")
+      var userName = $("meta[property=currentUserName").attr("content");
+      var userId = $("meta[property=currentUserId").attr("content");
+      userName = userId  +" " + userName;
       this.user = new Chat.User(userName);
       $('#username').html(this.user.user_name);
       $('input#user_name').val(this.user.user_name);
@@ -137,7 +141,7 @@
         chats_to_save[index] = {
           msg_body: message.msg_body,
           received: message.received,
-          user_name: message.user_name
+          user_name: message.user_name,
         };
       });
       localStorage.messageQueue = JSON.stringify(chats_to_save);
