@@ -10,7 +10,9 @@ $(function() {
 
     UiListeners.hook();
 
-    ImageImporter.init();
+    if ($('#importer')) {
+      ImageImporter.init();
+    }
   }
 
   if ($('#nonogram-display').length) {
@@ -21,8 +23,9 @@ $(function() {
 window.ImageImporter = new function() {
   var image = new Image();
 
-
   this.init = function() {
+    $('#canvas').hide()
+
     document.getElementById('file').addEventListener('change', handleFileSelect, false);
     canvas.width = 20;
     canvas.height = 20;
@@ -67,9 +70,6 @@ window.ImageImporter = new function() {
 
     var xCenterFactor = Math.floor((20 - imageWidth)  / 2);
     var yCenterFactor = Math.floor((20 - imageHeight) / 2);
-
-    console.log("xCenterFactor:", xCenterFactor);
-    console.log("yCenterFactor:", yCenterFactor);
 
      // TODO: Draw size should respect aspect ratio.
     context.drawImage(image, 0, 0, imageWidth, imageHeight);
@@ -118,8 +118,6 @@ window.ImageImporter = new function() {
           var cell = (x + Math.floor(yCenterFactor)) + "-" + (y + Math.floor(xCenterFactor));
           cells.push(cell)
         }
-
-
       }
     }
 
@@ -129,15 +127,13 @@ window.ImageImporter = new function() {
   // PRIVATE
 
   var handleFileSelect = function(evt) {
-    console.log(evt)
-    console.log(evt.target)
-    console.log(evt.target.files[0])
-
     var reader = new FileReader();
     reader.onload = function(event){
       image.src = event.target.result;
     }
     reader.readAsDataURL(evt.target.files[0]);
+
+    $('#canvas').show()
   };
 };
 

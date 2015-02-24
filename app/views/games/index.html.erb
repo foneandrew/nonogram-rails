@@ -4,14 +4,12 @@
 	<%= render partial: 'nonograms/new_nonogram_form' %>
 </div>
 
-<div id="main-card">
-	<div class="card">
-		<div class="heading">
-			<h1>Games</h1>
-		</div>
-
-    <%= render partial: 'new_game_form' %>
-
-		<div id='games-list' class='pad-out'><%= render 'game_list' %></div>
+<div class="card">
+	<div class="heading">
+		<h1>Games</h1>
 	</div>
+
+  <%= render partial: 'new_game_form' %>
+
+	<div id='games-list' class='pad-out'><%= render 'game_list' %></div>
 </div>
