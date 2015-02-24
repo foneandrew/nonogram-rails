@@ -30,18 +30,15 @@ window.ImageImporter = new function() {
     var thresholdElem = document.getElementById('threshold-range');
 
     thresholdElem.onchange = function() {
-      console.log('hi')
-      ImageImporter.thresholdImageAndUpdate();
-      console.log('thresholding')
+      ImageImporter.thresholdImageAndUpdate(false);
     }
 
     image.onload = function() {
-      ImageImporter.thresholdImageAndUpdate();
-      console.log('thresholding')
+      ImageImporter.thresholdImageAndUpdate(true);
     }
   };
 
-  this.thresholdImageAndUpdate = function() {
+  this.thresholdImageAndUpdate = function(autoThreshold) {
     var thresholdElem = document.getElementById("threshold-range");
     var context = canvas.getContext("2d");
     var imageWidth, imageHeight;
@@ -76,28 +73,31 @@ window.ImageImporter = new function() {
 
     var imageData = context.getImageData(0, 0, 20, 20);
 
-    var lums = [];
+
 
     var cells = [];
 
-    for(var x = 0; x < 20; x++) {
-      for(var y = 0; y < 20; y++) {
-        var pixel = ((x * 20) + y) * 4;
+    if (autoThreshold) {
+      var lums = [];
+      for(var x = 0; x < 20; x++) {
+        for(var y = 0; y < 20; y++) {
+          var pixel = ((x * 20) + y) * 4;
 
-        var r = imageData.data[pixel  ] / 255;
-        var g = imageData.data[pixel+1] / 255;
-        var b = imageData.data[pixel+2] / 255;
+          var r = imageData.data[pixel  ] / 255;
+          var g = imageData.data[pixel+1] / 255;
+          var b = imageData.data[pixel+2] / 255;
 
-        var lum = (0.21 * r) + (0.72 * g) + (0.07 * b);
-        lums.push(lum);
+          var lum = (0.21 * r) + (0.72 * g) + (0.07 * b);
+          lums.push(lum);
+        }
       }
+
+      lums.sort(function(a, b) {
+        return a - b;
+      });
+
+      thresholdElem.value = lums[lums.length / 2];
     }
-
-    lums.sort(function(a, b) {
-      return a - b;
-    });
-
-    thresholdElem.value = lums[lums.length / 2];
 
     for (var x = 0; x < 20; x++) {
       for (var y = 0; y < 20; y++) {
