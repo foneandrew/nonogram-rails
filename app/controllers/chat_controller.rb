@@ -24,11 +24,11 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def client_connected
-    system_msg :new_message, "client #{current_user.name} connected"
+    # system_msg :new_message, "client #{current_user.name} connected"
   end
 
   def client_disconnected
-    system_msg :new_message, "client #{client_id} disconnected"
+    # system_msg :new_message, "client #{client_id} disconnected"
   end
 
   def new_message
