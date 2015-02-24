@@ -1,27 +1,30 @@
-<div class="navbar"> 
-  <div class="help">
-    <%= link_to 'help', help_path, class: 'link'  %>
+<div class="navbar">
+  <div class="button">
+    <%= link_to 'Help', help_path, class: 'link'  %>
   </div>
 
-  <div class="">
-    <%= link_to 'n o n o g r a m s', Game, class: 'title' %>
+  <div class="header-title">
+    <%= link_to 'N O N O G R A M S', Game, class: 'title' %>
   </div>
 
 
-  <div class="login-details">
-    <% if user_signed_in? %>
-
-      <div class="name">Logged in as <strong><%= link_to_user(current_user) %></strong></div>
-        
-      <div class="options">
-        <div class="edit"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'link' %></div>
-        <div class="logout"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'link'  %></div>
+  <% if user_signed_in? %>
+    <div class="pull-right">
+      <div class="button pull-right half-size">
+        <%= link_to 'Profile', current_user %>
       </div>
-    <% else %>
-      <div class="options">
-        <div class="edit"><%= link_to "Sign up", new_user_registration_path, :class => 'link'  %></div>
-        <div class="logout"><%= link_to "Login", new_user_session_path, :class => 'link'  %></div>
+
+      <div class="button pull-right half-size">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete  %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <div class="button pull-right half-size">
+      <%= link_to "Sign up", new_user_registration_path %>
+    </div>
+
+    <div class="button pull-right half-size">
+      <%= link_to "Login", new_user_session_path  %>
+    </div>
+  <% end %>
 </div>

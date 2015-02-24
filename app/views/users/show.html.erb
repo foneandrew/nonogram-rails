@@ -1,7 +1,8 @@
 <div class="main-card">
   <div class="card">
     <div class="heading">
-      <h1><%= @user.name %></h1>
+      <h1><%= @user.name %></h1><br />
+      <%= link_to "Edit Profile", edit_user_registration_path(@user_name) %>
     </div>
 
     <p>
