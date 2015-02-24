@@ -49,7 +49,6 @@ window.ImageImporter = new function() {
       imageHeight = 20;
     }
     else if (imageRatio > 1) {
-      console.log("do the thing");
       imageWidth  = 20;
       imageHeight = 20 / imageRatio;
     }
@@ -58,17 +57,16 @@ window.ImageImporter = new function() {
       imageHeight = 20;
     }
 
-    console.log("imageRatio: ", imageRatio);
-    console.log("imageWidth: ", imageWidth);
-    console.log("imageHeight: ", imageWidth);
+    imageWidth = Math.round(imageWidth);
+    imageHeight = Math.round(imageHeight);
 
     canvas.width  = imageWidth;
     canvas.height = imageHeight;
     canvas.style.width = imageWidth * 2.5;
     canvas.style.height = imageHeight * 2.5;
 
-    var xCenterFactor = (20 - imageWidth)  / 2;
-    var yCenterFactor = (20 - imageHeight) / 2;
+    var xCenterFactor = Math.floor((20 - imageWidth)  / 2);
+    var yCenterFactor = Math.floor((20 - imageHeight) / 2);
 
     console.log("xCenterFactor:", xCenterFactor);
     console.log("yCenterFactor:", yCenterFactor);
