@@ -1,0 +1,32 @@
+.well{
+  width: 100%;
+  resize: none;
+  border: none;
+  min-height: 200px;
+  background-color: #E4E4E4;
+}
+
+.chat-text-area {
+  float: left;
+  background-color: #ededed;
+  max-width: 15%;
+  min-height: 300px;
+  max-height: 300px;
+  overflow: scroll;
+  text-align: left;
+}
+.chat-message{
+  width: 100%;
+  text-align: left;
+}
+.chat-box{
+  width: 15%;
+  margin-left: 10px;
+  min-height: 20px;
+}
+.chat-container{
+  float: left;
+}
+.chat-send{
+  display:none;
+}

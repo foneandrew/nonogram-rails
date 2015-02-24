@@ -15,3 +15,5 @@
 //= require_tree .
 //= require js-routes
 //= require jss.min
+//= require websocket_rails/main
+
