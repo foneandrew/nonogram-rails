@@ -62,15 +62,42 @@ window.ImageImporter = new function() {
 
     canvas.width  = imageWidth;
     canvas.height = imageHeight;
-    canvas.style.width = imageWidth * 100;
-    canvas.style.height = imageHeight * 100
+    canvas.style.width = imageWidth * 2.5;
+    canvas.style.height = imageHeight * 2.5;
+
+    var xCenterFactor = (20 - imageWidth)  / 2;
+    var yCenterFactor = (20 - imageHeight) / 2;
+
+    console.log("xCenterFactor:", xCenterFactor);
+    console.log("yCenterFactor:", yCenterFactor);
 
      // TODO: Draw size should respect aspect ratio.
-     context.drawImage(image, 0, 0, imageWidth, imageHeight);
+    context.drawImage(image, 0, 0, imageWidth, imageHeight);
 
     var imageData = context.getImageData(0, 0, 20, 20);
 
-    var cells = []
+    var lums = [];
+
+    var cells = [];
+
+    for(var x = 0; x < 20; x++) {
+      for(var y = 0; y < 20; y++) {
+        var pixel = ((x * 20) + y) * 4;
+
+        var r = imageData.data[pixel  ] / 255;
+        var g = imageData.data[pixel+1] / 255;
+        var b = imageData.data[pixel+2] / 255;
+
+        var lum = (0.21 * r) + (0.72 * g) + (0.07 * b);
+        lums.push(lum);
+      }
+    }
+
+    lums.sort(function(a, b) {
+      return a - b;
+    });
+
+    thresholdElem.value = lums[lums.length / 2];
 
     for (var x = 0; x < 20; x++) {
       for (var y = 0; y < 20; y++) {
@@ -83,10 +110,15 @@ window.ImageImporter = new function() {
 
         var lum = (0.21 * r) + (0.72 * g) + (0.07 * b);
 
+        if(x >= imageHeight || y >= imageWidth)
+          lum = 1;
+
         if (lum <= thresholdElem.value) {
-          var cell = x + "-" + y;
+          var cell = (x + Math.floor(yCenterFactor)) + "-" + (y + Math.floor(xCenterFactor));
           cells.push(cell)
         }
+
+
       }
     }
 
@@ -145,7 +177,7 @@ window.UiListeners = new function() {
   };
 
   var disableContextMenu = function() {
-    $('.game-cell').bind('contextmenu', function() { return false; }); 
+    $('.game-cell').bind('contextmenu', function() { return false; });
   };
 
   var giveUp = function() {
@@ -404,7 +436,7 @@ window.Nonogram = new function() {
   this.setPaint = function(mouseEvent, tile) {
     if ($(tile).hasClass('filled')) {
       paintOverFilled = true;
-    } 
+    }
     if (mouseEvent.which == 1) {
       // left mouse button
       if ($(tile).hasClass('filled')) {
