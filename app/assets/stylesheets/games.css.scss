@@ -153,6 +153,9 @@
   border-radius: 2px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 
+  .chat-window{
+    margin-top: 0px;
+  }
   h1 {
     color: $neutral_color_300;
     margin: 0;
@@ -178,6 +181,8 @@
     border-style: solid;
     border-color: $neutral_color_100;
   }
+
+
 
   .new-game-button {
     display: inline-block;

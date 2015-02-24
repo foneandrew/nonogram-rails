@@ -1,0 +1,32 @@
+LOG:  database system was shut down at 2015-02-23 11:40:02 NZDT
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+FATAL:  role "nonograms_development" does not exist
+FATAL:  role "nonograms" does not exist
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_test" ENCODING = 'unicode'
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_production" ENCODING = 'unicode'
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+FATAL:  database "nonograms_development" does not exist
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+FATAL:  database "nonograms_development" does not exist
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+FATAL:  database "nonograms_development" does not exist
+ERROR:  permission denied to create database
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+FATAL:  database "nonograms_development" does not exist
+FATAL:  database "roles" does not exist
+ERROR:  database "nonograms_development" already exists
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
+ERROR:  database "nonograms_development" already exists
+STATEMENT:  CREATE DATABASE "nonograms_development" ENCODING = 'unicode'
