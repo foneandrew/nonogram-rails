@@ -11,12 +11,14 @@
   Chat.User = (function() {
     function User(user_name) {
       this.user_name = user_name;
+      this.chat_color = ColorPicker.getColor()
       this.serialize = bind(this.serialize, this);
     }
 
     User.prototype.serialize = function() {
       return {
-        user_name: this.user_name
+        user_name: this.user_name,
+        chat_color: this.chat_color
       };
     };
 
@@ -27,8 +29,8 @@
   Chat.Controller = (function() {
     Controller.prototype.template = function(message) {
       var html;
-      console.log(message.received);
-      html = "<div class=\"chat_message\" >\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " " + message.user_name + "\n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
+      // html = "<div class=\"chat_message\"" + " style=\"background-color:" + this.user.chat_color + "\"" + ">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " " + message.user_name + "\n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
+      html = "<div class=\"chat_message\">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " " + message.user_name + "\n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
       return $(html);
     };
 
@@ -51,6 +53,7 @@
       this.newMessage = bind(this.newMessage, this);
       this.bindEvents = bind(this.bindEvents, this);
       this.messageQueue = [];
+      this.saveChatHistory = bind(this.saveChatHistory, this);
       this.dispatcher = new WebSocketRails(url, useWebSockets);
       this.dispatcher.on_open = this.createGuestUser;
       this.bindEvents();
@@ -77,7 +80,6 @@
     };
 
     Controller.prototype.sendMessage = function(event) {
-      console.log("Sedning Message");
       var message;
       event.preventDefault();
       message = $('#message').val();
@@ -128,9 +130,37 @@
       return this.dispatcher.trigger('new_user', this.user.serialize());
     };
 
+    Controller.prototype.saveChatHistory = function() {
+      chats_to_save = [];
+
+      this.messageQueue.forEach(function(message, index){
+        chats_to_save[index] = {
+          msg_body: message.msg_body,
+          received: message.received,
+          user_name: message.user_name
+        };
+      });
+      localStorage.messageQueue = JSON.stringify(chats_to_save);
+    };
+
+    Controller.prototype.loadChatHistory = function() {
+      var target = this;
+      chats = JSON.parse(localStorage.messageQueue || '{}');
+      chats.forEach(function(chat){
+        console.log(chat);
+        target.newMessage(chat);
+      });
+    };
+
     return Controller;
   })();
 
 }).call(this);
 
+$(window).unload(function(){
+  window.chatController.saveChatHistory();
+});
+$(window).on('load', function(){
+  window.chatController.loadChatHistory.call(window.chatController);
+});
 
