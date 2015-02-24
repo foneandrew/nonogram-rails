@@ -125,8 +125,8 @@
     Controller.prototype.createGuestUser = function() {
       var rand_num;
       rand_num = Math.floor(Math.random() * 1000);
-      var userName = $("meta[property=currentUserName").attr("content");
-      var userId = $("meta[property=currentUserId").attr("content");
+      var userName = $("meta[property=currentUserName]").attr("content");
+      var userId = $("meta[property=currentUserId]").attr("content");
       userName = userId  +" " + userName;
       this.user = new Chat.User(userName);
       $('#username').html(this.user.user_name);
