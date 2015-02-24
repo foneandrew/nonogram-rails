@@ -146,9 +146,10 @@
     Controller.prototype.loadChatHistory = function() {
       var target = this;
       chats = JSON.parse(localStorage.messageQueue || '{}');
-      chats.forEach(function(chat){
-        console.log(chat);
-        target.newMessage(chat);
+      chats.forEach(function(chat, index){
+        if(index != 0){
+          target.newMessage(chat);
+        }
       });
     };
 

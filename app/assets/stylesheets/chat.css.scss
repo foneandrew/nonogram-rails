@@ -20,8 +20,12 @@
   text-align: left;
 }
 .chat-box{
-  width: 50%;
-  margin: 0 auto;
+  width: 15%;
+  margin-left: 10px;
+  min-height: 20px;
+}
+.chat-container{
+  float: left;
 }
 .chat-send{
   display:none;

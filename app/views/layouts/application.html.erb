@@ -21,15 +21,17 @@
     <% end %>
 
     <div class="page-container">
+
       <div class="page-content">
-      <!-- <div class="chat-text-area  card"> -->
-      <div id="chat" class="chat-text-area card well" data-uri="<%= request.host %>:<%= request.port %>/websocket"></div>
-      <!-- </div> -->
         <%= yield %>
+            <div class="chat-container">
+            <%= render 'layouts/chat' if current_user.present? %>
+            <%= render 'layouts/chat_input' if current_user.present? %>
+    </div>
       </div>
     </div>
 
     <%= link_home(current_user) %>
-        <%= render 'layouts/chat' if current_user.present? %>
+
   </body>
 </html>
