@@ -3,7 +3,6 @@
 
 $(function() {
   if ($('#log-in').length) {
-    console.debug('R: removing all saved games');
     localStorage.removeItem('savedGames');
   }
 });

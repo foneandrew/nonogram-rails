@@ -9,12 +9,104 @@ $(function() {
     Nonogram.init($('#game').data('game-id'));
 
     UiListeners.hook();
+
+    ImageImporter.init();
   }
 
   if ($('#nonogram-display').length) {
     setColor($('#color').data('color'));
   }
 });
+
+window.ImageImporter = new function() {
+  var image = new Image();
+
+
+  this.init = function() {
+    document.getElementById('file').addEventListener('change', handleFileSelect, false);
+    canvas.width = 20;
+    canvas.height = 20;
+
+    var thresholdElem = document.getElementById('threshold-range');
+
+    thresholdElem.onchange = function() {
+      console.log('hi')
+      ImageImporter.thresholdImageAndUpdate();
+      console.log('thresholding')
+    }
+
+    image.onload = function() {
+      ImageImporter.thresholdImageAndUpdate();
+      console.log('thresholding')
+    }
+  };
+
+  this.thresholdImageAndUpdate = function() {
+    var thresholdElem = document.getElementById("threshold-range");
+    var context = canvas.getContext("2d");
+    var imageWidth, imageHeight;
+    var imageRatio = image.width / image.height;
+
+    if (imageRatio < 1) {
+      imageWidth  = 20 * imageRatio;
+      imageHeight = 20;
+    }
+    else if (imageRatio > 1) {
+      imageWidth  = 20;
+      imageHeight = 20 * imageRatio;
+    }
+    else {
+      imageWidth  = 20;
+      imageHeight = 20;
+    }
+
+    canvas.width  = imageWidth;
+    canvas.height = imageHeight;
+    canvas.style.width = imageWidth * 100;
+    canvas.style.height = imageHeight * 100
+
+     // TODO: Draw size should respect aspect ratio.
+     context.drawImage(image, 0, 0, imageWidth, imageHeight);
+
+    var imageData = context.getImageData(0, 0, 20, 20);
+
+    var cells = []
+
+    for (var x = 0; x < 20; x++) {
+      for (var y = 0; y < 20; y++) {
+        var pixel = ((x * 20) + y) * 4
+
+        var r = imageData.data[pixel  ] / 255;
+        var g = imageData.data[pixel+1] / 255;
+        var b = imageData.data[pixel+2] / 255;
+        var a = imageData.data[pixel+3] / 255;
+
+        var lum = (0.21 * r) + (0.72 * g) + (0.07 * b);
+
+        if (lum <= thresholdElem.value) {
+          var cell = x + "-" + y;
+          cells.push(cell)
+        }
+      }
+    }
+
+    Nonogram.refreshFilledCells(cells)
+  };
+
+  // PRIVATE
+
+  var handleFileSelect = function(evt) {
+    console.log(evt)
+    console.log(evt.target)
+    console.log(evt.target.files[0])
+
+    var reader = new FileReader();
+    reader.onload = function(event){
+      image.src = event.target.result;
+    }
+    reader.readAsDataURL(evt.target.files[0]);
+  };
+};
 
 var setColor = function(color) {
   jss.set('.filled', { 'background-color': color });
@@ -28,7 +120,7 @@ window.UiListeners = new function() {
     bindMouseOverTile();
 
     bindMouseClickColorCircle();
-    
+
     disableContextMenu();
   };
 
@@ -153,7 +245,7 @@ window.Clues = new function() {
             //dont want to restore the first clue as it should always be attatched to the left side
             clues.unshift(clue);
           }
-          
+
           cells.unshift(cell);
           cells = unmatchedCells;
           break solveLeft;
@@ -366,6 +458,13 @@ window.Nonogram = new function() {
     $('#cells').val(formatCellData('.filled'));
   };
 
+  this.refreshFilledCells = function(cellIds) {
+    $('.cell').removeClass('filled');
+    $('.cell').removeClass('blank');
+    $('.cell').removeClass('crossed');
+    setCells('filled', cellIds)
+  };
+
   // PRIVATE
 
   var setTile = function(tile, paint) {
@@ -412,16 +511,14 @@ window.Nonogram = new function() {
       var savedGames = JSON.parse(localStorage.savedGames);
 
       if (savedGames[gameId] != undefined) {
-        setCells('filled', savedGames[gameId]['filled']);
-        setCells('crossed', savedGames[gameId]['crossed']);
+        setCells('filled', JSON.parse(savedGames[gameId]['filled']));
+        setCells('crossed', JSON.parse(savedGames[gameId]['crossed']));
       }
     }
     Clues.updateClues();
   };
 
-  var setCells = function(cssClass, cellIds) {
-    var cells = JSON.parse(cellIds);
-
+  var setCells = function(cssClass, cells) {
     for(var i = 0; i < cells.length; i++) {
       var cellId = '#' + cells[i];
       setTile(cellId, cssClass);

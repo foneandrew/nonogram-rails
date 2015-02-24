@@ -25,6 +25,10 @@ ul {
   list-style: none;
 }
 
+input {
+  -webkit-user-select: text;
+}
+
 *
 {
   -webkit-user-select: none;

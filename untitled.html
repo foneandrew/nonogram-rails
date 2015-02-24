@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <style>
+     canvas {
+       image-rendering: optimizeSpeed;             // Older versions of FF
+       image-rendering: -moz-crisp-edges;          // FF 6.0+
+       image-rendering: -webkit-optimize-contrast; // Safari
+       image-rendering: -o-crisp-edges;            // OS X & Windows Opera (12.02+)
+       image-rendering: pixelated;                 // Awesome future-browsers
+       -ms-interpolation-mode: nearest-neighbor;   // IE
+   }
+   </style>
+ </head>
+ <body onload="javscript:onload();">
+   <input id="threshold-range" type="range" name="points" min="0" max="1" step="0.05">
+   <canvas id="canvas" style="width: 500px; height: 500px;"></canvas>
+   <script>
+     var image = document.createElement("img");
+     function onload() {
+       var canvas = document.getElementById("canvas");
+       canvas.width = 20;
+       canvas.height = 20;
+
+
+       image.src = "./test.png";
+
+       var thresholdElem = document.getElementById("threshold-range");
+       thresholdElem.onchange = function() {
+         doWork();
+       }
+
+
+       image.onload = function() {
+         doWork();
+       }
+     }
+
+     function doWork() {
+       var thresholdElem = document.getElementById("threshold-range");
+       var context = canvas.getContext("2d");
+       var imageWidth, imageHeight;
+         var imageRatio = image.width / image.height;
+
+       if (imageRatio <1) {
+         imageWidth  = 20 * imageRatio;
+         imageHeight = 20;
+       }
+       else if (imageRatio > 1) {
+         imageWidth  = 20;
+         imageHeight = 20 * imageRatio;
+       }
+       else {
+         imageWidth  = 20;
+         imageHeight = 20;
+       }
+
+       canvas.width  = imageWidth;
+       canvas.height = imageHeight;
+       canvas.style.width = imageWidth * 100;
+       canvas.style.height = imageHeight * 100;
+
+       // TODO: Draw size should respect aspect ratio.
+       context.drawImage(image, 0, 0, imageWidth, imageHeight);
+
+       var imageData = context.getImageData(0, 0, 20, 20);
+
+       for (var i = 0; i < 20*20*4; i += 4) {
+         var r = imageData.data[i  ] / 255;
+         var g = imageData.data[i+1] / 255;
+         var b = imageData.data[i+2] / 255;
+         var a = imageData.data[i+3] / 255;
+
+         var lum = (0.21 * r) + (0.72 * g) + (0.07 * b);
+
+
+         var grey = 0.5;
+         if (lum <= thresholdElem.value) {
+           grey = 255;
+         }
+         else {
+           grey = 0;
+         }
+
+         imageData.data[i  ] = grey;
+         imageData.data[i+1] = grey;
+         imageData.data[i+2] = grey;
+         imageData.data[i+3] = 255;
+       }
+
+       context.putImageData(imageData, 0, 0, 0, 0, 20, 20);
+     }
+   </script>
+ </body>
+</html>
