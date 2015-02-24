@@ -49,13 +49,18 @@ window.ImageImporter = new function() {
       imageHeight = 20;
     }
     else if (imageRatio > 1) {
+      console.log("do the thing");
       imageWidth  = 20;
-      imageHeight = 20 * imageRatio;
+      imageHeight = 20 / imageRatio;
     }
     else {
       imageWidth  = 20;
       imageHeight = 20;
     }
+
+    console.log("imageRatio: ", imageRatio);
+    console.log("imageWidth: ", imageWidth);
+    console.log("imageHeight: ", imageWidth);
 
     canvas.width  = imageWidth;
     canvas.height = imageHeight;
