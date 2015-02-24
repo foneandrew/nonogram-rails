@@ -1,4 +1,6 @@
-<meta property="currentUserName" content="<%= @current_user.name %>">
+<% if user_signed_in? %>
+  <meta property="currentUserName" content="<%= current_user.name %>">
+<% end %>
 
 <div id="chat" class="chat-text-area card well" data-uri="<%= request.host %>:<%= request.port %>/websocket">
 
