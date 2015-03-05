@@ -1,8 +1,7 @@
-<div class="card" id="new-nonogram-card">
-  <%= render partial: 'nonograms/image_importer' %>
-</div>
 
-<div class="card">
+
+<div class="card center">
+
 
   <div class="heading">
     <h1>Edit your new Nonogram</h1>
@@ -32,4 +31,8 @@
         <%= submit_tag 'Save' %>
       </div>
   <% end %>
+</div>
+
+<div class="card right" id="new-nonogram-card">
+  <%= render partial: 'nonograms/image_importer' %>
 </div>

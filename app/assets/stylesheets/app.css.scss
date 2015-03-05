@@ -1,5 +1,9 @@
 @import 'colors';
 
+#message {
+  box-sizing: border-box;
+}
+
 .pagination {
   .current {
     color: $primary_color;

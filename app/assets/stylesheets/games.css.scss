@@ -1,59 +1,33 @@
 @import 'colors';
 
-#main-card {
-  padding-right: 350px;
+.card {
+  display: inline-block;
+  box-sizing: border-box;
+  float: left;
+  background-color: #fff;
+  // margin-left: 10px;
+  // margin-right: 10px;
+
+
+
+  &.left {
+    width: 20%;
+
+  }
+
+  &.center {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 55%;
+  }
+
+  &.right {
+    width: 20%;
+  }
 }
 
-#new-nonogram-card {
-  width: 300px;
-  position: absolute;
-  right: 50px;
-  top: 100px;
-
-  h1 {
-    border-width: 0 0 1px 0;
-    border-style: solid;
-    border-color: $neutral_color_100;
-
-    padding: 0 0 10px 0;
-    margin: 0 0 15px 0;
-    width: 100%;
-
-    font-family: Questrial;
-    font-size: 30px;
-  }
-
-  select {
-    float: left;
-    padding: 0px 10px 2.5px 10px;
-  }
-
-  .contents {
-    width: 60%;
-    margin: 0 auto;
-  }
-
-  input[type=submit] {
-    float: right;
-    padding: 0px 10px 2.5px 10px;
-    background-color: $primary_color_400;
-    color: $neutral_color_50;
-
-    font-size: 34px;
-    font-family: Questrial;
-    border: none;
-
-    border-radius: 2px;
-    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
-  }
-
-  input[type=submit]:hover {
-    background-color: $secondary_color_200;
-  }
-
-  input[type=submit]:active {
-    background-color: $secondary_color_400;
-  }
+.page-content {
+  text-align: center;
 }
 
 .player-name {
@@ -144,10 +118,10 @@
 }
 
 .card {
-  background-color: #fff;
-  width: 700px;
-  margin: 30px auto 0 auto;
-  padding: 15px;
+
+  // width: 700px;
+  // margin: 30px auto 0 auto;
+  // padding: 15px;
 
   border-width: 0px;
   border-radius: 2px;

@@ -23,11 +23,13 @@
     <div class="page-container">
 
       <div class="page-content">
-        <%= yield %>
-            <div class="chat-container">
+          <div class="card left">
             <%= render 'layouts/chat' if current_user.present? %>
             <%= render 'layouts/chat_input' if current_user.present? %>
-    </div>
+          </div>
+
+        <%= yield %>
+
       </div>
     </div>
 
