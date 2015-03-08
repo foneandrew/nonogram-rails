@@ -11,7 +11,7 @@ $navbar_height: 70px;
   text-align: center;
   line-height: $navbar_height;
 
-  .button {
+  .nav-button {
     height: 100%;
     width: 120px;
 
@@ -27,6 +27,7 @@ $navbar_height: 70px;
       color: #fff;
       width: 100%;
       height: 100%;
+      text-decoration: none;
 
       // line-height: $navbar_height;
 
@@ -55,9 +56,6 @@ $navbar_height: 70px;
 
     height: 100%;
 
-
-
-
     text-decoration: none;
 
     font-family: Arvo;
@@ -72,7 +70,7 @@ $navbar_height: 70px;
 
 
       &:hover {
-        color: #eee;
+        color: $secondary_color_200;
       }
     }
   }

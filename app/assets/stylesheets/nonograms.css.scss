@@ -18,10 +18,10 @@
 	margin: 10px auto;
 }
 
-.image-upload-label {
-  font-size: 12px;
-  text-transform: uppercase;
-}
+// .image-upload-label {
+//   font-size: 12px;
+//   text-transform: uppercase;
+// }
 
 .question-mark {
   font-size: 200px;
@@ -55,6 +55,9 @@
 .cell {
   width: 20px;
   height: 20px;
+  text-align: center;
+  border-bottom: 0px;
+  line-height: 0;
 }
 
 .game-cell {
@@ -96,70 +99,70 @@
   border-top: 3px solid #666666;
 }
 
-.button2 {
-	background-color: $primary_color_200;
-	padding: 10px 20px;
-	border-width: 0;
-	border-radius: 2px;
+// .button2 {
+// 	background-color: $primary_color_200;
+// 	padding: 10px 20px;
+// 	border-width: 0;
+// 	border-radius: 2px;
 
-	text-transform: uppercase;
-	color: $neutral_color_50;
-	display: inline-block;
+// 	text-transform: uppercase;
+// 	color: $neutral_color_50;
+// 	display: inline-block;
 
-	input[type=submit] {
-		background-color: $primary_color_200;
-		border-width: 0;
-		border-radius: 2px;
+// 	input[type=submit] {
+// 		background-color: $primary_color_200;
+// 		border-width: 0;
+// 		border-radius: 2px;
 
-		text-transform: uppercase;
-		color: $neutral_color_50;
-	}
+// 		text-transform: uppercase;
+// 		color: $neutral_color_50;
+// 	}
 
-	input[type=submit]:hover {
-		background-color: $secondary_color_200;
-    cursor: pointer;
-	}
+// 	input[type=submit]:hover {
+// 		background-color: $secondary_color_200;
+//     cursor: pointer;
+// 	}
 
-	input[type=submit]:active {
-		background-color: $secondary_color_300;
-	}
-}
+// 	input[type=submit]:active {
+// 		background-color: $secondary_color_300;
+// 	}
+// }
 
-.button2:hover {
-	background-color: $secondary_color_200;
-  cursor: pointer;
-}
+// .button2:hover {
+// 	background-color: $secondary_color_200;
+//   cursor: pointer;
+// }
 
-.button2:active {
-	background-color: $secondary_color_300;
-}
+// .button2:active {
+// 	background-color: $secondary_color_300;
+// }
 
-.biggify {
-  font-size: 15px;
-}
+// .biggify {
+//   font-size: 15px;
+// }
 
-.nonogram-button {
-	width: 70px;
-	margin: 10px auto;
+// .nonogram-button {
+// 	width: 70px;
+// 	margin: 10px auto;
 
-	input[type=submit] {
-		background-color: $primary_color_200;
-		padding: 10px 20px;
-		border-width: 0;
-		border-radius: 2px;
+// 	input[type=submit] {
+// 		background-color: $primary_color_200;
+// 		padding: 10px 20px;
+// 		border-width: 0;
+// 		border-radius: 2px;
 
-		text-transform: uppercase;
-		color: $neutral_color_50;
-	}
+// 		text-transform: uppercase;
+// 		color: $neutral_color_50;
+// 	}
 
-	input[type=submit]:hover {
-		background-color: $secondary_color_200;
-	}
+// 	input[type=submit]:hover {
+// 		background-color: $secondary_color_200;
+// 	}
 
-	input[type=submit]:active {
-		background-color: $secondary_color_300;
-	}
-}
+// 	input[type=submit]:active {
+// 		background-color: $secondary_color_300;
+// 	}
+// }
 
 .nonogram-textfield {
 	// width: 350px;

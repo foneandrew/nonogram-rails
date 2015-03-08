@@ -1,8 +1,8 @@
 @import 'colors';
 
-#message {
-  box-sizing: border-box;
-}
+// #message {
+//   box-sizing: border-box;
+// }
 
 .pagination {
   .current {
@@ -25,17 +25,15 @@
   }
 }
 
-// .home-link {
-  a:link {
-    color: $primary_color;
-    text-decoration: none;
-  }
+// a:link {
+//   color: $primary_color;
+//   text-decoration: none;
+// }
 
-  a:visited {
-    color: $primary_color_400;
-  }
+// a:visited {
+//   color: $primary_color_400;
+// }
 
-  a:hover {
-    color: $secondary_color_200;
-  }
+// a:hover {
+//   color: $secondary_color_200;
 // }

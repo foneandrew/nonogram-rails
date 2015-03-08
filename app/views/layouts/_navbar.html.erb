@@ -1,5 +1,5 @@
 <div class="navbar">
-  <div class="button">
+  <div class="nav-button">
     <%= link_to 'Help', help_path, class: 'link'  %>
   </div>
 
@@ -10,20 +10,20 @@
 
   <% if user_signed_in? %>
     <div class="pull-right">
-      <div class="button pull-right half-size">
+      <div class="nav-button pull-right half-size">
         <%= link_to 'Profile', current_user %>
       </div>
 
-      <div class="button pull-right half-size">
+      <div class="nav-button pull-right half-size">
         <%= link_to "Logout", destroy_user_session_path, method: :delete  %>
       </div>
     </div>
   <% else %>
-    <div class="button pull-right half-size">
+    <div class="nav-button pull-right half-size">
       <%= link_to "Sign up", new_user_registration_path %>
     </div>
 
-    <div class="button pull-right half-size">
+    <div class="nav-button pull-right half-size">
       <%= link_to "Login", new_user_session_path  %>
     </div>
   <% end %>

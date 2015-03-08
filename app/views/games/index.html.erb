@@ -1,17 +1,13 @@
 <template id="games"></template>
 
+<div class="card">
+  <div class="heading">
+    <h1>Games</h1>
+  </div>
 
-<div class="card center">
-	<div class="heading">
-		<h1>Games</h1>
-	</div>
+  <%= render partial: 'new_game_form' %>
 
-<%= render partial: 'new_game_form' %>
-
-	<div id='games-list' class='pad-out'><%= render 'game_list' %></div>
-</div>
-
-
-<div class="card right">
-  <%= render partial: 'nonograms/new_nonogram_form' %>
+  <div id='games-list' class='pad-out'>
+    <%= render 'game_list' %>
+  </div>
 </div>

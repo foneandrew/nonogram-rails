@@ -1,17 +1,25 @@
 <div class="card">
-  <div class='heading'><h2 class='shift-left'>Edit <%= resource_name.to_s.humanize %></h2></div>
+  <div class='heading'>
+    <h2 class='shift-left'>Edit <%= resource_name.to_s.humanize %></h2>
+  </div>
 
   <div class='reg-pad-in'>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= devise_error_messages! %>
 
       <div class="field">
-        <div class="pad-out"><%= f.label :name %></div>
+        <div class="pad-out">
+          <%= f.label :name %>
+        </div>
+
         <%= f.text_field :name, autofocus: true %>
       </div>
 
       <div class="field">
-        <div class="pad-out"><%= f.label :email %></div>
+        <div class="pad-out">
+          <%= f.label :email %>
+        </div>
+
         <%= f.email_field :email %>
       </div>
 
@@ -20,17 +28,26 @@
       <% end %>
 
       <div class="field">
-        <div class="pad-out"><%= f.label :password %> <i>(leave blank if you don't want to change it)</i></div>
+        <div class="pad-out">
+          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+        </div>
+
         <%= f.password_field :password, autocomplete: "off" %>
       </div>
 
       <div class="field">
-        <div class="pad-out"><%= f.label :password_confirmation %></div>
+        <div class="pad-out">
+          <%= f.label :password_confirmation %>
+        </div>
+
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </div>
 
       <div class="field">
-        <div class="pad-out"><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i></div>
+        <div class="pad-out">
+          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+        </div>
+
         <%= f.password_field :current_password, autocomplete: "off" %>
       </div>
 
@@ -41,6 +58,8 @@
 
     <h3>Cancel my account</h3>
 
-    <div class="pad-out"><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button2' %></p>
+    <div class="pad-out">
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button2' %></p>
+    </div>
   </div>
 </div>

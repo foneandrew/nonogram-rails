@@ -12,7 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= requre vendor
  */
+
+ @import 'skeleton';
+ @import 'normalize';
 
 body {
   font-family: Questrial;
@@ -25,8 +29,24 @@ ul {
   list-style: none;
 }
 
+li {
+  margin-bottom: 0;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+h1,h2,h3,p {
+  cursor: default;
+}
+
 input {
   -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
 }
 
 *
@@ -46,7 +66,7 @@ input {
 .alert-success {
   color: green;
 }
-
+/*
 .small-text {
   font-size: 15px
 }
@@ -61,24 +81,16 @@ input {
 }
 
 .page-container {
-  text-align: center;
+/*  text-align: center;
   margin: 10px;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-
+*/
 .page-content {
+  text-align: center;
+  margin: 10px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
   position: relative;
-}
-
-.container {
-
-}
-
-.col1 {
-  display: inline-block;
-}
-
-.col2 {
-  display: inline-block;
 }

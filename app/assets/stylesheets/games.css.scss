@@ -1,43 +1,13 @@
 @import 'colors';
 
-.card {
-  display: inline-block;
-  box-sizing: border-box;
-  float: left;
-  background-color: #fff;
-  // margin-left: 10px;
-  // margin-right: 10px;
-
-
-
-  &.left {
-    width: 20%;
-
-  }
-
-  &.center {
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    width: 55%;
-  }
-
-  &.right {
-    width: 20%;
-  }
-}
-
-.page-content {
-  text-align: center;
-}
-
 .player-name {
-  color: grey;
+  color: gray;
   font-weight: bold;
 }
 
-.pad-in {
-  padding: 5px 15px;
-}
+// .pad-in {
+//   padding: 5px 15px;
+// }
 
 .game-filters {
   width: 100%;
@@ -46,9 +16,12 @@
   background-color: $primary_color_400;
 
   form.button_to {
-    width: 33%;
+    // width: 33%;
+    min-width: 33%;
     display: inline-block;
     margin: 0;
+    font-weight: 0;
+    line-height: 0;
 
     div {
       width: 100%;
@@ -65,6 +38,7 @@
   }
 
   input[type=submit] {
+    font-weight: normal;
     font-size: 16px;
     font-family: Questrial;
     border: none;
@@ -72,7 +46,7 @@
     color: $neutral_color_50;
     text-transform: uppercase;
     width: 100%;
-    padding: 10px 0px;
+    // padding: 10px 0px;
   }
 
   input[type=submit]:hover {
@@ -94,7 +68,7 @@
 
   li {
     margin: 0 auto;
-    width: 60%;
+    width: 90%;
     text-align: center;
     background-color: $neutral_color_100;
   }
@@ -108,6 +82,10 @@
     height: 100%;
   }
 
+  a:hover {
+    color: $secondary_color_400;
+  }
+
   li:hover {
     background-color: $neutral_color_200;
   }
@@ -118,24 +96,19 @@
 }
 
 .card {
-
-  // width: 700px;
-  // margin: 30px auto 0 auto;
-  // padding: 15px;
+  padding: 1%;
+  background-color: #fff;
 
   border-width: 0px;
   border-radius: 2px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
 
-  .chat-window{
-    margin-top: 0px;
-  }
   h1 {
     color: $neutral_color_300;
     margin: 0;
 
     font-family: Questrial;
-    font-size: 34px;
+    font-size: 3em;
 
     display: inline-block;
     width: 85%;
@@ -143,7 +116,14 @@
 
   h2 {
     text-align: center;
-    font-size: 20px;
+    font-size: 2em;
+    color: $neutral_color_300;
+    margin-bottom: 0;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 1.5em;
     color: $neutral_color_300;
   }
 
@@ -155,8 +135,6 @@
     border-style: solid;
     border-color: $neutral_color_100;
   }
-
-
 
   .new-game-button {
     display: inline-block;
@@ -204,15 +182,17 @@
 .wrapper-dropdown-2 {
     /* Size and position */
     position: relative; /* Enable absolute positioning for children and pseudo elements */
-    width: 200px;
-    margin: 0 auto;
+    // width: 200px;
+    margin: 0 2%;
     padding: 10px 15px;
 
     /* Styles */
     background: #fff;
-    border-left: 5px solid grey;
+    border-left: 5px solid gray;
     cursor: pointer;
     outline: none;
+    font-weight: bolder;
+    color: $primary_color_400
 }
 
 .wrapper-dropdown-2:after {
@@ -225,7 +205,7 @@
     margin-top: -3px;
     border-width: 6px 6px 0 6px;
     border-style: solid;
-    border-color: grey transparent;
+    border-color: gray transparent;
 }
 
 .wrapper-dropdown-2 .dropdown {
@@ -275,7 +255,7 @@
 /* Hover state */
 
 .wrapper-dropdown-2 .dropdown li:hover a {
-    color: grey;
+    color: gray;
 }
 
 .wrapper-dropdown-2.active:after {
@@ -285,19 +265,4 @@
 .wrapper-dropdown-2.active .dropdown {
     opacity: 1;
     pointer-events: auto;
-}
-
-@media (max-width : 1100px) {
-  .card {
-    min-width: 700px;
-  }
-
-  #main-card {
-    margin: 0 auto;
-  }
-
-  #new-nonogram-card {
-    position: static;
-    margin: 0 auto;
-  }
 }

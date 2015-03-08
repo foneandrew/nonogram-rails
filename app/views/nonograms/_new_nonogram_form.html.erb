@@ -1,5 +1,9 @@
-<%= form_tag new_nonogram_path, method: :get do %>
-  <h1>Create your own puzzle</h1>
+<div class="card">
+  <%= form_tag new_nonogram_path, method: :get do %>
+    <div class="heading">
+      <h1>Create your own puzzle</h1>
+    </div>
 
-  <%= render partial: 'nonograms/new_nonogram_dropdown' %>
-<% end %>
+    <%= render partial: 'nonograms/new_nonogram_dropdown' %>
+  <% end %>
+</div>

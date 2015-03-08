@@ -20,20 +20,29 @@
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
 
-    <div class="page-container">
+    <div class="page-content">
+      <div class="three columns">
+        <% if current_user.present? %>
+          <%= show_side_nonogram_form(@size) %>
+        <% end %>
+      </div>
 
-      <div class="page-content">
-          <div class="card left">
-            <%= render 'layouts/chat' if current_user.present? %>
-            <%= render 'layouts/chat_input' if current_user.present? %>
-          </div>
-
+      <div class="five columns">
         <%= yield %>
 
+        <div>
+          <%= link_home(current_user) if current_user.present? %>
+        </div>
+      </div>
+
+      <div class="three columns">
+        <% if current_user.present? %>
+          <div class="card">
+            <%= render 'layouts/chat' %>
+            <%= render 'layouts/chat_input' %>
+          </div>
+        <% end %>
       </div>
     </div>
-
-    <%= link_home(current_user) %>
-
   </body>
 </html>

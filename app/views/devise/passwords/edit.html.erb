@@ -5,12 +5,17 @@
   <%= f.hidden_field :reset_password_token %>
 
   <div class="field">
-    <div class="pad-out"><%= f.label :password, "New password" %></div>
+    <div class="pad-out">
+      <%= f.label :password, "New password" %>
+    </div>
     <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
   </div>
 
   <div class="field">
-    <div class="pad-out"><%= f.label :password_confirmation, "Confirm new password" %></div>
+    <div class="pad-out">
+      <%= f.label :password_confirmation, "Confirm new password" %>
+    </div>
+
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 

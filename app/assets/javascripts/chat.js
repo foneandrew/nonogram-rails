@@ -32,7 +32,7 @@
     Controller.prototype.template = function(message) {
       var html;
       // html = "<div class=\"chat_message\"" + " style=\"background-color:" + this.user.chat_color + "\"" + ">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " " + message.user_name + "\n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
-      html = "<div class=\"chat_message\">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " <a href=\"/users/" + message.user_name.split(' ')[0] + "\">" + message.user_name.split(' ')[1] + "</a> \n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
+      html = "<div class=\"chat_message\">\n  <label class=\"label label-info\">\n    " + message.received.split(' ')[2] + " <a href=\"/users/" + message.user_name.split('==')[0] + "\">" + message.user_name.split('==')[1] + "</a> \n  </label>&nbsp;\n  " + message.msg_body + "\n</div>";
       return $(html);
     };
 
@@ -127,7 +127,7 @@
       rand_num = Math.floor(Math.random() * 1000);
       var userName = $("meta[property=currentUserName]").attr("content");
       var userId = $("meta[property=currentUserId]").attr("content");
-      userName = userId  +" " + userName;
+      userName = userId  +"==" + userName;
       this.user = new Chat.User(userName);
       $('#username').html(this.user.user_name);
       $('input#user_name').val(this.user.user_name);
