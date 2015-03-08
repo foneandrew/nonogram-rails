@@ -1,0 +1,618 @@
+/* line 8, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/app.css.scss */
+.pagination .current {
+  color: #2196f3;
+  font-size: 20px;
+}
+/* line 13, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/app.css.scss */
+.pagination a:link {
+  color: #8bc34a;
+  text-decoration: none;
+  font-size: 20px;
+}
+/* line 19, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/app.css.scss */
+.pagination a:visited {
+  color: #8bc34a;
+}
+/* line 23, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/app.css.scss */
+.pagination a:hover {
+  color: #a5d6a7;
+}
+/* line 1, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/chat.css.scss */
+.well {
+  width: 100%;
+  resize: none;
+  border: none;
+  min-height: 200px;
+  background-color: #E4E4E4;
+}
+
+/* line 9, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/chat.css.scss */
+.chat-text-area {
+  float: left;
+  background-color: #ededed;
+  min-height: 300px;
+  max-height: 300px;
+  margin: 0;
+  overflow: scroll;
+  text-align: left;
+}
+
+/* line 19, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/chat.css.scss */
+.chat-message {
+  width: 100%;
+  text-align: left;
+}
+
+/* line 23, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/chat.css.scss */
+.chat-box {
+  min-height: 20px;
+}
+
+/* line 26, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/chat.css.scss */
+.chat-container {
+  float: left;
+}
+
+/* line 29, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/chat.css.scss */
+.chat-send {
+  display: none;
+}
+/* line 3, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.player-name {
+  color: gray;
+  font-weight: bold;
+}
+
+/* line 12, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters {
+  width: 100%;
+  margin: 10px auto;
+  padding: 0;
+  background-color: #42a5f5;
+}
+/* line 18, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters form.button_to {
+  min-width: 33%;
+  display: inline-block;
+  margin: 0;
+  font-weight: 0;
+  line-height: 0;
+}
+/* line 26, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters form.button_to div {
+  width: 100%;
+  margin: 0;
+}
+/* line 32, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters .highlighted {
+  background-color: #a5d6a7;
+}
+/* line 36, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters .unhighlighted {
+  background-color: #64b5f6;
+}
+/* line 40, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters input[type=submit] {
+  font-weight: normal;
+  font-size: 16px;
+  font-family: Questrial;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  width: 100%;
+}
+/* line 52, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters input[type=submit]:hover {
+  background-color: #a5d6a7;
+  cursor: pointer;
+}
+/* line 57, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.game-filters input[type=submit]:active {
+  background-color: #66bb6a;
+}
+
+/* line 62, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list {
+  margin: 0 0 0 10px;
+}
+/* line 65, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list h3 {
+  text-align: center;
+}
+/* line 69, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list li {
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
+  background-color: #9c9c9c;
+}
+/* line 76, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list a {
+  display: block;
+  padding: 10px 5px;
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+  height: 100%;
+}
+/* line 85, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list a:hover {
+  color: #66bb6a;
+}
+/* line 89, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list li:hover {
+  background-color: #7f7f7f;
+}
+/* line 93, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.games-list li:active {
+  background-color: #3f3f3f;
+}
+
+/* line 98, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card {
+  padding: 1%;
+  background-color: #fff;
+  border-width: 0px;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+/* line 106, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card h1 {
+  color: #3f3f3f;
+  margin: 0;
+  font-family: Questrial;
+  font-size: 3em;
+  display: inline-block;
+  width: 85%;
+}
+/* line 117, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #3f3f3f;
+  margin-bottom: 0;
+}
+/* line 124, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card h3 {
+  text-align: center;
+  font-size: 1.5em;
+  color: #3f3f3f;
+}
+/* line 130, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card .heading {
+  padding: 0 0 5px 0;
+  margin-bottom: 15px;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #9c9c9c;
+}
+/* line 139, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card .new-game-button {
+  display: inline-block;
+}
+/* line 142, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card .new-game-button input[type=submit] {
+  padding: 2px 10px 2px 10px;
+  background-color: #42a5f5;
+  color: white;
+  font-size: 20px;
+  font-family: Questrial;
+  border: none;
+  background-color: none;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+/* line 156, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card .new-game-button input[type=submit]:hover {
+  background-color: #a5d6a7;
+  cursor: pointer;
+}
+/* line 161, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.card .new-game-button input[type=submit]:active {
+  background-color: #66bb6a;
+}
+
+/* line 167, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.pad-out {
+  padding: 10px;
+}
+
+/* line 171, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.new-nonogram {
+  width: 20%;
+  display: inline-block;
+  margin: 0 auto;
+}
+/* line 176, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.new-nonogram .small-text {
+  text-transform: uppercase;
+}
+
+/* line 182, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 {
+  /* Size and position */
+  position: relative;
+  /* Enable absolute positioning for children and pseudo elements */
+  margin: 0 2%;
+  padding: 10px 15px;
+  /* Styles */
+  background: #fff;
+  border-left: 5px solid gray;
+  cursor: pointer;
+  outline: none;
+  font-weight: bolder;
+  color: #42a5f5;
+}
+
+/* line 198, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2:after {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  margin-top: -3px;
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: gray transparent;
+}
+
+/* line 211, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown {
+  /* Size & position */
+  position: absolute;
+  left: -5px;
+  right: 0px;
+  /* Styles */
+  background: white;
+  transition: all 0.3s ease-out;
+  list-style: none;
+  /* Hiding */
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* line 228, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  border-left: 5px solid;
+  padding: 10px;
+  transition: all 0.3s ease-out;
+}
+
+/* line 237, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:nth-child(1) a {
+  border-left-color: #00ACED;
+}
+
+/* line 241, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:nth-child(2) a {
+  border-left-color: #4183C4;
+}
+
+/* line 245, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:nth-child(3) a {
+  border-left-color: #3B5998;
+}
+
+/* line 249, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li i {
+  margin-right: 5px;
+  color: inherit;
+  vertical-align: middle;
+}
+
+/* Hover state */
+/* line 257, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2 .dropdown li:hover a {
+  color: gray;
+}
+
+/* line 261, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2.active:after {
+  border-width: 0 6px 6px 6px;
+}
+
+/* line 265, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/games.css.scss */
+.wrapper-dropdown-2.active .dropdown {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* line 1, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/help.css.scss */
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* line 6, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/help.css.scss */
+.padded {
+  padding: 5px 15px;
+}
+/* line 5, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar {
+  color: white;
+  height: 70px;
+  position: relative;
+  background-color: #64b5f6;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+  text-align: center;
+  line-height: 70px;
+}
+/* line 14, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .nav-button {
+  height: 100%;
+  width: 120px;
+  display: inline-block;
+  background-color: #42a5f5;
+  float: left;
+  text-align: center;
+}
+/* line 25, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .nav-button a {
+  display: inline-block;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+/* line 34, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .nav-button a:hover {
+  background-color: #a5d6a7;
+}
+/* line 38, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .nav-button a:active {
+  background-color: #66bb6a;
+}
+/* line 44, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .half-size {
+  height: 50%;
+  line-height: 35px;
+  clear: right;
+}
+/* line 50, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .pull-right {
+  float: right;
+}
+/* line 54, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .header-title {
+  display: inline-block;
+  height: 100%;
+  text-decoration: none;
+  font-family: Arvo;
+  font-size: 24px;
+  color: white;
+  line-height: 70px;
+}
+/* line 68, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .header-title a {
+  color: white;
+}
+/* line 72, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/navbar.css.scss */
+.navbar .header-title a:hover {
+  color: #a5d6a7;
+}
+/* line 7, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+#nonogram {
+  border-collapse: collapse;
+  border: 3px solid #666666;
+}
+
+/* line 12, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+#nonogram-display {
+  border-collapse: collapse;
+}
+
+/* line 16, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+#color-picker {
+  width: 335px;
+  margin: 10px auto;
+}
+
+/* line 26, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.question-mark {
+  font-size: 200px;
+  color: #a5d6a7;
+}
+
+/* line 31, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.color-circle {
+  width: 30px;
+  height: 50px;
+  display: inline-block;
+}
+
+/* line 37, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.completed-clue {
+  font-weight: lighter;
+  font-style: italic;
+  color: #666666 !important;
+}
+
+/* line 43, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.column-clue {
+  background-color: #f2f2f2;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+/* line 49, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.row-clue {
+  background-color: #f2f2f2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+/* line 55, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.cell {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-bottom: 0px;
+  line-height: 0;
+}
+
+/* line 63, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.game-cell {
+  border: 1px solid #666666;
+}
+
+/* line 67, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.display-cell {
+  width: 10px;
+  height: 10px;
+  border: none;
+}
+
+/* line 73, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.blank {
+  background-color: white;
+}
+
+/* line 77, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.filled {
+  background-color: black;
+}
+
+/* line 81, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.crossed {
+  background-color: #cccccc;
+}
+
+/* line 85, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.highlight-clue {
+  color: #64b5f6;
+}
+
+/* line 89, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.broken-clue {
+  font-weight: bolder;
+  color: #ff7100 !important;
+}
+
+/* line 94, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.left-border {
+  border-left: 3px solid #666666;
+}
+
+/* line 98, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.top-border {
+  border-top: 3px solid #666666;
+}
+
+/* line 167, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-textfield {
+  margin: 20px auto;
+}
+/* line 171, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-textfield input[type=text] {
+  text-align: center;
+  width: 350px;
+  padding: 10px 5px;
+  font-family: Questrial;
+  font-size: 18px;
+}
+
+/* line 182, /home/andy/Coding/nonogram-rails/app/assets/stylesheets/nonograms.css.scss */
+.nonogram-title input[type=text] {
+  font-size: 25px;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ *= requre vendor
+ */
+
+
+ @import 'skeleton';
+ @import 'normalize';
+
+body {
+  font-family: Questrial;
+  background-color: #ededed;
+  margin: 0px;
+ }
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  margin-bottom: 0;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+h1,h2,h3,p {
+  cursor: default;
+}
+
+input {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+*
+{
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.alert {
+  color: red;
+  text-align: center;
+}
+
+.alert-success {
+  color: green;
+}
+/*
+.small-text {
+  font-size: 15px
+}
+
+.mini-form {
+  width: 50%;
+  margin: 10px;
+  padding: 2px;
+  display: inline-block;
+  border-radius: 4px;
+  border: 2px solid #cccccc;
+}
+
+.page-container {
+/*  text-align: center;
+  margin: 10px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+*/
+.page-content {
+  text-align: center;
+  margin: 10px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  position: relative;
+}
