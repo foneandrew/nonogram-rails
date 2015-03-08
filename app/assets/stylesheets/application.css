@@ -15,8 +15,8 @@
  *= requre vendor
  */
 
- @import 'skeleton';
- @import 'normalize';
+ /*@import 'skeleton';
+ @import 'normalize';*/
 
 body {
   font-family: Questrial;
