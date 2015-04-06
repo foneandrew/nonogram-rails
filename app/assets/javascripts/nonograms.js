@@ -144,6 +144,7 @@ var setColor = function(color) {
 window.UiListeners = new function() {
   this.hook = function() {
     bindGiveUpButton();
+    bindDeleteButton();
 
     bindMouseClickTile();
     bindMouseOverTile();
@@ -161,6 +162,12 @@ window.UiListeners = new function() {
 
   var bindGiveUpButton = function() {
     $('#give-up').click(giveUp);
+  };
+
+  var bindDeleteButton = function() {
+    if ($('#delete-nonogram-button').length) {
+      $('#delete-nonogram-button').click(deleteNonogram);
+    }
   };
 
   var bindMouseClickTile = function() {
@@ -182,6 +189,12 @@ window.UiListeners = new function() {
       $('#type').val('giveup');
       Nonogram.saveForSubmission();
       $('#player-answer').submit();
+    }
+  };
+
+  var deleteNonogram = function() {
+    if (confirm('Are you sure you want to delete this puzzle? This cannot be undone. This will also remove any games that have been/are being played using this Nonogram.')) {
+      $('#delete-nonogram').submit();
     }
   };
 
@@ -513,7 +526,7 @@ window.Nonogram = new function() {
   };
 
   var highlightRow = function(cell, highlight) {
-    var row = $(cell).closest('tr');
+    var row = $(cell).closest('tr').find('th');
 
     if (highlight) {
       row.addClass('highlight-clue');

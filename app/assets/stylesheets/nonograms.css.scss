@@ -7,6 +7,7 @@
 #nonogram {
   border-collapse: collapse;
   border: 3px solid #666666;
+  color: $primary_color_500;
 }
 
 #nonogram-display {
@@ -37,7 +38,12 @@
 .completed-clue {
   font-weight: lighter;
   font-style: italic;
-  color: #666666 !important;
+  /*color: #666666 !important;*/
+  color: $primary_color_200 !important;
+}
+
+.clue {
+  background-color: #f2f2f2;
 }
 
 .column-clue {
@@ -83,7 +89,7 @@
 }
 
 .highlight-clue {
-  color: $primary_color_300;
+  background-color: $secondary_color_100;
 }
 
 .broken-clue {

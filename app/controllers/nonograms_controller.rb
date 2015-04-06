@@ -19,9 +19,17 @@ class NonogramsController < ApplicationController
     nonogram_data = EncodeNonogram.new(cells: JSON.parse(params[:cells]), size: size).call
 
     if MakeNonogram.new(name: name, hint: hint, size: size, color: color, author_id: author_id, solution: nonogram_data).call
-      redirect_to Game, notice: "Your Nonogram was sucessfully saved!"
+      redirect_to Game, notice: "Your Nonogram was successfully saved!"
     else
       redirect_to :back, alert: "Your Nonogram could not be saved!"
+    end
+  end
+
+  def destroy
+    if Nonogram.find(params[:nonogram]).destroy!
+      redirect_to current_user, notice: "Your Nonogram was successfully deleted"
+    else
+      redirect_to :back, alert: "Your Nonogram could not be deleted!"
     end
   end
 end

@@ -24,5 +24,14 @@
         <%= submit_tag 'Play this nonogram', class: 'button2' %>
       </div>
     <% end %>
+
+    <% if @nonogram_grid.present? %>
+      <%= form_tag Nonogram, id: 'delete-nonogram', method: :delete do %>
+        <%= hidden_field_tag 'nonogram', @nonogram_presented.id %>
+        <div>
+          <button class="button2" id="delete-nonogram-button" type="button">Delete Nonogram</button>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

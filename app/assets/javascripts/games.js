@@ -8,12 +8,10 @@ $(function() {
   }
 
   if (($('#games-list').length)) {
-    
     refreshGamesList(5000);
   }
 
   DropDown.initEvents();
-
 });
 
 var refreshGamesList = function(timeout) {
@@ -30,7 +28,7 @@ var refreshGamesList = function(timeout) {
       console.log(textStatus + ": " + errorThrown)
     }
   });
-  
+
   setTimeout(function() {
     refreshGamesList(timeout);
   }, timeout);

@@ -12,6 +12,8 @@ module ApplicationHelper
   end
 
   def link_to_user(user)
+    puts "=========#{user.name}=========="
+    puts "=========#{user}=========="
     link_to user.name, user
   end
 end

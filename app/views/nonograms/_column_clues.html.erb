@@ -4,7 +4,7 @@
 <% clue_length.times do |clue_number| %>
   <tr>
     <% clue_length.times do %>
-      <%= content_tag(:th, '', class: 'cell') %>
+      <%= content_tag(:th, '', class: 'cell clue') %>
     <% end %>
 
     <% @game_presented.nonogram.size.times do |column_num| %>

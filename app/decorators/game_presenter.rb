@@ -3,6 +3,9 @@ require 'delegate'
 class GamePresenter < SimpleDelegator
   include IntervalHelper
   include ActionView::Helpers
+  include ApplicationHelper
+  include Rails.application.routes.url_helpers
+
 
   def title
     if started?
@@ -35,7 +38,9 @@ class GamePresenter < SimpleDelegator
 
   def finished_message
     if winner = players.find_by(won: true)
-      "Won by #{winner.user.name} in #{minutes_and_seconds(seconds_taken_to_complete)}"
+      ("Won by " +
+      link_to(winner.user.name, user_path(winner.user)) +
+      " in #{minutes_and_seconds(seconds_taken_to_complete)}").html_safe
     else
       'Could not find the winner for this game'
     end
